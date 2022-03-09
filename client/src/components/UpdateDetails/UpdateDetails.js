@@ -37,11 +37,10 @@ export default function Contant(props) {
       city: city, 
       year: year
     }).then(() => {
-      alert.show("נשלח בהצלחה");
+      alert("נשלח בהצלחה");
     });
-    console.log("fdfdfdf")
   };
-
+  
   const classes = useStyles();
 
   const history = useNavigate();

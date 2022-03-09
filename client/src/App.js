@@ -12,6 +12,7 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import UpdateDetails from './components/UpdateDetails/UpdateDetails';
 import AppBarU from './components/AppBarU/AppBarU';
+import Form from './components/check_update/Form'
 
 Amplify.configure(awsconfig);
 
@@ -43,7 +44,8 @@ function App({ signOut, user }) {
           <Route exact path='/update' 
           element={
           <div>
-            <UpdateDetails username={user.username}/>
+            {/* <UpdateDetails username={user.username}/> */}
+            <Form/>
           </div>}/>
           <Route exact path='*' element={<div>404 Not Found!</div>}/>
         </Routes>

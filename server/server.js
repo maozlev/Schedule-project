@@ -24,6 +24,7 @@ app.use(session({cookie: {maxAge: null}}));
 
 app.listen(3001, ()=> {
     console.log("running on port 3001");
+    
 });
 
 app.post("/api/insert" , (req, res)=> {
@@ -36,6 +37,5 @@ app.post("/api/insert" , (req, res)=> {
         "INSERT INTO students (id, FirstName, LastName, city, year) VALUES (?, ?, ?, ?, ?);";
         db.query(sqlinsert,[id, FirstName, LastName, city, year] , (err, result) => {   
             console.log(req.body);
-
         });
 });
