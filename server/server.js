@@ -37,5 +37,13 @@ app.post("/api/insert" , (req, res)=> {
         "INSERT INTO students (id, FirstName, LastName, city, year) VALUES (?, ?, ?, ?, ?);";
         db.query(sqlinsert,[id, FirstName, LastName, city, year] , (err, result) => {   
             console.log(req.body);
+            if(err === null){
+                console.log("update details succesfully.");
+                res.send(200)
+            }
+           else{
+                console.log(err);
+                res.send(err);
+           }     
         });
 });

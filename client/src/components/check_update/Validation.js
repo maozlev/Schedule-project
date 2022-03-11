@@ -5,6 +5,12 @@ const Validation = (values) => {
     if(!values.id){
         errors.id = 'fill id';
     }
+    if(values.id.length !== 9){
+        errors.id = 'מס לא תקין';
+    }
+    if(values.id.length === 9){
+        errors.id = 1;
+    }
     if(!values.FirstName){
         errors.FirstName = 'fill FirstName';
     }

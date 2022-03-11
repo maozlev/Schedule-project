@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Validation from './Validation';
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 
 const SingupForm = ({submitForm}) => {
@@ -20,21 +21,33 @@ const SingupForm = ({submitForm}) => {
             [event.target.name]: event.target.value,
         })
     }
-    const submit = () => {
-        axios.post("http://localhost:3001/api/insert", {
+    const submit =  async() => {
+        const response = await axios.post("http://localhost:3001/api/insert", {
           id: values.id,
           FirstName: values.FirstName, 
           LastName: values.LastName, 
           city: values.city, 
           year: values.year
-        }).then(() => {
-          alert("נשלח בהצלחה");
-        });
+        }) .then(res => {
+            if (res.data === 'OK'){
+                alert("נשלח בהצלחה");
+            }
+            else{
+                alert("אנא נסה שנית");
+            }
+            console.log(res);
+            console.log(res.data);
+          })
       };
     
     const handleFormSubmit = (event)=>{
         event.preventDefault();
         setErrors(Validation(values))
+        if(errors.id !== 1){
+            console.log("there are errors");
+            console.log(errors)
+            return;
+        }
         setDataIsCorrect(true)
         submit();
     }
