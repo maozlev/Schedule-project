@@ -1,17 +1,14 @@
 import './App.css';
 import * as React from 'react';
-import { Component } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import ThingsToDo from './components/ThingsToDo/ThingsToDo';
 import Landing from './components/Landing/Landing';
-import Amplify from 'aws-amplify';
+import {Amplify, AWSPluginsCore, Auth} from 'aws-amplify';
 import awsconfig from './aws-exports';
 import '@aws-amplify/ui-react/styles.css';
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import UpdateDetails from './components/UpdateDetails/UpdateDetails';
-import AppBarU from './components/AppBarU/AppBarU';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Form from './components/check_update/Form'
 
 Amplify.configure(awsconfig);
@@ -26,17 +23,24 @@ const useStyles = makeStyles((theme) => ({
  
 }));
 
+
 function App({ signOut, user }) {
   const classes = useStyles();
   return (
+    
     <>
       <Router>  
         <Routes>
-          <Route path='' element={<div className={classes.root}>
-            <CssBaseline/>  
-            <Landing username={user.username} onClick={signOut}/>
-            <ThingsToDo/>
-            <button onClick={signOut}>Sign out</button>
+          <Route path='' element={
+            <div className={classes.root}>
+                <script>
+                let creds = await Auth.currentUserCredentials()
+                console.log(creds.identityId)
+                </script>
+              <CssBaseline/>  
+              <Landing username={user.username} onClick={signOut}/>
+              <ThingsToDo/>
+              <button onClick={signOut}>Sign out</button>
             </div>}
           />
           <Route exact path='/ex' element={<div>ההתנסויות שלי</div>}/>
@@ -45,7 +49,7 @@ function App({ signOut, user }) {
           element={
           <div>
             {/* <UpdateDetails username={user.username}/> */}
-            <Form/>
+            <Form username={user.username}/>
           </div>}/>
           <Route exact path='*' element={<div>404 Not Found!</div>}/>
         </Routes>

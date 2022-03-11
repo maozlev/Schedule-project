@@ -2,14 +2,14 @@ import React, {useState} from 'react'
 import SingupForm from './SingupForm'
 import SingupFormSuccess from './SingupFormSuccess'
 
-const Form = () => {
+const Form = (props) => {
     const [formIsSubmitted, setFormIsSubmitted] = useState(false);
     const submitForm = () => {
         setFormIsSubmitted(true);
     }
   return (
     <div>
-        { !formIsSubmitted ?( <SingupForm submitForm={submitForm}/>) : (<SingupFormSuccess/>)}
+        { !formIsSubmitted ?( <SingupForm username={props.username} submitForm={submitForm}/>) : (<SingupFormSuccess/>)}
     </div>
   )
 }

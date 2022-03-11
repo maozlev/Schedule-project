@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import Validation from './Validation';
 import axios from 'axios';
-import { toast } from "react-toastify";
 
-
-const SingupForm = ({submitForm}) => {
-
+const SingupForm = ( props, {submitForm}) => {
+    let username = props.username;
+    console.log(username);
     const [values, setValues] = useState({
+        username: username,
         id:"",
         FirstName:"",
         LastName:"",
@@ -23,6 +23,7 @@ const SingupForm = ({submitForm}) => {
     }
     const submit =  async() => {
         const response = await axios.post("http://localhost:3001/api/insert", {
+          username: username,
           id: values.id,
           FirstName: values.FirstName, 
           LastName: values.LastName, 
@@ -31,21 +32,24 @@ const SingupForm = ({submitForm}) => {
         }) .then(res => {
             if (res.data === 'OK'){
                 alert("נשלח בהצלחה");
+                alert(username);
             }
             else{
                 alert("אנא נסה שנית");
+                alert(username);
             }
             console.log(res);
             console.log(res.data);
           })
       };
     
-    const handleFormSubmit = (event)=>{
+    const handleFormSubmit = async (event)=>{
         event.preventDefault();
         setErrors(Validation(values))
-        if(errors.id !== 1){
+        if(errors.id != 1){
             console.log("there are errors");
             console.log(errors)
+            alert("אנא נסה שנית");
             return;
         }
         setDataIsCorrect(true)
@@ -63,6 +67,15 @@ const SingupForm = ({submitForm}) => {
                 <h2 className='title'> create account </h2>
             </div>
             <form className='form-wrapper'>
+                <div className='username'>
+                    <label className='label'>username</label>
+                    <input className='input'
+                        type='text'
+                        name='username'
+                        defaultValue={values.username}
+                        >
+                    </input>
+                </div>
                 <div className='id'>
                     <label className='label'>id</label>
                     <input className='input'
