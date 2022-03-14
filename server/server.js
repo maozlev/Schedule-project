@@ -5,6 +5,36 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+const PORT = process.env.PORT || 3001; 
+
+async function main(){ // connection to mongo DB
+
+    const { MongoClient, ServerApiVersion } = require('mongodb');
+    const uri = "mongodb+srv://maozlev:maoz6068804@cluster0.glgbm.mongodb.net/Students?retryWrites=true&w=majority";
+
+    const client = new MongoClient(uri);
+
+    try{
+        await client.connect();
+        await listDatabases(client)
+        }catch(e){
+            console.error(e);
+        }
+        finally{
+            await client.close();
+        }
+}
+
+main().catch(console.error);
+
+async function listDatabases(client){
+    const DatabasesList = await client.db().admin().listDatabases();
+    console.log("Mongo DB Databases:");
+    DatabasesList.databases.forEach(db => {
+        console.log(`-${db.name}`); 
+    })
+}
+
 
 const db = mysql.createPool({
     host: "siud.cb93e6tdxenj.us-east-1.rds.amazonaws.com",
@@ -18,14 +48,12 @@ app.use(cors());
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
-app.use(cookieParser('secret'));
-app.use(session({cookie: {maxAge: null}}));
 
-
-app.listen(3001, ()=> {
-    console.log("running on port 3001");
+app.listen(PORT, ()=> {
+    console.log("running on port " + PORT);
     
 });
+
 
 app.post("/api/insert" , (req, res)=> {
     const id = req.body.id;

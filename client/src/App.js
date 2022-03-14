@@ -33,10 +33,6 @@ function App({ signOut, user }) {
         <Routes>
           <Route path='' element={
             <div className={classes.root}>
-                <script>
-                let creds = await Auth.currentUserCredentials()
-                console.log(creds.identityId)
-                </script>
               <CssBaseline/>  
               <Landing username={user.username} onClick={signOut}/>
               <ThingsToDo/>
