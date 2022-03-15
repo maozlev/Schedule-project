@@ -67,6 +67,15 @@ const SingupForm = ( props, {submitForm}) => {
                 <h2 className='title'> create account </h2>
             </div>
             <form className='form-wrapper'>
+                <div className='username'>
+                    <label className='label'>username</label>
+                    <input className='input'
+                        type='text'
+                        name='username'
+                        defaultValue={values.username}
+                        >
+                    </input>
+                </div>
                 <div className='id'>
                     <label className='label'>id</label>
                     <input className='input'
