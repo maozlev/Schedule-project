@@ -1,0 +1,12 @@
+POST http://localhost:3001/api/update_details
+Content-Type: application/json
+
+{
+    "UserName" : "Maoz",
+    "FirstName": "Maoz",
+    "LastName": "Lev",
+    "id": 12345678,
+    "city": "petahtikva",
+    "year": 2
+    
+}

@@ -1,8 +1,20 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const cors = require('cors');
+const mongoose = require('mongoose')
+const dotenv = require('dotenv')
+const routeUrls = require('./routes/routes')
+// app.use(bodyParser.urlencoded({extended: true}));
+
+dotenv.config()
+
+mongoose.connect(process.env.DATABASE, ()=> console.log("MongoDB connected"))
+
+app.use(express.json())
+app.use(cors());
+app.use('/api', routeUrls)
 
 const db = mysql.createPool({
     host: "siud.cb93e6tdxenj.us-east-1.rds.amazonaws.com",
@@ -12,10 +24,6 @@ const db = mysql.createPool({
     database: "siud",
 });
 
-app.use(cors());
-app.use(express.json())
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static('public'));
 
 
 app.listen(3001, ()=> {

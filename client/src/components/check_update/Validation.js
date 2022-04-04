@@ -9,7 +9,7 @@ const Validation = (values) => {
         errors.id = 'מס לא תקין';
     }
     if(values.id.length === 9){
-        errors.id = 1;
+        errors.id = 'תעודת זהות תקינה';
     }
     if(!values.FirstName){
         errors.FirstName = 'fill FirstName';

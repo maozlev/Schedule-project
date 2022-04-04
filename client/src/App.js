@@ -10,6 +10,7 @@ import '@aws-amplify/ui-react/styles.css';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Form from './components/check_update/Form'
+import FileUpload from './components/drop-file-input/DropFileInput'
 
 Amplify.configure(awsconfig);
 
@@ -44,7 +45,10 @@ function App({ signOut, user }) {
             </div>}
           />
           <Route exact path='/ex' element={<div>ההתנסויות שלי</div>}/>
-          <Route exact path='/papers' element={<div>הגשת טפסים</div>}/>
+          <Route exact path='/papers' element={
+            <div>
+              <FileUpload/>
+            </div>}/>
           <Route exact path='/update' 
           element={
           <div>

@@ -5,6 +5,15 @@ import axios from 'axios';
 const SingupForm = ( props, {submitForm}) => {
     let username = props.username;
     console.log(username);
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+          if ((new Date().getTime() - start) > milliseconds){
+            break;
+          }
+        }
+    }
     const [values, setValues] = useState({
         username: username,
         id:"",
@@ -22,21 +31,20 @@ const SingupForm = ( props, {submitForm}) => {
         })
     }
     const submit =  async() => {
-        const response = await axios.post("http://localhost:3001/api/insert", {
-          username: username,
-          id: values.id,
-          FirstName: values.FirstName, 
-          LastName: values.LastName, 
-          city: values.city, 
-          year: values.year
-        }) .then(res => {
-            if (res.data === 'OK'){
+        await axios.post("http://localhost:3001/api/update_details/", {
+            UserName: username,
+            id: values.id,
+            FirstName: values.FirstName, 
+            LastName: values.LastName, 
+            city: values.city, 
+            year: values.year
+        }).then (res => {
+            
+            if (res.status === 200){
                 alert("נשלח בהצלחה");
-                alert(username);
             }
             else{
                 alert("אנא נסה שנית");
-                alert(username);
             }
             console.log(res);
             console.log(res.data);
@@ -46,7 +54,7 @@ const SingupForm = ( props, {submitForm}) => {
     const handleFormSubmit = async (event)=>{
         event.preventDefault();
         setErrors(Validation(values))
-        if(errors.id != 1){
+        if(errors.id !== 'תעודת זהות תקינה'){
             console.log("there are errors");
             console.log(errors)
             alert("אנא נסה שנית");
@@ -67,15 +75,6 @@ const SingupForm = ( props, {submitForm}) => {
                 <h2 className='title'> create account </h2>
             </div>
             <form className='form-wrapper'>
-                <div className='username'>
-                    <label className='label'>username</label>
-                    <input className='input'
-                        type='text'
-                        name='username'
-                        defaultValue={values.username}
-                        >
-                    </input>
-                </div>
                 <div className='id'>
                     <label className='label'>id</label>
                     <input className='input'
