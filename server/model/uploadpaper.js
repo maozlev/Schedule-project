@@ -2,12 +2,12 @@ const mongoose = require('mongoose')
 
 const uploadPaper = new mongoose.Schema({
     UserName: {
-        type:String,
+        type: String,
         required: true
     },
-    paper: {
-
-    },
+    // paper: {
+    //     type: 
+    // },
     dateOfUpdate: {
         type:Date,
         default: Date.now

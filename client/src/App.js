@@ -47,7 +47,7 @@ function App({ signOut, user }) {
           <Route exact path='/ex' element={<div>ההתנסויות שלי</div>}/>
           <Route exact path='/papers' element={
             <div>
-              <FileUpload/>
+              <FileUpload username={user.username}/>
             </div>}/>
           <Route exact path='/update' 
           element={

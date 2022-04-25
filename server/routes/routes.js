@@ -4,6 +4,7 @@ const router = express.Router()
 const signUpTemplate = require('../model/updateDetails')
 const uploadpaper = require('../model/uploadpaper')
 const multer = require('multer')
+
 router.post('/update_details', async(req, res) => {
     
     const user = new signUpTemplate({
@@ -27,13 +28,22 @@ router.post('/update_details', async(req, res) => {
     })
 })
 
-router.post('/papers', async(req, res) => {
-    
+var bodyParser = require('body-parser')
+
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+router.post('/papers', urlencodedParser, async(req, res) => {
+    console.log(req.body.UserName)
+    console.log("#############################################")
     const paper = new uploadpaper({
         UserName: req.body.UserName,
-        //add paper
+        file: req.body.FormData.myFile 
     })
-    user.save()
+    paper.save()
     .then(data => {
         console.log("details update")
         console.log(data)
