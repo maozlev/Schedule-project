@@ -13,7 +13,9 @@ class App extends Component {
     onFileChange = event => {
       console.log("file chosen")
       // Update the state
-      this.setState({ selectedFile: event.target.files[0] });
+      this.setState({ 
+        selectedFile: event.target.files[0] 
+      });
       console.log(event.target.files[0]);
     
     };
@@ -22,35 +24,37 @@ class App extends Component {
     onFileUpload =  async() => {
     
       // Create an object of formData
-      const formData = new FormData();
+      // const formData = new FormData();
     
-      // Update the formData object
-      formData.append("myFile", this.state.selectedFile)
-      formData.append("FileName", this.state.selectedFile.name)
-      formData.append("UserName", this.props.username)
+      // // Update the formData object
+      // formData.append("myFile", this.state.selectedFile)
+      // formData.append("FileName", this.state.selectedFile.name)
+      // formData.append("UserName", this.props.username)
 
 
     
-      // Details of the uploaded file
-      console.log(this.state.selectedFile);
-      console.log(formData)
+      // // Details of the uploaded file
+      // console.log(this.state.selectedFile);
+      // console.log(formData)
     
       // Request made to the backend api
       // Send formData object
       // axios.post("http://localhost:3001/api/papers", formData);
-      
+      const fd = new FormData()
+      fd.append('file', this.state.selectedFile, this.state.selectedFile.name)
         await axios.post("http://localhost:3001/api/papers/", {
             UserName: this.props.username,
-            FormData: formData
-        }).then (res => {
+            FormData: fd
             
+        }).then (res => {
+            console.log(res)
             if (res.status === 200){
                 alert("נשלח בהצלחה");
             }
             else{
                 alert("אנא נסה שנית");
             }
-            console.log(res);
+            // console.log(res);
             console.log(res.data);
           })
       };
