@@ -5,8 +5,17 @@ const uploadPaper = new mongoose.Schema({
         type: String,
         required: true
     },
-    // paper: {
-    //     type: 
+    Data: {
+        type: Buffer,
+        required: true
+    },
+    Title: {
+        type: String,
+        required: true
+    },
+    // paperType: {
+    //     type: String,
+    //     required: true
     // },
     dateOfUpdate: {
         type:Date,
@@ -14,4 +23,4 @@ const uploadPaper = new mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('papers',uploadPaper)
+module.exports = mongoose.model('papers',uploadPaper)   
