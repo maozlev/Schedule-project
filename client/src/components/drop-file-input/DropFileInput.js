@@ -1,9 +1,8 @@
 import axios from 'axios';
  
-import React,{Component} from 'react';
+import React,{Component, useState} from 'react';
 // Import the main component
 import{Viewer, Worker}from'@react-pdf-viewer/core';     
-
 // Import the styles
 import'@react-pdf-viewer/core/lib/styles/index.css'; 
 
@@ -15,7 +14,7 @@ class App extends Component {
       data: "",
       type: ""
     };
-
+    
     fileToBase64 = async(file,cb) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file)
@@ -45,50 +44,51 @@ class App extends Component {
     onFileUpload =  async(event) => {
       if(this.state.selectedFile != null) {
         let title = this.state.selectedFile.name + '_' + Date.now().toString()
-        await axios.post("http://localhost:3001/api/papers/", {
-            UserName: this.props.username,
-            Title: title,
-            FileAsData: this.state.data,
-        })
-        .then (res => {
-            console.log(res)
-            if (res.status === 200){
-                alert("נשלח בהצלחה");
-            }else{
-                alert("אנא נסה שנית");
-            }
-            console.log(res.data);
+        if(this.state.type === 'application/pdf'){
+          await axios.post("http://localhost:3001/api/papers/", {
+              UserName: this.props.username,
+              Title: title,
+              FileAsData: this.state.data,
           })
+          .then (res => {
+              console.log(res)
+              if (res.status === 200){
+                  alert("נשלח בהצלחה");
+              }else{
+                  alert("אנא נסה שנית");
+              }
+              console.log(res.data);
+            })
+          }else{
+            alert("Please choose PDF file!")
+            return;
+          }
         }
       };
 
       // https://react-pdf-viewer.dev/examples/preview-a-pdf-file-from-base-64/
 
       base64toBlob = (data) => {
-        // Cut the prefix `data:application/pdf;base64` from the raw base 64
-        const base64WithoutPrefix = data.substr('data:application/pdf;base64,'.length);
-    
-        const bytes = atob(base64WithoutPrefix);
+        // Cut the prefix from the raw base 64
+        const base64 = data.split("base64,")
+        console.log(base64[1])
+        const bytes = atob(base64[1]);
         let length = bytes.length;
         let out = new Uint8Array(length);
     
         while (length--) {
             out[length] = bytes.charCodeAt(length);
         }
-    
         return new Blob([out], { type: 'application/pdf' });
       };
       
       
       PreviewPDF(){
         if(this.state.data){
-          if(this.state.type === 'application/pdf'){
             const blob = this.base64toBlob(this.state.data);
             const url = URL.createObjectURL(blob);
-
-            
-              return (
-                <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.13.216/build/pdf.worker.min.js">
+            return (
+              <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.13.216/build/pdf.worker.min.js">
                 <div
                   style={{
                     border: '1px solid rgba(0, 0, 0, 0.3)',
@@ -96,20 +96,8 @@ class App extends Component {
                   }}>
                   <Viewer fileUrl={url} />
                 </div>
-                </Worker>
-              );
-        }else{
-          return(
-            <div
-                style={{
-                  border: '1px solid rgba(0, 0, 0, 0.3)',
-                  height: '750px',
-                }}>
-                Please select PDF file
-              </div>
-          );
+              </Worker>);
         }
-      }
       }
 
 
@@ -149,7 +137,7 @@ class App extends Component {
               <form className='form-wrapper'>
               <div>
                 <div>
-                  <input type="file" onChange={this.onFileChange} />
+                  <input type="file" onChange={this.onFileChange} accept='application/pdf' />
                   <button className='btn-btn-submit' onClick={this.onFileUpload}>שלח קבצים</button>
                 </div>
                 {this.fileData()}
