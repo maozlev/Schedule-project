@@ -13,10 +13,10 @@ const uploadPaper = new mongoose.Schema({
         type: String,
         required: true
     },
-    // paperType: {
-    //     type: String,
-    //     required: true
-    // },
+    Subject: {
+        type: String,
+        required: true
+    },
     dateOfUpdate: {
         type:Date,
         default: Date.now

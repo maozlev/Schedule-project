@@ -6,13 +6,21 @@ import{Viewer, Worker}from'@react-pdf-viewer/core';
 // Import the styles
 import'@react-pdf-viewer/core/lib/styles/index.css'; 
 
+// import * as React from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 class App extends Component {
   
     state = {
       // Initially, no file is selected
       selectedFile: null,
       data: "",
-      type: ""
+      type: "",
+      subject: ""
     };
     
     fileToBase64 = async(file,cb) => {
@@ -49,6 +57,7 @@ class App extends Component {
               UserName: this.props.username,
               Title: title,
               FileAsData: this.state.data,
+              Subject: this.state.subject
           })
           .then (res => {
               console.log(res)
@@ -127,6 +136,10 @@ class App extends Component {
       }
     };
     
+    handleSubject = async(event) => {
+      this.setState({subject : event.target.value.toString()});
+    }
+    
     render() {
       return (
         <div className='container' dir="rtl">
@@ -138,6 +151,25 @@ class App extends Component {
               <div>
                 <div>
                   <input type="file" onChange={this.onFileChange} accept='application/pdf' />
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">תוכן הקובץ</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={this.state.subject}
+                        label="Age"
+                        onChange={this.handleSubject} >
+                        <MenuItem value={"vaccines"}>חיסונים</MenuItem>
+                        <MenuItem value={"non-sexual-offenses"}>אישור היעדר עבירות מין</MenuItem>
+                        <MenuItem value={"health-decleration"}>הצהרת בריאות</MenuItem>
+                        <MenuItem value={"other1"}>אחר1</MenuItem>
+                        <MenuItem value={"other2"}>אחר2</MenuItem>
+                        <MenuItem value={"other3"}>אחר3</MenuItem>
+                        <MenuItem value={"other4"}>אחר4</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
                   <button className='btn-btn-submit' onClick={this.onFileUpload}>שלח קבצים</button>
                 </div>
                 {this.fileData()}

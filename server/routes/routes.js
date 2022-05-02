@@ -31,12 +31,12 @@ router.post('/papers', async(req, res) => {
     const paper = new uploadpaper({
         UserName: req.body.UserName,
         Data: req.body.FileAsData,
-        Title: req.body.Title
+        Title: req.body.Title,
+        Subject: req.body.Subject
     })
     paper.save()
     .then(data => {
-        console.log("details update")
-        console.log(data.Title)
+        console.log(`The file ${data.Title} upload as ${data.Subject} to DB successfully`)
         res.sendStatus(200)
     })
     .catch(error=> {
