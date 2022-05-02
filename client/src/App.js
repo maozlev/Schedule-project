@@ -11,6 +11,7 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Form from './components/check_update/Form'
 import FileUpload from './components/drop-file-input/DropFileInput'
+import MyExper from './components/My-experiences/MyExperiences'
 
 Amplify.configure(awsconfig);
 
@@ -44,11 +45,16 @@ function App({ signOut, user }) {
               <button onClick={signOut}>Sign out</button>
             </div>}
           />
-          <Route exact path='/ex' element={<div>ההתנסויות שלי</div>}/>
+          <Route exact path='/experience' element={
+            <div>
+            <MyExper username={user.username}/>
+            </div>}
+                                            />
           <Route exact path='/papers' element={
             <div>
               <FileUpload username={user.username}/>
-            </div>}/>
+            </div>}
+                                              />
           <Route exact path='/update' 
           element={
           <div>
