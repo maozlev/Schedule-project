@@ -37,7 +37,7 @@ export default function ImageCard({thing, checked}) {
     const classes = useStyles();
     const history = useNavigate();
     function handleClick(){
-     history('/ex'); 
+     history('/experience'); 
     }
   return (
       <Collapse in={checked} {... (checked ? {timeout: 1000} : {})}>
