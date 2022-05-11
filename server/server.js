@@ -7,6 +7,8 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const routeUrls = require('./routes/routes')
 // app.use(bodyParser.urlencoded({extended: true}));
+const PapersController = require('./controllers/PapersController')
+
 
 dotenv.config()
 
@@ -27,7 +29,7 @@ const db = mysql.createPool({
 });
 
 
-// app.get("/api/MyExperience/:username", PapersController.paperByUser)
+app.get("/api/MyExperience/:username", PapersController.paperByUser)
 
 app.listen(3001, ()=> {
     console.log("running on port 3001");
