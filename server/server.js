@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const routeUrls = require('./routes/routes')
 // app.use(bodyParser.urlencoded({extended: true}));
-const PapersController = require('./controllers/PapersController')
+const ExperiencesController = require('./controllers/ExperiencesController')
 const UsersController = require('./controllers/UsersController')
 const CheckUserInDB = require('./controllers/CheckUserInDB')
 
@@ -21,7 +21,7 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors());
 app.use('/api', routeUrls)
 
-app.get("/api/MyExperience/:username", PapersController.paperByUser)
+app.get("/api/MyExperience/:username", ExperiencesController.ExperiencesByUser)
 app.get("/api/checkisExist/:username", CheckUserInDB.isExist)
 
 app.get("/api/update_details/:username", UsersController.User)

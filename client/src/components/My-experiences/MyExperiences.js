@@ -37,9 +37,7 @@ function App({username}) {
             })
     }
 
-    // function handleAddEvent() {
-    //     setAllEvents([...allEvents, newEvent]);
-    // }
+    
     useEffect(() => {
         getExperienceByID();
     }, []);

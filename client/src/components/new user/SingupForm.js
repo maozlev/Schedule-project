@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react';
 import Validation from './Validation';
 import axios from 'axios';
 import { Link, useNavigate} from 'react-router-dom';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 const SingupForm = ( props, {submitForm}) => {
     let username = props.username;
@@ -43,8 +46,7 @@ const SingupForm = ( props, {submitForm}) => {
             
             if (res.status === 200){
                 alert("נשלח בהצלחה");
-            }
-            else{
+            }else{
                 alert("אנא נסה שנית");
             }
             console.log(res);
@@ -122,13 +124,17 @@ const SingupForm = ( props, {submitForm}) => {
                     {errors.city && <p className='error'>{errors.city}</p>}
                 </div> 
                 <div className='year'>
-                    <label className='label'>year</label>
-                    <input className='input' 
-                        type='number' 
-                        name='year' 
-                        value={values.year} 
-                        onChange={handleChange}>
-                    </input>
+                    <InputLabel id="select_year">תוכן הקובץ</InputLabel>
+                        <Select
+                            labelId="select_year"
+                            id="select_year"
+                            value={values.year}
+                            label="Age">
+                            <MenuItem value={1}>שנה א'</MenuItem>
+                            <MenuItem value={2}>שנה ב'</MenuItem>
+                            <MenuItem value={3}>שנה ג'</MenuItem>
+                            <MenuItem value={4}>שנה ד</MenuItem>
+                        </Select>
                     {errors.year && <p className='error'>{errors.year}</p>}
                 </div>
                 <button className='submit' onClick={handleFormSubmit}>הירשם</button>
