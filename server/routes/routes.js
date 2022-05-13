@@ -1,12 +1,12 @@
 const { response } = require('express')
 const express = require('express')
 const router = express.Router()
-const signUpTemplate = require('../model/updateDetails')
+const updateDetails = require('../model/updateDetails')
 const uploadpaper = require('../model/uploadpaper')
 
 router.post('/update_details', async(req, res) => {
     
-    const user = new signUpTemplate({
+    const user = new updateDetails({
         UserName: req.body.UserName,
         FirstName: req.body.FirstName,
         LastName: req.body.LastName,
