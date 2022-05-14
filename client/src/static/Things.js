@@ -2,14 +2,14 @@ const things = [
     {
       title: 'ההתנסויות שלי',
       description:
-        "The Maldives are home to some of the world's most ravishing islands, but it's the sea, which truly makes these islands shine. Luminous aquamarine waters with a crystal clarity lap upon these dazzling white shores, which barely peek above the Indian Ocean.",
+        "לוח ההתנסויות מכיל את ההתנסויות הרלוונטיות עבורך על פי שיבוץ המערכת, על מנת לשנות שיבוץ יש לפנות למזכירות המחלקה",
       imageUrl: process.env.PUBLIC_URL + '/images/hospital3.jpg',
       time: 1500,
     },
     {
       title: 'הגשת טפסים',
       description:
-        'Shaped like a giant sombrero, this lush volcanic island stars in countless South Pacific fantasies. The focal point and best asset of this tropical beauty is its ravishing lagoon in technicolor turquoise. Fish, turtles, sharks, and rays swim in the clear waters.',
+      "יש להעלות את כלל האישורים הנדרשים בטופס זה, שים לב כי הקובץ האחרון הוא זה שנשמר במערכת",
       imageUrl: process.env.PUBLIC_URL + '/images/background3.jpg',
       time: 1500,
     },

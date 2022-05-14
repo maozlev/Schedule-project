@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
       fontFamily: 'Nunito',
     },
     appbar: {
-      background: 'none',
+      background: '#88f',
     },
     appbarWrapper: {
       width: '80%',
@@ -49,7 +49,7 @@ export default function AppBarU( props) {
       setChecked(true);
     }, []);
     return (
-      <div className={classes.root} id="header">  
+      <div className={classes.root} id="header" >  
         <AppBar className={classes.appbar} elevation={0}>
           <Toolbar className={classes.appbarWrapper}>
             <h1 

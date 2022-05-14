@@ -51,6 +51,7 @@ export default function Header( props) {
     useEffect(() => {
       setChecked(true);
     }, []);
+    
     return (
       <div className={classes.root} id="header">  
         <AppBarU username={props.username}/>
