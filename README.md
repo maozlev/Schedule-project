@@ -2,6 +2,8 @@
 
 ##  Final project in the Faculty of Computer Science and Mathematics in collaboration with the Department of Nursing, Ariel University
 
+<img src = "https://hesegim.org.il/wp-content/uploads/2020/05/2549-1536x814.jpg" align = "center" height="300" width="700">
+
 ### <ins> Members of the group <img src = "https://cdn-icons.flaticon.com/png/512/923/premium/923445.png?token=exp=1652642873~hmac=ad4601e62e55399c07d883465145da1b" height="35" width="35"> </ins>
 
 * Maoz Lev
