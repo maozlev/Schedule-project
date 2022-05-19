@@ -55,9 +55,10 @@ class App extends Component {
         if(this.state.type === 'application/pdf'){
           await axios.post("http://localhost:3001/api/papers/", {
               UserName: this.props.username,
+              Subject: this.state.subject,
               Title: title,
-              FileAsData: this.state.data,
-              Subject: this.state.subject
+              FileAsData: this.state.data
+              
           })
           .then (res => {
               console.log(res)

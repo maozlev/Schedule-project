@@ -5,15 +5,15 @@ const uploadPaper = new mongoose.Schema({
         type: String,
         required: true
     },
+    Subject: {
+        type: String,
+        required: true
+    },
     Data: {
         type: Buffer,
         required: true
     },
     Title: {
-        type: String,
-        required: true
-    },
-    Subject: {
         type: String,
         required: true
     },

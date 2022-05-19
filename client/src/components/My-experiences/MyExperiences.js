@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
-
+import "./MyExperiences.css"
 // Local area of the calender
 const locales = {
     "he": require("date-fns/locale/he"),
@@ -53,7 +53,8 @@ function App({username}) {
                     Add Event
                 </button>
             </div> */}
-            <Calendar localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
+            <Calendar 
+                    localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
         </div>
     );
 }

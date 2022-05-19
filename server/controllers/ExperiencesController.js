@@ -15,7 +15,7 @@ const ExperiencesByUser = async (req, res) => {
         );
         ExperiencesArray.forEach((exper) => {
             events.push({
-                title: "" + exper.Hospital + " - " + exper.Department,
+                title: exper.Hospital + " - " + exper.Department,
                 allDay: true,
                 start: new Date(Date.UTC(exper.StartDate.Year, exper.StartDate.Month - 1, exper.StartDate.Day)),
                 end: new Date(Date.UTC(exper.EndDate.Year, exper.EndDate.Month - 1, exper.EndDate.Day))
