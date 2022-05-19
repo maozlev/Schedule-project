@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Validation from './Validation';
 import axios from 'axios';
 import { Link, useNavigate} from 'react-router-dom';
+import './SingupForm.css'
 
 const SingupForm = ( props, {submitForm}) => {
     let username = props.username;
@@ -36,7 +37,7 @@ const SingupForm = ( props, {submitForm}) => {
         })
     }
     const submit =  async() => {
-        await axios.post("http://localhost:3001/api/update_details/", {
+        await axios.post("http://localhost:3001/api/createUser/", {
             UserName: username,
             id: values.id,
             FirstName: values.FirstName, 
@@ -79,12 +80,12 @@ const SingupForm = ( props, {submitForm}) => {
     history('/'); 
    }
   return (
-    <div className='container'>
-        <div className='app-wrapper'>
+    <div className='container' >
+        <div className='app-wrapper' >
             <div>
-                <h2 className='title'> create account </h2>
+                <h2 class='to_middle'> צור משתמש </h2>
             </div>
-            <form className='form-wrapper'>
+            <form className='form-wrapper' dir="rtl">
                 <div className='id'>
                     <label className='label'>id</label>
                     <input className='input'
@@ -95,13 +96,14 @@ const SingupForm = ( props, {submitForm}) => {
                     </input>
                     {errors.id && <p className='error'>{errors.id}</p>}
                 </div>
-                <div className='FirstName'>
-                    <label className='label'>FirstName</label>
-                    <input className='input'
+                <div className='FirstName' >
+                    <label className='label' >שם פרטי</label>
+                    <input className='input' 
                         type='text'
                         name='FirstName' 
                         value={values.FirstName} 
-                        onChange={handleChange}>
+                        onChange={handleChange}
+                        >
                     </input>
                     {errors.FirstName && <p className='error'>{errors.FirstName}</p>}
                 </div> 
@@ -126,19 +128,21 @@ const SingupForm = ( props, {submitForm}) => {
                     {errors.city && <p className='error'>{errors.city}</p>}
                 </div> 
                 <div className='year'>
-                    <label className='label'>year</label>
-                    <input className='input' 
-                        type='number' 
-                        name='year' 
-                        value={values.year} 
-                        onChange={handleChange}>
-                    </input>
+                    <label className='label'>שנת לימודים</label>
+                    <br/>
+                    <select name="year" id="year" onChange={handleChange}>
+                        <option value="1">שנה א'</option>
+                        <option value="2">שנה ב'</option>
+                        <option value="3">שנה ג'</option>
+                        <option value="4">שנה ד'</option>
+                    </select>
                     {errors.year && <p className='error'>{errors.year}</p>}
                 </div>
+
                 <button className='submit' onClick={handleFormSubmit}>הירשם</button>
             </form>
             <Link to="/">
-                <button>
+                <button className='title'>
                     חזור לעמוד הבית    
                 </button>
             </Link>

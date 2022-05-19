@@ -4,7 +4,7 @@ const router = express.Router()
 const updateDetails = require('../model/updateDetails')
 const uploadpaper = require('../model/uploadpaper')
 
-router.post('/update_details', async(req, res) => {
+router.post('/createUser', async(req, res) => {
     
     const user = new updateDetails({
         UserName: req.body.UserName,

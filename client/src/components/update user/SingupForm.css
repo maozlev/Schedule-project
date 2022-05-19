@@ -86,3 +86,9 @@
     color: red;
 }
 
+.to_middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
