@@ -59,6 +59,10 @@ const experience = new mongoose.Schema({
         type:String,
         required: true
     },
+    Email: {
+        type:String,
+        required: true
+    },
     StartDate: {
         type: DateShcema
     },

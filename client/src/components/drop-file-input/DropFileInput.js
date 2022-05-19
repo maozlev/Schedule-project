@@ -145,7 +145,7 @@ class App extends Component {
         <div className='container' dir="rtl">
           <div className='app-wrapper'>
               <div>
-                  <h2 className='title'> העלאת קבצים </h2>
+                  <h2 className='title'> העלאת אישורי התנסות </h2>
               </div>
               <form className='form-wrapper'>
               <div>
@@ -160,13 +160,16 @@ class App extends Component {
                         value={this.state.subject}
                         label="Age"
                         onChange={this.handleSubject} >
-                        <MenuItem value={"vaccines"}>חיסונים</MenuItem>
-                        <MenuItem value={"non-sexual-offenses"}>אישור היעדר עבירות מין</MenuItem>
-                        <MenuItem value={"health-decleration"}>הצהרת בריאות</MenuItem>
-                        <MenuItem value={"other1"}>אחר1</MenuItem>
-                        <MenuItem value={"other2"}>אחר2</MenuItem>
-                        <MenuItem value={"other3"}>אחר3</MenuItem>
-                        <MenuItem value={"other4"}>אחר4</MenuItem>
+                        <MenuItem value={"Internal"}>סיעוד המבוגר פנימי</MenuItem>
+                        <MenuItem value={"Surgical"}>סיעוד המבוגר כירורגי</MenuItem>
+                        <MenuItem value={"Intensive-care"}>סיעוד במצבים דחופים וטראומה</MenuItem>
+                        <MenuItem value={"Gynecologiy"}>סיעוד האישה</MenuItem>
+                        <MenuItem value={"Community"}>סיעוד בקהילה</MenuItem>
+                        <MenuItem value={"Pediatric"}>סיעוד הילד</MenuItem>
+                        <MenuItem value={"Psychiatry"}>סיעוד בריאות הנפש</MenuItem>
+                        <MenuItem value={"Special"}>התנסות קלינית ייחודית</MenuItem>
+                        <MenuItem value={"Advance"}>התנסות קלינית מתקדמת</MenuItem>
+
                       </Select>
                     </FormControl>
                   </Box>
