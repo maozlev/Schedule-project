@@ -9,7 +9,7 @@ import awsconfig from './aws-exports';
 import '@aws-amplify/ui-react/styles.css';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Form from './components/check_update/Form'
+import Form from './components/update user/Form'
 import FormNew from './components/new user/Form'
 import FileUpload from './components/drop-file-input/DropFileInput'
 import MyExper from './components/My-experiences/MyExperiences'

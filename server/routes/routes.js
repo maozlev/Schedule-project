@@ -27,6 +27,29 @@ router.post('/update_details', async(req, res) => {
     })
 })
 
+
+router.post('/setUserDetails', async(req, res) => {
+    const filter = { UserName: req.body.UserName }
+    const update = {
+                    FirstName: req.body.FirstName,
+                    LastName: req.body.LastName,
+                    id: req.body.id,
+                    city: req.body.city,
+                    year: req.body.year
+                    }
+    let doc = await updateDetails.findOneAndUpdate(filter, update)
+    .then(data => {
+        console.log("details update")
+        console.log(data)
+        res.sendStatus(200)
+    })
+    .catch(error=> {
+        console.log("problem accured")
+        console.log(error)
+        res.json(error)
+    })
+})
+
 router.post('/papers', async(req, res) => {
     const paper = new uploadpaper({
         UserName: req.body.UserName,

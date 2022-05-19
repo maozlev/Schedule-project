@@ -8,9 +8,9 @@ const Validation = (values) => {
     if(values.id.length !== 9){
         errors.id = 'מס לא תקין';
     }
-    if(values.id.length === 9){
-        errors.id = 'תעודת זהות תקינה';
-    }
+    // if(values.id.length === 9){
+    //     errors.id = 'תעודת זהות תקינה';
+    // }
     if(!values.FirstName){
         errors.FirstName = 'fill FirstName';
     }

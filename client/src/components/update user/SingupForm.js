@@ -24,6 +24,10 @@ const SingupForm = ( props, {submitForm}) => {
         year:"",
     })
     const [errors, setErrors] = useState({});
+    
+    async function errorSet(values){
+        setErrors(Validation(values))
+    }
     const [dataIsCorrect, setDataIsCorrect] = useState(false);
     const handleChange = (event) => {
         setValues({
@@ -32,7 +36,7 @@ const SingupForm = ( props, {submitForm}) => {
         })
     }
     const submit =  async() => {
-        await axios.post("http://localhost:3001/api/update_details/", {
+        await axios.post("http://localhost:3001/api/setUserDetails/", {
             UserName: username,
             id: values.id,
             FirstName: values.FirstName, 
@@ -54,8 +58,8 @@ const SingupForm = ( props, {submitForm}) => {
     
     const handleFormSubmit = async (event)=>{
         event.preventDefault();
-        setErrors(Validation(values))
-        if(errors.id !== 'תעודת זהות תקינה'){
+        await errorSet(values)
+        if(typeof errors.length !== 'undefined'){
             console.log("there are errors");
             console.log(errors)
             alert("אנא נסה שנית");
