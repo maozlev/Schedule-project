@@ -6,6 +6,7 @@ const ExperiencesByUser = async (req, res) => {
     console.log("The user name is: " + username);
 
     var events = []
+    var contacts = []
     try {
         const expr = await Experiences.find({ UserName: username });
         var ExperiencesArray = Object.keys(expr).map(
@@ -13,6 +14,7 @@ const ExperiencesByUser = async (req, res) => {
                 return expr[key];
             }
         );
+        // Set event and contact for each experience 
         ExperiencesArray.forEach((exper) => {
             events.push({
                 title: exper.Hospital + " - " + exper.Department,
@@ -20,9 +22,26 @@ const ExperiencesByUser = async (req, res) => {
                 start: new Date(Date.UTC(exper.StartDate.Year, exper.StartDate.Month - 1, exper.StartDate.Day)),
                 end: new Date(Date.UTC(exper.EndDate.Year, exper.EndDate.Month - 1, exper.EndDate.Day))
             })
-
+            var contact = {
+                Hospital: exper.Hospital,
+                Department: exper.Department,
+                Address: exper.Address.City + " " + exper.Address.Street + " " + exper.Address.Number ,
+                Contact: exper.Contact,
+                PhoneNumber: exper.PhoneNumber,
+                Email: exper.Email
+            }
+            //Push just if this excatly contact aren't already exist in contacts array
+            if(contacts.findIndex(obj => {
+                return  obj.Hospital === contact.Hospital &&
+                        obj.Department === contact.Department &&
+                        obj.Address === contact.Address &&
+                        obj.Contact === contact.Contact &&
+                        obj.PhoneNumber === contact.PhoneNumber &&
+                        obj.Email === contact.Email;})
+                        == -1) // findIndex return -1 if doesn't exist
+            contacts.push(contact)
         })
-        res.status(200).json(events)
+        res.status(200).json({ev:events, co:contacts})
     } catch (error) {
         console.log("ERROR");
         res.status(404).json(error)

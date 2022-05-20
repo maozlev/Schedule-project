@@ -1,78 +1,45 @@
 import axios from "axios";
-import format from "date-fns/format";
-import getDay from "date-fns/getDay";
-import parse from "date-fns/parse";
-import startOfWeek from "date-fns/startOfWeek";
-import React, { useState, useEffect } from "react";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import "react-datepicker/dist/react-datepicker.css";
 import "./MyExperiences.css"
-// Local area of the calender
-const locales = {
-    "he": require("date-fns/locale/he"),
-};
-const localizer = dateFnsLocalizer({
-    format,
-    parse,
-    startOfWeek,
-    getDay,
-    locales,
-});
-
+import {useState, useEffect} from 'react'
+import GuideTable from "../Guide-table/Guide-table.js"
+import CalendarExperience from "../Calender-Experience/Calender-Experience.js"
 
 function App({username}) {
     const [allEvents, setAllEvents] = useState([]);
+    const [allContacts, setAllContacts] = useState([]);
+    
 
     const getExperienceByID = () => {
-        axios.get(`http://localhost:3001/api/MyExperience/${username}`)
+        axios.get(`http://localhost:3001/api/MyExperience/${username}`) //Fetch the data from DB
             .then((response) => {
-                const experience = response.data;
-                console.log("Data recived")
-                setAllEvents(experience);
+                const experiences = response.data.ev;
+                const contacts = response.data.co;
+                console.log("Experiences and contacts recived from DB");
+                setAllEvents(experiences); // Set Experiences
+                setAllContacts(contacts); // Set Contacts
             }).catch((err) => {
                 // Handle errors
                 console.log("ERROR: " + JSON.stringify(err.response.data))
             })
     }
 
-    
     useEffect(() => {
         getExperienceByID();
     }, []);
-
+       
     return (
-        <div className="App">
-            <h1>לוח התנסויות</h1>
-            {/* <h2>Add New Event</h2> */}
-            {/* <div>
-                <input type="text" placeholder="Add Title" style={{ width: "20%", marginRight: "10px" }} value={newEvent.title} onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })} />
-                <DatePicker placeholderText="Start Date" style={{ marginRight: "10px" }} selected={newEvent.start} onChange={(start) => setNewEvent({ ...newEvent, start })} />
-                <DatePicker placeholderText="End Date" selected={newEvent.end} onChange={(end) => setNewEvent({ ...newEvent, end })} />
-                <button stlye={{ marginTop: "10px" }} onClick={handleAddEvent}>
-                    Add Event
-                </button>
-            </div> */}
-            <Calendar 
-                    localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
+        <div className="Experience-page background-image">
+            <div class="Title">
+                <h1>לוח התנסויות</h1>
+            </div>
+            <div class='calander-container' dir='rtl'>
+                <CalendarExperience events={allEvents}/>
+            </div>
+            <div class='guide-table-container' dir='rtl'>
+                <GuideTable contactsArray={allContacts}></GuideTable>
+            </div>
         </div>
     );
 }
 
 export default App;
-
-/**
- * ###################           TODO's         ################
- * 
- *          yosef - 3/5/22
- * 1. Create fucntion that collect experiences for each student
- *
- * 2. Design this page
- * 
- * 3. Try to add hours for each experience 
- * 
- * 4. Organized it in the database
- * 
- * 
- * 
- */

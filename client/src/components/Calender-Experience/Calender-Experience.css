@@ -1,0 +1,11 @@
+.rbc-calendar{
+    border-style: solid;
+    border: 10px;
+    border-radius: 3px;
+    border-color: black;
+    margin: 2px ;
+}
+
+.rbc-event-content{
+    text-align: center;
+}
