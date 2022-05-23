@@ -2,7 +2,8 @@ import axios from 'axios';
  
 import React,{Component, useState} from 'react';
 // Import the main component
-import{Viewer, Worker}from'@react-pdf-viewer/core';     
+import{Viewer, Worker}from'@react-pdf-viewer/core';
+import { Link, useNavigate} from 'react-router-dom';     
 // Import the styles
 import'@react-pdf-viewer/core/lib/styles/index.css'; 
 
@@ -12,6 +13,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Button from '@mui/material/Button';
+import "./DropFileInput.css"
+
 
 class App extends Component {
   
@@ -70,6 +74,7 @@ class App extends Component {
               console.log(res.data);
             })
           }else{
+            //TODO need disable this alert and return to select another file
             alert("Please choose PDF file!")
             return;
           }
@@ -151,8 +156,11 @@ class App extends Component {
               <form className='form-wrapper'>
               <div>
                 <div>
-                  <input type="file" onChange={this.onFileChange} accept='application/pdf' />
-                  <Box sx={{ minWidth: 120 }}>
+                <Button className = "btn-select-file" variant="contained" component="label"> 
+                  בחר קובץ
+                  <input type="file" hidden accept='application/pdf' onChange={this.onFileChange}/>
+                </Button>
+                  <Box sx={{ minWidth: 120, marginTop: '25px' }}>
                     <FormControl fullWidth>
                       <InputLabel id="demo-simple-select-label">תוכן הקובץ</InputLabel>
                       <Select
@@ -174,13 +182,20 @@ class App extends Component {
                       </Select>
                     </FormControl>
                   </Box>
-                  <button className='btn-btn-submit' onClick={this.onFileUpload}>שלח קבצים</button>
+                  <Button variant="contained" style={{marginTop : '25px'}} className='btn-btn-submit' onClick={this.onFileUpload}>שלח קבצים</Button>
                 </div>
                 {this.fileData()}
               </div>
               <div>
                 {this.PreviewPDF()}
               </div>
+              <div className='buttons'>
+                    <Link to="/">
+                        <Button variant="outlined" className='btn-return-hompage' style={{ float: 'left' }}>
+                            חזור לעמוד הבית    
+                        </Button>
+                    </Link>
+                </div>
             </form>
           </div>
         </div>

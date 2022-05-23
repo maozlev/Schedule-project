@@ -3,11 +3,24 @@ import Validation from './Validation';
 import axios from 'axios';
 import { Link, useNavigate} from 'react-router-dom';
 import './SingupForm.css'
+import Button from '@mui/material/Button';
+
+const {citiesOptions} = require("../../static/Cities.js")
+
+
 
 const SingupForm = ( props, {submitForm}) => {
     let username = props.username;
     console.log(username);
 
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+          if ((new Date().getTime() - start) > milliseconds){
+            break;
+          }
+        }
+    }
     const [values, setValues] = useState({
         username: username,
         id:"",
@@ -29,7 +42,7 @@ const SingupForm = ( props, {submitForm}) => {
         })
     }
     const submit =  async() => {
-        await axios.post("http://localhost:3001/api/createUser/", {
+        await axios.post("http://localhost:3001/api/setUserDetails/", {
             UserName: username,
             id: values.id,
             FirstName: values.FirstName, 
@@ -65,6 +78,12 @@ const SingupForm = ( props, {submitForm}) => {
         if(Object.keys(errors).length === 0 && dataIsCorrect){
             submitForm(true);
         }
+        var cities = document.getElementById('city')
+        for(var i = 0; i < citiesOptions.length; i++){
+            var option = citiesOptions[i];
+            console.log(option)
+            cities.options.add( new Option(option.text, option.value) );
+          }
     }, [errors]);
 
     const history = useNavigate();
@@ -79,7 +98,7 @@ const SingupForm = ( props, {submitForm}) => {
             </div>
             <form className='form-wrapper' dir="rtl">
                 <div className='id'>
-                    <label className='label'>id</label>
+                    <label className='label'>תעודת זהות</label>
                     <input className='input'
                         type='int'
                         name='id'
@@ -100,7 +119,7 @@ const SingupForm = ( props, {submitForm}) => {
                     {errors.FirstName && <p className='error'>{errors.FirstName}</p>}
                 </div> 
                 <div className='LastName'>
-                    <label className='label'>LastName</label>
+                    <label className='label'>שם משפחה</label>
                     <input className='input' 
                         type='text' 
                         name='LastName' 
@@ -110,13 +129,11 @@ const SingupForm = ( props, {submitForm}) => {
                     {errors.LastName && <p className='error'>{errors.LastName}</p>}
                 </div> 
                 <div className='city'>
-                    <label className='label'>city</label>
-                    <input className='input' 
-                        type='text' 
-                        name='city' 
-                        value={values.city} 
-                        onChange={handleChange}>
-                    </input>
+                    <label className='label'>עיר מגורים</label>
+                    <br/>
+                    <select name="city" id="city" onChange={handleChange}/>
+                    {//List of cities are update from Static/cities.js on useEffect()
+                    }
                     {errors.city && <p className='error'>{errors.city}</p>}
                 </div> 
                 <div className='year'>
@@ -130,14 +147,17 @@ const SingupForm = ( props, {submitForm}) => {
                     </select>
                     {errors.year && <p className='error'>{errors.year}</p>}
                 </div>
-
-                <button className='submit' onClick={handleFormSubmit}>הירשם</button>
+                <div className='buttons'>
+                    <Button  variant="contained" className='btn-submit' onClick={handleFormSubmit} style={{ float: 'right' }}>הירשם</Button>
+                    <Link to="/">
+                        <Button variant="outlined" className='btn-return-hompage' style={{ float: 'left' }}>
+                            חזור לעמוד הבית    
+                        </Button>
+                    </Link>
+                </div>
             </form>
-            <Link to="/">
-                <button className='title'>
-                    חזור לעמוד הבית    
-                </button>
-            </Link>
+                
+            
         </div>
     </div>
   )

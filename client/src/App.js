@@ -26,77 +26,100 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
   },
- 
 }));
 
 
 function App({ signOut, user }) {
   const classes = useStyles();
-
-  const [isinDB, setisinDB] = useState(null);
-  useEffect(() => {
-    userIsInDB();
-    }, []);
-  function userIsInDB() {
-    axios.get(`http://localhost:3001/api/checkisExist/${user.username}`)
-        .then((response) => {
-          console.log("DATA IS : " + response.data)
-          setisinDB(response.data);
-        }).catch((err) => {
-            // Handle errors
-            console.log("ERROR: " + JSON.stringify(err.response.data))
-        })
-  }
-  
-  console.log("ans is: =" + isinDB)
-  if(!isinDB){}
-  
-  
-  return (
+    // Variable to check if user already set his details
+    const [isinDB, setisinDB] = useState(null);
+    useEffect(() => {
+      userIsInDB();
+      }, []);
     
-    <>
-      <Router>  
-        <Routes>
-          <Route path='' element={
-            <div className={classes.root}>
-                <script>
-                let creds = await Auth.currentUserCredentials()
-                console.log(creds.identityId)
-                </script>
-              <CssBaseline/>  
-              <Landing username={user.username} onClick={signOut}/>
-              <Modal username={user.username}></Modal>
-              <ThingsToDo/>
-              
-              <button onClick={signOut}>Sign out</button>
-            </div>}
-          />
-          <Route exact path='/experience' element={
+
+    /*
+    This function search in our DB if user already exist.
+    */
+    function userIsInDB() {
+      axios.get(`http://localhost:3001/api/checkisExist/${user.username}`)
+          .then (async (response) => {
+            console.log("-- Checked if this username insert his details to our DB.\nAnswer: " + response.data)
+            setisinDB(response.data);
+          }).catch((err) => {
+              // Handle errors
+              console.log("ERROR: " + JSON.stringify(err.response.data))
+          })
+    }
+
+    /**
+     * If user NOT insert his details, Render to insert details at first time, else get the application
+     */
+  
+  if(!isinDB){
+    return (
+      <>
+        <Router>  
+          <Routes>
+            <Route exact path='*' // Catch all pathes to any page
+            element={
             <div>
-            <MyExper username={user.username}/>
-            </div>}
-                                            />
-          <Route exact path='/papers' element={
-            <div>
-              <FileUpload username={user.username}/>
-            </div>}
+              <FormNew username={user.username}/>
+            </div>}/>
+          </Routes>
+        </Router>
+      </>
+    );
+  } else  
+    return (
+      <>
+        <Router>  
+          <Routes>
+            <Route path='' element={
+              <div className={classes.root}>
+                  <script>
+                  let creds = await Auth.currentUserCredentials()
+                  console.log(creds.identityId)
+                  </script>
+                <CssBaseline/>  
+                <Landing username={user.username} onClick={signOut}/>
+                {/*<Modal username={user.username}></Modal>*/}
+                <ThingsToDo/>  
+                <button onClick={signOut}>Sign out</button>
+              </div>}
+            />
+            <Route exact path='/experience' element={
+              <div>
+              <MyExper username={user.username}/>
+              </div>}
                                               />
-          <Route exact path='/update' 
-          element={
-          <div>
-            {/* <UpdateDetails username={user.username}/> */}
-            <Form username={user.username}/>
-          </div>}/>
-          <Route exact path='/new_user' 
-          element={
-          <div>
-            {/* <UpdateDetails username={user.username}/> */}
-            <FormNew username={user.username}/>
-          </div>}/>
-          <Route exact path='*' element={<div>404 Not Found!</div>}/>
-        </Routes>
-      </Router>
-    </>
-  );
+            <Route exact path='/papers' element={
+              <div>
+                <FileUpload username={user.username}/>
+              </div>}
+                                                />
+            <Route exact path='/update' 
+            element={
+            <div>
+              <Form username={user.username}/>
+            </div>}/>
+            {/*
+
+            TODO - Ask about about the changes!!
+
+            <Route exact path='/new_user' 
+            element={
+            <div>
+              {/* <UpdateDetails username={user.username}/> }
+              <FormNew username={user.username}/>
+            </div>}/</Router>/>
+            */}
+
+            {/*TODO design 404 page*/}
+            <Route exact path='*' element={<div>404 Not Found!</div>}/>
+          </Routes>
+        </Router>
+      </>
+    );
 }
 export default withAuthenticator(App);

@@ -1,0 +1,13 @@
+.title{
+    font-size: 30px;
+    text-decoration: underline 
+}
+
+.btn-select-file{
+    margin-top: 25px !important;
+}
+
+.MuiMenuItem-root{
+    direction: rtl;
+    background-color: aliceblue !important;
+}

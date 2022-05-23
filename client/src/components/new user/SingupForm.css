@@ -68,10 +68,16 @@
     border-top-style: none;
     border-left-style: none;
     border-right-style: none;
-    border-bottom-style: 2px solid black;
+    border-bottom-style: 10px solid black;
     margin-bottom: 10px;
+    border: 5px;
+    border-radius: 5px;
 }
-
+.label{
+  font-size: 20px;
+  font-weight: bold;
+  font-family :'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
 .id,
 .username,
 .FirstName,
@@ -84,5 +90,17 @@
 
 .error{
     color: red;
+}
+
+.to_middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  text-decoration: underline
+}
+
+.buttons{
+  margin-top: 80px;
 }
 
