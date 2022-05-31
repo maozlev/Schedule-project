@@ -16,6 +16,7 @@ import MyExper from './components/My-experiences/MyExperiences'
 import axios from "axios"
 import Popup from 'reactjs-popup';
 import Modal from './components/Modal/Modal'
+import Admin from "./components/Admin/Admin"
 Amplify.configure(awsconfig);
 
 
@@ -33,9 +34,12 @@ function App({ signOut, user }) {
   const classes = useStyles();
     // Variable to check if user already set his details
     const [isinDB, setisinDB] = useState(null);
+    const [avaliableToUpdate, setIsAvaliableToUpdate] = useState(null);
+
     useEffect(() => {
       userIsInDB();
-      }, []);
+      getConfiguration();
+      }, [isinDB]);
     
 
     /*
@@ -52,6 +56,23 @@ function App({ signOut, user }) {
           })
     }
 
+    function getConfiguration() {
+      console.log("IN getConfiguration function")
+      axios.get("http://localhost:3001/api/getConfiguration")
+          .then (async (response) => {
+            console.log("-- Collect configuration from DB")
+            setIsAvaliableToUpdate(response.data.value);
+          }).catch((err) => {
+              // Handle errors
+              console.log("ERROR: " + JSON.stringify(err.response.data))
+          })
+          console.log("END getConfiguration function")
+
+    }
+ useEffect(() => {
+      userIsInDB();
+      getConfiguration();
+      }, []);
     /**
      * If user NOT insert his details, Render to insert details at first time, else get the application
      */
@@ -83,7 +104,6 @@ function App({ signOut, user }) {
                   </script>
                 <CssBaseline/>  
                 <Landing username={user.username} onClick={signOut}/>
-                {/*<Modal username={user.username}></Modal>*/}
                 <ThingsToDo/>  
                 <button onClick={signOut}>Sign out</button>
               </div>}
@@ -101,21 +121,14 @@ function App({ signOut, user }) {
             <Route exact path='/update' 
             element={
             <div>
-              <Form username={user.username}/>
+              <Form username={user.username} isAvaliable={avaliableToUpdate}/>
             </div>}/>
-            {/*
-
-            TODO - Ask about about the changes!!
-
-            <Route exact path='/new_user' 
+            {/*TODO design 404 page*/}
+            <Route exact path='/admin' 
             element={
             <div>
-              {/* <UpdateDetails username={user.username}/> }
-              <FormNew username={user.username}/>
-            </div>}/</Router>/>
-            */}
-
-            {/*TODO design 404 page*/}
+              <Admin username={user.username} isAvaliable={avaliableToUpdate}/>
+            </div>}/>
             <Route exact path='*' element={<div>404 Not Found!</div>}/>
           </Routes>
         </Router>

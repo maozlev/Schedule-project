@@ -9,6 +9,7 @@ const routeUrls = require('./routes/routes')
 const ExperiencesController = require('./controllers/ExperiencesController')
 const UsersController = require('./controllers/UsersController')
 const CheckUserInDB = require('./controllers/CheckUserInDB')
+const GetConfiguration = require('./controllers/getConfiguration')
 
 
 dotenv.config()
@@ -25,6 +26,8 @@ app.get("/api/MyExperience/:username", ExperiencesController.ExperiencesByUser)
 app.get("/api/checkisExist/:username", CheckUserInDB.isExist)
 
 app.get("/api/update_details/:username", UsersController.User)
+app.get("/api/getConfiguration", GetConfiguration.isAvaliable)
+
 
 app.listen(3001, ()=> {
     console.log("running on port 3001");

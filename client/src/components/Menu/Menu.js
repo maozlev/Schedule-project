@@ -109,7 +109,7 @@ export default function CustomizedMenus( props) {
           <FileCopyIcon />
           התנתק
         </MenuItem>
-        <Divider sx={{ my: 0.5 }} />
+        {/* <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={handleClose} disableRipple>
           <ArchiveIcon />
           Archive
@@ -117,7 +117,7 @@ export default function CustomizedMenus( props) {
         <MenuItem onClick={handleClose} disableRipple>
           <MoreHorizIcon />
           More
-        </MenuItem>
+        </MenuItem> */}
       </StyledMenu>
     </div>
   );
