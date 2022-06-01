@@ -1,7 +1,9 @@
+const { stringify } = require('uuid');
+const experience = require('../model/experience');
 const Experiences = require('../model/experience');
 const { all } = require('../routes/routes');
 
-const ExperiencesByUser = async (req, res) => {
+const ExperiencesByUserForCalander = async (req, res) => {
     username = req.params.username;
     console.log("The user name is: " + username);
 
@@ -48,6 +50,23 @@ const ExperiencesByUser = async (req, res) => {
     }
 }
 
+const ExperiencesByUserForAdmin = async (req, res) => {
+    console.log("-- Start ExperiencesByUserForAdmin")
+    username = req.params.username;
+    console.log("user - " + username)
+    Experiences.find({ UserName: username }).lean().exec(function(err,result){
+        if(err){/*Handle errors*/} 
+        if (result){
+            console.log(result)
+            res.status(200).send(result)
+        }else{
+            console.log("Not find this user")
+            res.status(200).send(false)
+        }
+    });
+}
+
 module.exports = {
-    ExperiencesByUser
+    ExperiencesByUserForCalander,
+    ExperiencesByUserForAdmin
 }

@@ -1,7 +1,6 @@
 const UserTemplate = require("../model/updateDetails")
 
 const isExist = async (req,res) => {
-    console.log("#######")
     const username = req.params.username
     const users = await UserTemplate.find({ UserName: username });
     if(users.length > 0){

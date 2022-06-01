@@ -10,6 +10,8 @@ const ExperiencesController = require('./controllers/ExperiencesController')
 const UsersController = require('./controllers/UsersController')
 const CheckUserInDB = require('./controllers/CheckUserInDB')
 const GetConfiguration = require('./controllers/getConfiguration')
+const GetUserByID = require('./controllers/getUserByID')
+
 
 
 dotenv.config()
@@ -22,9 +24,11 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors());
 app.use('/api', routeUrls)
 
-app.get("/api/MyExperience/:username", ExperiencesController.ExperiencesByUser)
-app.get("/api/checkisExist/:username", CheckUserInDB.isExist)
+app.get("/api/MyExperienceCalander/:username", ExperiencesController.ExperiencesByUserForCalander)
+app.get("/api/MyExperienceAdmin/:username", ExperiencesController.ExperiencesByUserForAdmin)
 
+app.get("/api/checkisExist/:username", CheckUserInDB.isExist)
+app.get("/api/getUserByID/:id", GetUserByID.getUser)
 app.get("/api/update_details/:username", UsersController.User)
 app.get("/api/getConfiguration", GetConfiguration.isAvaliable)
 
