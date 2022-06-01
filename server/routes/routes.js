@@ -3,6 +3,8 @@ const express = require('express')
 const router = express.Router()
 const updateDetails = require('../model/updateDetails')
 const uploadpaper = require('../model/uploadpaper')
+const configuration = require("../model/configuration")
+
 
 router.post('/createUser', async(req, res) => {
     
@@ -46,6 +48,20 @@ router.post('/setUserDetails', async(req, res) => {
     .catch(error=> {
         console.log("problem accured")
         console.log(error)
+        res.json(error)
+    })
+})
+
+router.post('/setIsAvaliableToUpdateDetails', async(req, res) => {
+    const filter1 = { target: "IsAvaliableToUpdate" }
+    const update1 = { value: req.body.value }
+    let doc = await configuration.findOneAndUpdate(filter1, update1)
+    .then(data1 => {
+        console.log(data1)
+        res.sendStatus(200)
+    })
+    .catch(error=> {
+        console.log("problem accured")
         res.json(error)
     })
 })
