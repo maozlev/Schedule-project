@@ -1,0 +1,15 @@
+.current-status{
+    font-size: 25px;
+    font-family: sans-serif;
+}
+
+.resultStatus{
+    padding-right: 30px;
+}
+
+.change-status-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+      
+}
