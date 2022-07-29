@@ -29,6 +29,7 @@ export default function ShowStudentDetails(props) {
     // student_id hold the student id or empty string
     const [student_id, setStudent_id] = useState("")
 
+    
     /**
      * update student_id on change
      * @param {change of input field} event 
@@ -121,7 +122,9 @@ export default function ShowStudentDetails(props) {
     }
 
     function deleteExperience(exper) {
-        console.log("%%%%\n\n" + exper)
+        console.log(127, exper);
+        // setExper(exper)
+        // console.log(Exper)
         axios.get(`http://localhost:3001/api/deleteExperience/${student_id}`, {
             Hospital : exper.Hospital,
             Department : exper.Department,
@@ -159,7 +162,7 @@ export default function ShowStudentDetails(props) {
                                 <td>{exper.Department}</td>
                                 <td>{exper.StartDate.Day}/{exper.StartDate.Month}/{exper.StartDate.Year}</td>
                                 <td>{exper.EndDate.Day}/{exper.EndDate.Month}/{exper.EndDate.Year}</td>
-                                <td><button onClick={deleteExperience}>מחק התנסות</button> </td>
+                                <td><button onClick={ () => deleteExperience(exper)}>מחק התנסות</button> </td>
                             </tr>
                         ))}
                     </table>
