@@ -11,7 +11,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SortIcon from '@material-ui/icons/Sort';
 import { IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 
 const StyledMenu = styled((props) => (
@@ -62,7 +62,8 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function CustomizedMenus( props) {
+export default function CustomizedMenus(props) {
+  let IsAdmin = props.isAdmin
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -73,25 +74,28 @@ export default function CustomizedMenus( props) {
     setAnchorEl(null);
   };
   const history = useNavigate();
-  function toUpgrade(){
-    history('/update'); 
+  function toUpgrade() {
+    history('/update');
+  }
+  function toAdmin() {
+    history('/admin');
   }
 
   return (
     <div>
-        <IconButton>
-            </IconButton>
-            <SortIcon className={classes.icon}
-                id="demo-customized-button"
-                aria-controls={open ? 'demo-customized-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                variant="contained"
-                disableElevation
-                onClick={handleClick}
-                endIcon={<KeyboardArrowDownIcon />}
-            >
-            </SortIcon>
+      <IconButton>
+      </IconButton>
+      <SortIcon className={classes.icon}
+        id="demo-customized-button"
+        aria-controls={open ? 'demo-customized-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        variant="contained"
+        disableElevation
+        onClick={handleClick}
+        endIcon={<KeyboardArrowDownIcon />}
+      >
+      </SortIcon>
       <StyledMenu
         id="demo-customized-menu"
         MenuListProps={{
@@ -101,11 +105,15 @@ export default function CustomizedMenus( props) {
         open={open}
         onClose={handleClose}
       >
+        {IsAdmin && <MenuItem onClick={toAdmin} disableRipple>
+          <EditIcon />
+          מעבר לדף מנהל
+        </MenuItem>}
         <MenuItem onClick={toUpgrade} disableRipple>
           <EditIcon />
           עדכון פרטים
         </MenuItem>
-        <MenuItem onClick={Auth.signOut} disableRipple>
+        <MenuItem onClick={props.onSignout} disableRipple>
           <FileCopyIcon />
           התנתק
         </MenuItem>

@@ -56,7 +56,7 @@ export default function Header( props) {
     
     return (
       <div className={classes.root} id="header">  
-        <AppBarU username={props.username}/>
+        <AppBarU username={props.username} isAdmin={props.isAdmin} onSignout = {props.onSignout}/>
         <Collapse
           in={checked}
           {...(checked ? { timeout: 1000 } : {})}

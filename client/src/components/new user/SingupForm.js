@@ -81,7 +81,6 @@ const SingupForm = ( props, {submitForm}) => {
         var cities = document.getElementById('city')
         for(var i = 0; i < citiesOptions.length; i++){
             var option = citiesOptions[i];
-            console.log(option)
             cities.options.add( new Option(option.text, option.value) );
           }
     }, [errors]);
@@ -140,10 +139,10 @@ const SingupForm = ( props, {submitForm}) => {
                     <label className='label'>שנת לימודים</label>
                     <br/>
                     <select name="year" id="year" onChange={handleChange}>
-                        <option value="1">שנה א'</option>
-                        <option value="2">שנה ב'</option>
-                        <option value="3">שנה ג'</option>
-                        <option value="4">שנה ד'</option>
+                        <option value="A">שנה א'</option>
+                        <option value="B">שנה ב'</option>
+                        <option value="C">שנה ג'</option>
+                        <option value="D">שנה ד'</option>
                     </select>
                     {errors.year && <p className='error'>{errors.year}</p>}
                 </div>

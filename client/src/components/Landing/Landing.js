@@ -19,7 +19,7 @@ export default function Landing(props) {
     return (
         <div className={classes.root}>
             <CssBaseline/>
-            <Header username={props.username}/>
+            <Header username={props.username} isAdmin={props.isAdmin} onSignout = {props.onSignout}/>
         </div>
     );
 }

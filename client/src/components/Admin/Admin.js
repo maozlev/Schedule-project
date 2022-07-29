@@ -7,6 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import React, { useState, useEffect } from "react";
 import SetUpdateDetailsMode from "../SetUpdateDetailsMode/SetUpdateDetailsMode.js"
+import ShowStudentDetails from "../ShowStudentDetails/ShowStudentDetails";
 
 function Admin(props) {
     const [mainOption, setMainOption] = useState(null);
@@ -21,7 +22,7 @@ function Admin(props) {
 
                 return (<SetUpdateDetailsMode isAvaliable={props.isAvaliable}/>);
             case "changeStudentExperience":
-                return (<h1>changeStudentExperience!</h1>);
+                return (<ShowStudentDetails/>);
             case "downloadDocuments":
                 return (<h1>downloadDocuments</h1>);
             case "reports":

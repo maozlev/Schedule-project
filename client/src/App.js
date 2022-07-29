@@ -17,6 +17,7 @@ import axios from "axios"
 import Popup from 'reactjs-popup';
 import Modal from './components/Modal/Modal'
 import Admin from "./components/Admin/Admin"
+
 Amplify.configure(awsconfig);
 
 
@@ -35,17 +36,12 @@ function App({ signOut, user }) {
     // Variable to check if user already set his details
     const [isinDB, setisinDB] = useState(null);
     const [avaliableToUpdate, setIsAvaliableToUpdate] = useState(null);
-
-    useEffect(() => {
-      userIsInDB();
-      getConfiguration();
-      }, [isinDB]);
-    
+    const [adminsArray, setAdminsArray] = useState([]);
 
     /*
     This function search in our DB if user already exist.
     */
-    function userIsInDB() {
+    async function userIsInDB() {
       axios.get(`http://localhost:3001/api/checkisExist/${user.username}`)
           .then (async (response) => {
             console.log("-- Checked if this username insert his details to our DB.\nAnswer: " + response.data)
@@ -56,8 +52,8 @@ function App({ signOut, user }) {
           })
     }
 
+    // Check if students can update there details
     function getConfiguration() {
-      console.log("IN getConfiguration function")
       axios.get("http://localhost:3001/api/getConfiguration")
           .then (async (response) => {
             console.log("-- Collect configuration from DB")
@@ -66,36 +62,27 @@ function App({ signOut, user }) {
               // Handle errors
               console.log("ERROR: " + JSON.stringify(err.response.data))
           })
-          console.log("END getConfiguration function")
-
     }
- useEffect(() => {
+
+    let IsAdmin = user.username == "ADMIN" ? true : false;
+
+    useEffect(() => {
       userIsInDB();
       getConfiguration();
-      }, []);
-    /**
-     * If user NOT insert his details, Render to insert details at first time, else get the application
-     */
+    }, [isinDB]);
+
   
-  if(!isinDB){
     return (
       <>
         <Router>  
-          <Routes>
+          {!isinDB &&<Routes>
             <Route exact path='*' // Catch all pathes to any page
             element={
             <div>
               <FormNew username={user.username}/>
             </div>}/>
-          </Routes>
-        </Router>
-      </>
-    );
-  } else  
-    return (
-      <>
-        <Router>  
-          <Routes>
+          </Routes>}
+          {isinDB &&<Routes>
             <Route path='' element={
               <div className={classes.root}>
                   <script>
@@ -103,9 +90,8 @@ function App({ signOut, user }) {
                   console.log(creds.identityId)
                   </script>
                 <CssBaseline/>  
-                <Landing username={user.username} onClick={signOut}/>
+                <Landing username={user.username} onSignout={signOut} isAdmin = {IsAdmin}/>
                 <ThingsToDo/>  
-                <button onClick={signOut}>Sign out</button>
               </div>}
             />
             <Route exact path='/experience' element={
@@ -130,9 +116,9 @@ function App({ signOut, user }) {
               <Admin username={user.username} isAvaliable={avaliableToUpdate}/>
             </div>}/>
             <Route exact path='*' element={<div>404 Not Found!</div>}/>
-          </Routes>
+          </Routes>}
         </Router>
       </>
     );
-}
+  }
 export default withAuthenticator(App);

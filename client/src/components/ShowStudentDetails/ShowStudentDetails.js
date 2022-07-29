@@ -1,9 +1,37 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import "./ShowStudentDetails.css"
+// import exp from "constants";
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { padding, style } from "@mui/system";
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 6,
+    },
+  }));
+  
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
 
-
-export default function ShowStudentDetails(props){
+export default function ShowStudentDetails(props) {
     /*
     Status handle user state-
     false - in the first entry or after send empty ID
@@ -11,25 +39,30 @@ export default function ShowStudentDetails(props){
     user (object) - the document that recived from DB
     */
     const [user, setUser] = useState(false)
-    useEffect(()=>{
-        check()
-    },[user])    
+    useEffect(() => {
+        check();
+        createUserTable();
+    }, [user])
 
     /**
      * Check the status of user and present message "Not in our DB"
      * @returns 
      */
-    function check(){
-        if(user === false || user !== null){
+    function check() {
+        if (user === false || user !== null) {
             return ""
-        } else{
+        } else {
             return "סטודנט לא קיים במערכת"
         }
     }
     // experience hold all experience of user or null
     const [experience, setExperience] = useState(null)
+    useEffect(() => {
+        createExperienceTable();
+    }, [experience])
     // student_id hold the student id or empty string
     const [student_id, setStudent_id] = useState("")
+
     /**
      * update student_id on change
      * @param {change of input field} event 
@@ -42,24 +75,24 @@ export default function ShowStudentDetails(props){
      * Get the user from DB and set it on user (hook)
      * @returns 
      */
-    const collectUser = async ()=>{
-        if(student_id === "") {
+    const collectUser = async () => {
+        if (student_id === "") {
             setUser(false)
             return {
                 error: true,
                 message: 'Please enter ID'
             };
         } else {
-        await axios.get(`http://localhost:3001/api/getUserByID/${student_id}`)
-            .then (res => {
-            if(res.data == false){
-                console.log("-- Not found any student with id: " + student_id)
-                setUser(null)
-            }else{
-                console.log("-- User recived from DB\n" + JSON.stringify(res.data))
-                setUser(res.data)
-                }
-            })
+            axios.get(`http://localhost:3001/api/getUserByID/${student_id}`)
+                .then(res => {
+                    if (res.data == false) {
+                        console.log("-- Not found any student with id: " + student_id)
+                        setUser(null)
+                    } else {
+                        console.log("-- User recived from DB\n" + JSON.stringify(res.data))
+                        setUser(res.data)
+                    }
+                })
         }
     }
 
@@ -67,10 +100,10 @@ export default function ShowStudentDetails(props){
      * Get all experiences of this student
      * @param {} student_username 
      */
-    async function searchExperienceByID(student_username){
-        await axios.get(`http://localhost:3001/api/MyExperienceAdmin/${student_username}`) //Fetch the data from DB
+    const searchExperienceByID = (student_username) => {
+        axios.get(`http://localhost:3001/api/MyExperienceAdmin/${student_username}`) //Fetch the data from DB
             .then((response) => {
-                console.log("-- found experiences for this user - " + student_username )
+                console.log("-- found experiences for this user - " + student_username)
                 setExperience(response.data)
             }).catch((err) => {
                 // Handle errors
@@ -81,30 +114,117 @@ export default function ShowStudentDetails(props){
     /**
      * On click "submit" -> apply get username and get experience sequansly
      */
-    const submit =  async() => {
-        await collectUser()
-        .then(()=>{
-            if(user !== null){
-                searchExperienceByID(user.UserName)
-                .then(()=>{
-                    console.log("user from hook = " + JSON.stringify(user))
-                    console.log("experience from hook = " + JSON.stringify(experience))
+    function submit(){
+         collectUser()
+            .then(async () => {
+                if (user !== null && user !== false) {
+                    searchExperienceByID(user.UserName)
+                        .then(() => {
+                            console.log("user from hook = " + JSON.stringify(user))
+                            console.log("experience from hook = " + JSON.stringify(experience))
+                        })
+                }
+            })
+    }
+    function getYear(yearInNumber) {
+        switch (yearInNumber){
+                case "A":
+                    return("א")
+                case 1:
+                    return("א")
+                case "B":
+                    return("ב")
+                case 2:
+                    return("ב")
+                case "C":
+                    return("ג")
+                case 3:
+                    return("ג")
+                case "D":
+                    return("ד")
+                case 4:
+                    return("ד")
+                default:
+                    return (<h4>שגיאה - נא לעדכן סטודנט זה</h4>);
+            
+        }
+    }
+
+    function createUserTable() {
+        if (user !== null && user !== false) {
+            return (
+                <div>
+                    <div className="user-details">
+                    שם: {user.FirstName} {user.LastName} ,תעודת זהות: {user.id} <br /> עיר מגורים: {user.city} ,שנת לימודים: {getYear(user.year)}
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    function deleteExperience(exper) {
+        axios.get(`http://localhost:3001/api/deleteExperience/${student_id}`, {
+            Hospital : exper.Hospital,
+            Department : exper.Department,
+            StartDay : {
+                Year : exper.StartDate.Year,
+                Month : exper.StartDate.Month,
+                Day : exper.StartDate.Day
+            },
+            EndDate : {
+                Year : exper.EndDate.Year,
+                Month : exper.EndDate.Month,
+                Day : exper.EndDate.Day
+            }                   
+        }).then(res => {
+                    // TODO - print to log the response answer
                 })
-            }   
-        })
-    } 
-    
-    return(<div>
+    }
+
+    function createExperienceTable() {
+        if (experience!== null){
+            return(
+                <div dir="rtl">
+                    <button>הוסף התנסות</button>
+                    <table>
+                        <tr className="header-row">
+                            <th>בית חולים / מוסד</th>
+                            <th >מחלקה</th>
+                            <th >התחלה</th>
+                            <th >סוף</th>
+                            <th ></th>
+                        </tr>
+                        {experience.map((exper) => (
+                            <tr className="content-row">
+                                <td>{exper.Hospital}</td>
+                                <td>{exper.Department}</td>
+                                <td>{exper.StartDate.Day}/{exper.StartDate.Month}/{exper.StartDate.Year}</td>
+                                <td>{exper.EndDate.Day}/{exper.EndDate.Month}/{exper.EndDate.Year}</td>
+                                <td><button onClick={deleteExperience(exper)}>מחק התנסות</button> </td>
+                            </tr>
+                        ))}
+                    </table>
+                </div>
+            )}}
+
+        return (<div>
             <div className="current-status">
                 <div >הזן את תעודת הזהות של הסטודנט</div>
                 <div className="resultStatus">
-                {check()}
+                    {check()}
                 </div>
             </div>
             <div className="change-status-btn">
                 <input placeholder="ת.ז" onChange={handleChange} id="id"></input>
-                <button onClick={() => submit()}>קבלת פרטי הסטודנט</button>
+                <button onClick={() => submit()} style={{marginRight: "10px"}} >קבלת פרטי הסטודנט</button>
+            </div>
+            <div>
+                {createUserTable()}
+            </div>
+            <hr style={{margin: "10px 10px 0px 10px"}}></hr>
+            <div>
+                {createExperienceTable()}
             </div>
 
         </div>)
-}
+    }

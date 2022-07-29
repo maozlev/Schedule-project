@@ -42,6 +42,9 @@
   margin: 0;
   padding: 0;
 }
+input.input{
+  border: 1px solid #000 !important;
+}
 
 .container{
   background-image:url('../../../public/images/background3.jpg') ; 
@@ -63,16 +66,13 @@
 .input{
     height: 32px;
     font-size: 20px;
-    outline: none;
     width: 100%;
-    border-top-style: none;
-    border-left-style: none;
-    border-right-style: none;
-    border-bottom-style: 10px solid black;
     margin-bottom: 10px;
-    border: 5px;
+    border: 5px #000;
     border-radius: 5px;
+    padding: 5px;
 }
+
 .label{
   font-size: 20px;
   font-weight: bold;
@@ -103,4 +103,5 @@
 .buttons{
   margin-top: 80px;
 }
+
 

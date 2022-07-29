@@ -1,4 +1,3 @@
-export const AdminUsers = [
-    {
-        "username"  : "check"
-    }]
+const AdminUsers = ["yosef"]
+
+export default AdminUsers

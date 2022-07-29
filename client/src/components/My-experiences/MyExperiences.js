@@ -10,7 +10,7 @@ function App({username}) {
     
 
     const getExperienceByID = () => {
-        axios.get(`http://localhost:3001/api/MyExperience/${username}`) //Fetch the data from DB
+        axios.get(`http://localhost:3001/api/MyExperienceCalander/${username}`) //Fetch the data from DB
             .then((response) => {
                 const experiences = response.data.ev;
                 const contacts = response.data.co;
@@ -29,13 +29,13 @@ function App({username}) {
        
     return (
         <div className="Experience-page background-image">
-            <div class="Title">
+            <div className="Title">
                 <h1>לוח התנסויות</h1>
             </div>
-            <div class='calander-container' dir='rtl'>
+            <div className='calander-container' dir='rtl'>
                 <CalendarExperience events={allEvents}/>
             </div>
-            <div class='guide-table-container' dir='rtl'>
+            <div className='guide-table-container' dir='rtl'>
                 <GuideTable contactsArray={allContacts}></GuideTable>
             </div>
         </div>
