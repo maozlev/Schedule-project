@@ -3,6 +3,8 @@ import "./MyExperiences.css"
 import {useState, useEffect} from 'react'
 import GuideTable from "../Guide-table/Guide-table.js"
 import CalendarExperience from "../Calender-Experience/Calender-Experience.js"
+import { Link, useNavigate} from 'react-router-dom';     
+import Button from '@mui/material/Button';
 
 function App({username}) {
     const [allEvents, setAllEvents] = useState([]);
@@ -30,13 +32,28 @@ function App({username}) {
     return (
         <div className="Experience-page background-image">
             <div className="Title">
-                <h1>לוח התנסויות</h1>
+                <div>
+                    <h1>לוח התנסויות</h1>
+                </div>
+                {/* <div>
+                    <Link to="/">
+                        <Button variant="outlined" className='btn-return-hompage' style={{ float: 'left' }}>
+                            חזור לעמוד הבית    
+                        </Button>
+                    </Link>
+                </div> */}
             </div>
             <div className='calander-container' dir='rtl'>
                 <CalendarExperience events={allEvents}/>
             </div>
+            <Link to="/">
+                    <Button variant="contained" className='btn-return-hompage' style={{ float: 'left', margin: ' 5px',}}>
+                        חזור לעמוד הבית    
+                    </Button>
+            </Link>
             <div className='guide-table-container' dir='rtl'>
                 <GuideTable contactsArray={allContacts}></GuideTable>
+                
             </div>
         </div>
     );

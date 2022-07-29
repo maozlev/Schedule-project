@@ -8,21 +8,22 @@ import Select from '@mui/material/Select';
 import React, { useState, useEffect } from "react";
 import SetUpdateDetailsMode from "../SetUpdateDetailsMode/SetUpdateDetailsMode.js"
 import ShowStudentDetails from "../ShowStudentDetails/ShowStudentDetails";
+import { Link, useNavigate } from 'react-router-dom';
 
 function Admin(props) {
     const [mainOption, setMainOption] = useState(null);
     const handleChange = (event) => {
         setMainOption(event.target.value);
-      };
+    };
 
-    function fetchChoice(){
+    function fetchChoice() {
         switch (mainOption) {
             case "changeUpdateDetails":
                 // return (<h1>changeUpdateDetails</h1>);
 
-                return (<SetUpdateDetailsMode isAvaliable={props.isAvaliable}/>);
+                return (<SetUpdateDetailsMode isAvaliable={props.isAvaliable} />);
             case "changeStudentExperience":
-                return (<ShowStudentDetails/>);
+                return (<ShowStudentDetails />);
             case "downloadDocuments":
                 return (<h1>downloadDocuments</h1>);
             case "reports":
@@ -33,45 +34,53 @@ function Admin(props) {
     }
 
     let valueOfIsAvaliable = props.isAvaliable
-    
-    const submit =  async(val) => {
+
+    const submit = async (val) => {
         await axios.post("http://localhost:3001/api/setIsAvaliableToUpdateDetails/", {
             value: val
-        }).then (res => {
+        }).then(res => {
             valueOfIsAvaliable = val
-          })
-      };
+        })
+    };
 
-    return(
+    return (
         <div dir="rtl">
             <div>
-                <h3>דף מנהל</h3>
-                <p style={{marginRight:"50px", fontSize:30}}>יש לבחור פעולה מהרשימה</p>
+                <Link to="/">
+                    <button variant="outlined" className='btn-return-hompage' style={{ float: 'left' }}>
+                        חזור לעמוד הבית
+                    </button>
+                </Link>
             </div>
+            <div>
+                <h3>דף מנהל</h3>
+                <p style={{ marginRight: "50px", fontSize: 30 }}>יש לבחור פעולה מהרשימה</p>
+            </div>
+
             <div className="select-main-option">
-            <Box sx={{ minWidth: 120, marginRight: 20,marginLeft: 80}}>
-                <FormControl fullWidth>
-                    <InputLabel id="select-main-option-label">בחר פעולה</InputLabel>
-                    <Select
-                        labelId="select-main-option"
-                        id="select-main-option"
-                        value={mainOption}
-                        label="בחר פעולה"
-                        onChange={handleChange}
-                    >
-                        <MenuItem value={"changeUpdateDetails"}>שינוי הגדרת עדכון פרטים</MenuItem>
-                        <MenuItem value={"changeStudentExperience"}>שינוי שיבוץ לסטודנט</MenuItem>
-                        <MenuItem value={"downloadDocuments"}>הורדת אישורי התנסויות</MenuItem>
-                        <MenuItem value={"reports"}>דוחות</MenuItem>
-                    </Select>
-                </FormControl>
-            </Box>
-        </div>
-        <hr style={{margin: "50px 30px 0px 30px"}}></hr>
-        <div className="choices">
-            {fetchChoice()}
-        </div>
-        
-    </div>)}
+                <Box sx={{ minWidth: 120, marginRight: 20, marginLeft: 80 }}>
+                    <FormControl fullWidth>
+                        <InputLabel id="select-main-option-label">בחר פעולה</InputLabel>
+                        <Select
+                            labelId="select-main-option"
+                            id="select-main-option"
+                            value={mainOption}
+                            label="בחר פעולה"
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={"changeUpdateDetails"}>שינוי הגדרת עדכון פרטים</MenuItem>
+                            <MenuItem value={"changeStudentExperience"}>שינוי שיבוץ לסטודנט</MenuItem>
+                            <MenuItem value={"downloadDocuments"}>הורדת אישורי התנסויות</MenuItem>
+                            <MenuItem value={"reports"}>דוחות</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
+            </div>
+            <hr style={{ margin: "50px 30px 0px 30px" }}></hr>
+            <div className="choices">
+                {fetchChoice()}
+            </div>
+        </div>)
+}
 
 export default Admin;
