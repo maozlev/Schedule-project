@@ -1,48 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
 import "./ShowStudentDetails.css"
-// import exp from "constants";
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { padding, style } from "@mui/system";
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 6,
-    },
-  }));
-  
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    },
-  }));
+
 
 export default function ShowStudentDetails(props) {
     /*
-    Status handle user state-
-    false - in the first entry or after send empty ID
+    false - at the first entry or after send empty ID
     null - user doesn't exist in our DB
     user (object) - the document that recived from DB
     */
-    const [user, setUser] = useState(false)
-    useEffect(() => {
-        check();
-        createUserTable();
-    }, [user])
+    let user = false
+
 
     /**
      * Check the status of user and present message "Not in our DB"
@@ -57,9 +25,7 @@ export default function ShowStudentDetails(props) {
     }
     // experience hold all experience of user or null
     const [experience, setExperience] = useState(null)
-    useEffect(() => {
-        createExperienceTable();
-    }, [experience])
+
     // student_id hold the student id or empty string
     const [student_id, setStudent_id] = useState("")
 
@@ -75,22 +41,22 @@ export default function ShowStudentDetails(props) {
      * Get the user from DB and set it on user (hook)
      * @returns 
      */
-    const collectUser = async () => {
+    async function collectUser(){
         if (student_id === "") {
-            setUser(false)
+            user = false;
             return {
                 error: true,
                 message: 'Please enter ID'
             };
         } else {
-            axios.get(`http://localhost:3001/api/getUserByID/${student_id}`)
-                .then(res => {
-                    if (res.data == false) {
+            await axios.get(`http://localhost:3001/api/getUserByID/${student_id}`)
+                .then(async(res) => {
+                    if (res.data === false) {
                         console.log("-- Not found any student with id: " + student_id)
-                        setUser(null)
+                        user = null
                     } else {
                         console.log("-- User recived from DB\n" + JSON.stringify(res.data))
-                        setUser(res.data)
+                        user = res.data
                     }
                 })
         }
@@ -102,10 +68,8 @@ export default function ShowStudentDetails(props) {
      */
     const searchExperienceByID = (student_username) => {
         axios.get(`http://localhost:3001/api/MyExperienceAdmin/${student_username}`) //Fetch the data from DB
-            .then((response) => {
-                console.log("-- found experiences for this user - " + student_username)
-                setExperience(response.data)
-            }).catch((err) => {
+            .then((response) => {setExperience(response.data)})
+            .catch((err) => {
                 // Handle errors
                 console.log("ERROR: " + JSON.stringify(err.response.data))
             })
@@ -114,18 +78,12 @@ export default function ShowStudentDetails(props) {
     /**
      * On click "submit" -> apply get username and get experience sequansly
      */
-    function submit(){
-         collectUser()
-            .then(async () => {
-                if (user !== null && user !== false) {
-                    searchExperienceByID(user.UserName)
-                        .then(() => {
-                            console.log("user from hook = " + JSON.stringify(user))
-                            console.log("experience from hook = " + JSON.stringify(experience))
-                        })
-                }
-            })
+    // let data = {}
+    async function submit(){
+        await collectUser()
+        if (user) {searchExperienceByID(user.UserName)}
     }
+
     function getYear(yearInNumber) {
         switch (yearInNumber){
                 case "A":
@@ -163,6 +121,7 @@ export default function ShowStudentDetails(props) {
     }
 
     function deleteExperience(exper) {
+        console.log("%%%%\n\n" + exper)
         axios.get(`http://localhost:3001/api/deleteExperience/${student_id}`, {
             Hospital : exper.Hospital,
             Department : exper.Department,
@@ -200,31 +159,32 @@ export default function ShowStudentDetails(props) {
                                 <td>{exper.Department}</td>
                                 <td>{exper.StartDate.Day}/{exper.StartDate.Month}/{exper.StartDate.Year}</td>
                                 <td>{exper.EndDate.Day}/{exper.EndDate.Month}/{exper.EndDate.Year}</td>
-                                <td><button onClick={deleteExperience(exper)}>מחק התנסות</button> </td>
+                                <td><button onClick={deleteExperience}>מחק התנסות</button> </td>
                             </tr>
                         ))}
                     </table>
                 </div>
-            )}}
+            )}
+        }
 
-        return (<div>
-            <div className="current-status">
-                <div >הזן את תעודת הזהות של הסטודנט</div>
-                <div className="resultStatus">
-                    {check()}
-                </div>
+    return (<div>
+        <div className="current-status">
+            <div >הזן את תעודת הזהות של הסטודנט</div>
+            <div className="resultStatus">
+                {check()}
             </div>
-            <div className="change-status-btn">
-                <input placeholder="ת.ז" onChange={handleChange} id="id"></input>
-                <button onClick={() => submit()} style={{marginRight: "10px"}} >קבלת פרטי הסטודנט</button>
-            </div>
-            <div>
-                {createUserTable()}
-            </div>
-            <hr style={{margin: "10px 10px 0px 10px"}}></hr>
-            <div>
-                {createExperienceTable()}
-            </div>
+        </div>
+        <div className="change-status-btn">
+            <input placeholder="ת.ז" onChange={handleChange} id="id"></input>
+            <button onClick={() => submit()} style={{marginRight: "10px"}} >קבלת פרטי הסטודנט</button>
+        </div>
+        <div>
+            {createUserTable()}
+        </div>
+        <hr style={{margin: "10px 10px 0px 10px"}}></hr>
+        <div>
+            {createExperienceTable()}
+        </div>
 
-        </div>)
+    </div>)
     }
