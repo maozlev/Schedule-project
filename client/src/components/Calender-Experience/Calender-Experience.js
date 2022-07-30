@@ -21,7 +21,7 @@ const localizer = dateFnsLocalizer({
 export default function CustomizedTables(props) {
     return (
         <Calendar 
-        localizer={localizer} events={props.events} startAccessor="start" endAccessor="end" style={{ height: 500 }} />
+        localizer={localizer} events={props.events} startAccessor="start" endAccessor="end" view='month' views={['month']} style={{ height: 500 }} />
     );
   }
 
