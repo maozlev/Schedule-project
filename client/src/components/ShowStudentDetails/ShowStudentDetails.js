@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./ShowStudentDetails.css";
-import {Hospitals, Regions, Experiences} from "../../static/RequestFormData.js"
+import { Hospitals, Regions, Experiences, Data } from "../../static/RequestFormData.js"
+import { useEffect } from "react";
 
 export default function ShowStudentDetails(props) {
   /*
@@ -30,9 +31,10 @@ export default function ShowStudentDetails(props) {
 
   const [addExp, setAddExp] = useState(false);
 
-  const [region, setRegion] = useState(null);
+  const [group, setGroup] = useState(null);
+  const [area, setArea] = useState(null);
+  const [department, setDepartment] = useState(null);
   const [hospital, setHospital] = useState(null);
-  const [expr, setExpr] = useState(null);
 
   /**
    * update student_id on change
@@ -118,6 +120,53 @@ export default function ShowStudentDetails(props) {
         return <h4>שגיאה - נא לעדכן סטודנט זה</h4>;
     }
   }
+  // useEffect(() => {
+  //   setHospital(null)
+  //   setExpr(null)
+  //   createExperienceTable()
+  // }, [region])
+
+  // useEffect(() => {
+  //   if (!region) {
+  //     setExpr(null)
+  //     createUserTable()
+  //   }
+  // }, [hospital])
+
+  let groupsList = []
+  Data.forEach(g => groupsList.push(g.GroupName))
+  var groupListUnique = [ ... new Set (groupsList)]
+
+  const [values, setValues] = useState({
+    Adress: null,
+    Contact: null,
+    PhoneNumber: null,
+    Email: null,
+    Startday: null,
+    Startmonth: null,
+    Startyear: null,
+    Endday: null,
+    Endmonth: null,
+    Endyear: null
+  })
+
+  function addExperience() {
+    // let currHospiatl = Hospitals.filter(hosp => hosp.DisplayName == hospital)[0]
+    // const eperience = {
+    //   UserName : props.username,
+    //   Group : Groups.filter(g => g.Departments.includes(expr))[0].GroupName,
+    //   Area : currHospiatl.Region
+
+    // }
+  }
+
+
+  const handleChangeExp = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    })
+  }
 
   function createUserTable() {
     if (user !== null && user !== false) {
@@ -154,30 +203,59 @@ export default function ShowStudentDetails(props) {
               <form className="addExp">
                 <ul>
                   <div className="select">
-                    <select className="select region"></select>
-                    <select className="select hospital"></select>
-                    <select className="select expr"></select>
+                    <select className="select group" onChange={(e) => setGroup(e.target.value)}>
+                      <option value={null} >אנא בחר חטיבה</option>
+                      {groupListUnique.map(g =>
+                        <option value={g}>{g}</option>)}
+                    </select>
+                    {group &&
+                      <select className="select area" onChange={(e) => setArea(e.target.value)}>
+                        <option value={null}>אנא בחר תחום</option>
+                        {Data.filter(g => g?.GroupName == group)[0].Area.map(a =>
+                          <option value={a.AreaName}>{a.AreaName}</option>)}
+                      </select>}
+                    {group && area &&
+                      <select className="select department" onChange={(e) => setDepartment(e.target.value)}>
+                        <option value={null}>אנא בחר מחלקה</option>
+                        {Data.filter(g => g?.GroupName == group)[0].Area.filter(a => a.AreaName == area)[0].Departments?.map(d =>
+                          <option value={Experiences[d]}>{Experiences[d]}</option>)}
+                      </select>}
+                  </div>
+                  <div className="select-Hospital">
+                  {group && area && department &&
+                      <select className="select hospital" onChange={(e) => setHospital(e.target.value)}>
+                        <option value={null}>אנא בחר בית חולים</option>
+                        {Hospitals.filter(h => h?.Departments.includes(Object.keys(Experiences).find(key => Experiences[key] === department))).map(hd =>
+                          <option value={hd.DisplayName}>{hd.DisplayName}</option>)}
+
+                      </select>}
                   </div>
                   <div className="date start">
                     <span className="span date">
                       <input
                         id="year"
+                        name="Startyear"
                         className="addExpr date year"
                         placeholder="שנה"
+                        onChange={handleChangeExp}
                       ></input>
                     </span>
                     <span className="span date">
                       <input
                         id="month"
+                        name="Startmonth"
                         className="addExpr date month"
                         placeholder="חודש"
+                        onChange={handleChangeExp}
                       ></input>
                     </span>
                     <span className="span date">
                       <input
                         id="day"
+                        name="Startday"
                         className="addExpr date day"
                         placeholder="יום"
+                        onChange={handleChangeExp}
                       ></input>
                     </span>
                   </div>
@@ -185,46 +263,62 @@ export default function ShowStudentDetails(props) {
                     <span>
                       <input
                         id="year"
+                        name="Endyear"
                         className="addExpr date year"
                         placeholder="שנה"
+                        onChange={handleChangeExp}
                       ></input>
                     </span>
                     <span>
                       <input
                         id=""
+                        name="Endmonth"
                         className="addExpr date month"
                         placeholder="חודש"
+                        onChange={handleChangeExp}
                       ></input>
                     </span>
                     <span>
                       <input
                         id=""
+                        name="Endday"
                         className="addExpr date day"
                         placeholder="יום"
+                        onChange={handleChangeExp}
                       ></input>
                     </span>
                   </div>
                   <div className="contactData">
                     <input
-                      id=""
+                      id="contact name"
+                      name="Contact"
                       className="contact name"
                       placeholder="איש קשר"
+                      onChange={handleChangeExp}
                     ></input>
                     <input
-                      id=""
+                      id="contact phone"
+                      name="PhoneNumber"
                       className="contact phone"
                       placeholder="טלפון"
+                      onChange={handleChangeExp}
                     ></input>
                     <input
-                      id=""
+                      id="contact email"
+                      name="Email"
                       className="contact email"
                       placeholder="דואר אלקטרוני"
+                      onChange={handleChangeExp}
                     ></input>
+                  </div>
+                  <div className="btn-submit addExpr">
+                    <button type="button" onClick={() => addExperience()}>שלח</button>
                   </div>
                 </ul>
               </form>
             </div>
-          )}
+          )
+          }
           <table>
             <tr className="header-row">
               <th>בית חולים / מוסד</th>
@@ -252,7 +346,7 @@ export default function ShowStudentDetails(props) {
               </tr>
             ))}
           </table>
-        </div>
+        </div >
       );
     }
   }

@@ -27,25 +27,25 @@ function RequestsForm({username}) {
 
     const [values, setValues] = useState({
         UserName: username,
-        H1Internal:null,
-        H1Surgical:null,
-        H1IntensiveCare:null,
-        H1Gynecologiy:null,
-        H1Community:null,
-        H1Pediatric:null,
-        H1Psychiatry:null,
-        H1Special:null,
-        H1Advance:null,
+        H1DInternal:null,
+        H1DSurgical:null,
+        H1DIntensiveCare:null,
+        H1DGynecologiy:null,
+        H1DCommunity:null,
+        H1DPediatric:null,
+        H1DPsychiatry:null,
+        H1DSpecial:null,
+        H1DAdvance:null,
 
-        H2Internal:null,
-        H2Surgical:null,
-        H2IntensiveCare:null,
-        H2Gynecologiy:null,
-        H2Community:null,
-        H2Pediatric:null,
-        H2Psychiatry:null,
-        H2Special:null,
-        H2Advance:null
+        H2DInternal:null,
+        H2_Surgical:null,
+        H2DIntensiveCare:null,
+        H2DGynecologiy:null,
+        H2DCommunity:null,
+        H2DPediatric:null,
+        H2DPsychiatry:null,
+        H2DSpecial:null,
+        H2DAdvance:null
     })
 
     const handleChange = (event) => {
@@ -111,11 +111,11 @@ function RequestsForm({username}) {
                         {region1 && Object.keys(Experiences).map((exper,idx) =>
                             // {(Hospitals.filter(hosp => hosp.Region == region1 && hosp.Departments.includes(exper)).length > 0) &&
                              <div className={"Region1-Departments "+exper}>
-                                <InputLabel id={"H1_D "+ exper}>{Experiences[exper]}</InputLabel>
+                                <InputLabel id={"H1D"+ exper}>{Experiences[exper]}</InputLabel>
                                 <Select 
-                                labelId={"H1_D "+ exper}
-                                name={"H1_D "+ exper} 
-                                id={"H1_D "+ exper} 
+                                labelId={"H1D"+ exper}
+                                name={"H1D"+ exper} 
+                                id={"H1D"+ exper} 
                                 autoWidth
                                 onChange={handleChange}>
                                     {Hospitals.filter(hosp => hosp.Region == region1 && hosp.Departments.includes(exper)).map(h => 
@@ -144,11 +144,11 @@ function RequestsForm({username}) {
                         <br/>
                         {region2 && Object.keys(Experiences).map((exper,idx) =>
                             <div className={"Region2-Departments "+exper}>
-                                <InputLabel id={"H2_D "+ exper}>{Experiences[exper]}</InputLabel>
+                                <InputLabel id={"H2D"+ exper}>{Experiences[exper]}</InputLabel>
                                 <Select 
-                                labelId={"H2_D "+ exper}
-                                name={"H2_D "+ exper} 
-                                id={"H2_D "+ exper} 
+                                labelId={"H2D"+ exper}
+                                name={"H2D"+ exper} 
+                                id={"H2D"+ exper} 
                                 onChange={handleChange}>
                                     {Hospitals.filter(hosp => hosp.Region == region2 && hosp.Departments.includes(exper)).map(h => 
                                         <MenuItem value={h.DisplayName}>{h.DisplayName}</MenuItem>

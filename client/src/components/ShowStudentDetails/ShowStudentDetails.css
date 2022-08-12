@@ -40,3 +40,11 @@ input.contact {
 div.contactData {
   margin: 10px;
 }
+select.select {
+  width: 30% !important;
+  margin: 0% !important;
+  margin-inline: 3px !important;
+}
+div.select {
+  margin: 10px;
+}
