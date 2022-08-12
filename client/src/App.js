@@ -13,9 +13,12 @@ import Form from './components/update user/Form'
 import FormNew from './components/new user/Form'
 import FileUpload from './components/drop-file-input/DropFileInput'
 import MyExper from './components/My-experiences/MyExperiences'
+import RequestForm from './components/RequestForm/RequestForm'
+import ReactLoading from "react-loading";
+
 import axios from "axios"
 import Popup from 'reactjs-popup';
-import Modal from './components/Modal/Modal'
+// import Modal from './components/Modal/Modal'
 import Admin from "./components/Admin/Admin"
 
 Amplify.configure(awsconfig);
@@ -33,45 +36,48 @@ const useStyles = makeStyles((theme) => ({
 
 function App({ signOut, user }) {
   const classes = useStyles();
-    // Variable to check if user already set his details
-    const [isinDB, setisinDB] = useState(null);
-    const [avaliableToUpdate, setIsAvaliableToUpdate] = useState(null);
-    const [adminsArray, setAdminsArray] = useState([]);
+  // Variable to check if user already set his details
+  const [isinDB, setisinDB] = useState(null);
+  const [avaliableToUpdate, setIsAvaliableToUpdate] = useState(null);
+  const [flag,setFlag] = useState(false)
+  /*
+  This function search in our DB if user already exist.
+  */
+  async function userIsInDB() {
+    axios.get(`http://localhost:3001/api/checkisExist/${user.username}`)
+        .then (async (response) => {
+          console.log("-- Checked if this username insert his details to our DB.\nAnswer: " + response.data)
+          setisinDB(response.data);
+          setFlag(true)
+        }).catch((err) => {
+            // Handle errors
+            console.log("ERROR: " + JSON.stringify(err.response.data))
+        })
+  }
 
-    /*
-    This function search in our DB if user already exist.
-    */
-    async function userIsInDB() {
-      axios.get(`http://localhost:3001/api/checkisExist/${user.username}`)
-          .then (async (response) => {
-            console.log("-- Checked if this username insert his details to our DB.\nAnswer: " + response.data)
-            setisinDB(response.data);
-          }).catch((err) => {
-              // Handle errors
-              console.log("ERROR: " + JSON.stringify(err.response.data))
-          })
-    }
+  // Check if students can update there details
+  async function getConfiguration() {
+    axios.get("http://localhost:3001/api/getConfiguration")
+        .then (async (response) => {
+          console.log("-- Collect configuration from DB")
+          setIsAvaliableToUpdate(response.data.value);
+        }).catch((err) => {
+            // Handle errors
+            console.log("ERROR: " + JSON.stringify(err.response.data))
+        })
+  }
+  //TODO - accept just admin user!
+  let IsAdmin = user.username == "ADMIN" ? true : false;
 
-    // Check if students can update there details
-    function getConfiguration() {
-      axios.get("http://localhost:3001/api/getConfiguration")
-          .then (async (response) => {
-            console.log("-- Collect configuration from DB")
-            setIsAvaliableToUpdate(response.data.value);
-          }).catch((err) => {
-              // Handle errors
-              console.log("ERROR: " + JSON.stringify(err.response.data))
-          })
-    }
-
-    let IsAdmin = user.username == "ADMIN" ? true : false;
-
-    useEffect(() => {
-      userIsInDB();
-      getConfiguration();
-    }, [isinDB]);
-
+  useEffect(async ()=>{
+    await userIsInDB();
+    await getConfiguration();
+  },[])
   
+  //Flag to wait for answer from UserIsInDB function
+  if(!flag){
+    return null
+  }else{
     return (
       <>
         <Router>  
@@ -97,13 +103,15 @@ function App({ signOut, user }) {
             <Route exact path='/experience' element={
               <div>
               <MyExper username={user.username}/>
-              </div>}
-                                              />
+              </div>}/>
+              <Route exact path='/RequestedForm' element={
+                <div>
+                  <RequestForm username={user.username}/>
+                </div>}/>
             <Route exact path='/papers' element={
               <div>
                 <FileUpload username={user.username}/>
-              </div>}
-                                                />
+              </div>}/>
             <Route exact path='/update' 
             element={
             <div>
@@ -119,6 +127,6 @@ function App({ signOut, user }) {
           </Routes>}
         </Router>
       </>
-    );
-  }
+    );}
+}
 export default withAuthenticator(App);

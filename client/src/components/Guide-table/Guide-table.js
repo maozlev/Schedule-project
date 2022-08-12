@@ -37,20 +37,22 @@ export default function CustomizedTables(props) {
       <Table sx={{ width: 1150, margin: 'auto'}} aria-label="customized table">
         <TableHead>
           <TableRow>
+            <StyledTableCell>מס'</StyledTableCell>
             <StyledTableCell>בית חולים / מוסד</StyledTableCell>
-            <StyledTableCell >מחלקה</StyledTableCell>
-            <StyledTableCell >כתובת</StyledTableCell>
+            <StyledTableCell>מחלקה</StyledTableCell>
+            <StyledTableCell>כתובת</StyledTableCell>
             <StyledTableCell>איש קשר</StyledTableCell>
             <StyledTableCell>מס' פלאפון</StyledTableCell>
             <StyledTableCell>דואר אלקטורני</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.contactsArray.map((contact) => (
-            <StyledTableRow key={contact.Hospital}>
+          {props.contactsArray.map((contact, idx) => (
+            <StyledTableRow key={idx}>
               <StyledTableCell component="th" scope="row">
-                {contact.Hospital}
+                {idx+1}
               </StyledTableCell>
+              <StyledTableCell>{contact.Hospital}</StyledTableCell>
               <StyledTableCell>{contact.Department}</StyledTableCell>
               <StyledTableCell>{contact.Address}</StyledTableCell>
               <StyledTableCell>{contact.Contact}</StyledTableCell>

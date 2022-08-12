@@ -11,9 +11,20 @@ const {citiesOptions} = require("../../static/Cities.js")
 
 const SingupForm = ( props, {submitForm}) => {
     let username = props.username;
+<<<<<<< Updated upstream
     console.log(username);
 
     
+=======
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+          if ((new Date().getTime() - start) > milliseconds){
+            break;
+          }
+        }
+    }
+>>>>>>> Stashed changes
     const [values, setValues] = useState({
         username: username,
         id:"",

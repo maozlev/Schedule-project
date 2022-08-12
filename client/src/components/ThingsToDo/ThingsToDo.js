@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import ImageCard from '../ImageCard/ImageCard';
+import ImageCardRequestForm from '../ImageCard-RequestForm/ImageCard-RequestForm';
 import ImageCardCopy from '../ImageCard copy/ImageCardCopy';
 import things from '../../static/Things';
 import useWindowPosition from '../../hook/useWindowPosition';
@@ -24,6 +25,7 @@ export default function ThingsToDo() {
     <div className={classes.root} id="thing-to-do">
         <ImageCard thing={things[0]} checked={checked}/>
         <ImageCardCopy thing={things[1]} checked={checked}/>
+        <ImageCardRequestForm thing={things[2]} checked={checked}/>
     </div>
     );
 }

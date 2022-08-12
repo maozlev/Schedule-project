@@ -11,7 +11,8 @@ const CheckUserInDB = require('./controllers/CheckUserInDB')
 const GetConfiguration = require('./controllers/getConfiguration')
 const GetUserByID = require('./controllers/getUserByID')
 const deleteExperience = require('./controllers/deleteExperience')
-
+const GetAllDocuments = require('./controllers/getAllDocuments')
+const ExperiencesRequests = require('./controllers/ExperiencesRequests')
 
 
 dotenv.config()
@@ -30,8 +31,13 @@ app.get("/api/MyExperienceAdmin/:username", ExperiencesController.ExperiencesByU
 app.get("/api/checkisExist/:username", CheckUserInDB.isExist)
 app.get("/api/getUserByID/:id", GetUserByID.getUser)
 app.get("/api/update_details/:username", UsersController.User)
+app.get("/api/getAllUsers",UsersController.AllUsers)
 app.get("/api/getConfiguration", GetConfiguration.isAvaliable)
 app.post("/api/deleteExperience/:username", deleteExperience.deleteExp)
+app.post("/api/SubmitExperienceRequests", ExperiencesRequests.AddRequest)
+app.get("/api/getAllDocuments", GetAllDocuments.getDocs)
+app.get("/api/downloadDoc", GetAllDocuments.getDocAsBase64)
+
 
 app.listen(3001, ()=> {
     console.log("running on port 3001");

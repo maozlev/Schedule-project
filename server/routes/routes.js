@@ -81,7 +81,7 @@ router.post('/papers', async(req, res) => {
     .catch(error=> {
         console.log("problem accured")
         console.log(error)
-        res.json(error)
+        res.status(400).json(error)
     })
 })
 

@@ -1,7 +1,3 @@
-import format from "date-fns/format";
-import getDay from "date-fns/getDay";
-import parse from "date-fns/parse";
-import startOfWeek from "date-fns/startOfWeek";
 import { Calendar, momentLocalizer  } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -22,7 +18,6 @@ export default function CustomizedTables(props) {
         events={props.events} 
         startAccessor="start" 
         endAccessor="end" 
-        view='month' 
         views={['month']} 
         style={{ height: 500 }}
         messages={{

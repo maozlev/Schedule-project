@@ -13,6 +13,13 @@ const things = [
       imageUrl: process.env.PUBLIC_URL + '/images/background3.jpg',
       time: 1500,
     },
+    {
+      title: 'בקשות לשיבוץ',
+      description:
+        "יש למלא את העדפות השיבוץ, המחלקה תשתדל למלא אחר כל הבקשות",
+      imageUrl: process.env.PUBLIC_URL + '/images/hospital3.jpg',
+      time: 1500,
+    },
   ];
   
   export default things;

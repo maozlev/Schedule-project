@@ -1,0 +1,56 @@
+.background-image{
+    background-image: url("../../../public/images/background.jpg") !important; 
+    background-attachment: fixed;
+    background-position: top;
+}
+.Title{
+    text-align: center;
+    height: 3;
+    font-size: 40px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.FormContainer{
+    width : 60%;
+    margin-inline: auto;
+    text-align: center;
+    border-style: solid;
+    border-width: 3px;
+}
+form {
+    padding: 5px;
+}
+.Region1-Departments {
+    margin-block: 5%;
+    margin-inline: 15%;
+    border-style: dashed;
+    border-width: 3px;
+    background-color: aliceblue !important;
+
+}
+.Region2-Departments {
+    margin-block: 5%;
+    margin-inline: 15%;
+    border-style: dashed;
+    border-width: 3px;
+    background-color: aliceblue !important;
+
+}
+Select.H1_D{
+    width : 90%
+}
+Select.H2_D{
+    width : 90%
+}
+hr {
+    border: none;
+    height: 5px;
+    /* Set the hr color */
+    color: #333; /* old IE */
+    background-color: #333; /* Modern Browsers */
+    margin-inline: 150px;
+}
+.MuiSelect-select{
+    width: 100px;
+}
+

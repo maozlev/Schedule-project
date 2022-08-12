@@ -8,6 +8,7 @@ import Select from '@mui/material/Select';
 import React, { useState, useEffect } from "react";
 import SetUpdateDetailsMode from "../SetUpdateDetailsMode/SetUpdateDetailsMode.js"
 import ShowStudentDetails from "../ShowStudentDetails/ShowStudentDetails";
+import DownloadDocuments from "../DownloadDocuments/DownloadDocuments"
 import { Link, useNavigate } from 'react-router-dom';
 
 function Admin(props) {
@@ -25,7 +26,7 @@ function Admin(props) {
             case "changeStudentExperience":
                 return (<ShowStudentDetails />);
             case "downloadDocuments":
-                return (<h1>downloadDocuments</h1>);
+                return (<DownloadDocuments/>);
             case "reports":
                 return (<h1>reports</h1>);
             default:

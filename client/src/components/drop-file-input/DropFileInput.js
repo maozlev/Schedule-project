@@ -6,7 +6,6 @@ import{Viewer, Worker}from'@react-pdf-viewer/core';
 // Import the styles
 import'@react-pdf-viewer/core/lib/styles/index.css'; 
 
-// import * as React from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -55,7 +54,7 @@ class App extends Component {
     // On file upload (click the upload button)
     onFileUpload =  async(event) => {
       if(this.state.selectedFile != null) {
-        let title = this.state.selectedFile.name + '_' + Date.now().toString()
+        let title = this.state.selectedFile.name
         if(this.state.type === 'application/pdf'){
           await axios.post("http://localhost:3001/api/papers/", {
               UserName: this.props.username,
@@ -68,10 +67,10 @@ class App extends Component {
               console.log(res)
               if (res.status === 200){
                   alert("נשלח בהצלחה");
+                  return;
               }else{
                   alert("אנא נסה שנית");
               }
-              console.log(res.data);
             })
           }else{
             //TODO need disable this alert and return to select another file
@@ -86,7 +85,6 @@ class App extends Component {
       base64toBlob = (data) => {
         // Cut the prefix from the raw base 64
         const base64 = data.split("base64,")
-        console.log(base64[1])
         const bytes = atob(base64[1]);
         let length = bytes.length;
         let out = new Uint8Array(length);
@@ -178,7 +176,6 @@ class App extends Component {
                         <MenuItem value={"Psychiatry"}>סיעוד בריאות הנפש</MenuItem>
                         <MenuItem value={"Special"}>התנסות קלינית ייחודית</MenuItem>
                         <MenuItem value={"Advance"}>התנסות קלינית מתקדמת</MenuItem>
-
                       </Select>
                     </FormControl>
                   </Box>

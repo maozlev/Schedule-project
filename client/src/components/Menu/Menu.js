@@ -83,8 +83,6 @@ export default function CustomizedMenus(props) {
 
   return (
     <div>
-      <IconButton>
-      </IconButton>
       <SortIcon className={classes.icon}
         id="demo-customized-button"
         aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -117,15 +115,6 @@ export default function CustomizedMenus(props) {
           <FileCopyIcon />
           התנתק
         </MenuItem>
-        {/* <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleClose} disableRipple>
-          <ArchiveIcon />
-          Archive
-        </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          <MoreHorizIcon />
-          More
-        </MenuItem> */}
       </StyledMenu>
     </div>
   );

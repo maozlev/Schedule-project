@@ -9,7 +9,6 @@ import Button from '@mui/material/Button';
 function App({username}) {
     const [allEvents, setAllEvents] = useState([]);
     const [allContacts, setAllContacts] = useState([]);
-    
 
     const getExperienceByID = () => {
         axios.get(`http://localhost:3001/api/MyExperienceCalander/${username}`) //Fetch the data from DB
@@ -35,13 +34,6 @@ function App({username}) {
                 <div>
                     <h1>לוח התנסויות</h1>
                 </div>
-                {/* <div>
-                    <Link to="/">
-                        <Button variant="outlined" className='btn-return-hompage' style={{ float: 'left' }}>
-                            חזור לעמוד הבית    
-                        </Button>
-                    </Link>
-                </div> */}
             </div>
             <div className='calander-container' dir='rtl'>
                 <CalendarExperience events={allEvents}/>
