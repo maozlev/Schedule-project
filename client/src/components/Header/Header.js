@@ -60,7 +60,7 @@ export default function Header( props) {
         <Collapse
           in={checked}
           {...(checked ? { timeout: 1000 } : {})}
-          collapsedHeight={50}
+          collapsedSize={50}
         >
           <div 
             className={classes.container}>

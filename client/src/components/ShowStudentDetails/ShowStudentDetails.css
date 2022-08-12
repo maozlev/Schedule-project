@@ -1,23 +1,42 @@
-.content-row{
-    font-size: 16px;
+.content-row {
+  font-size: 16px;
 }
 
-th.header-row{
-    font-size: 20px;
+th.header-row {
+  font-size: 20px;
 }
 
-table{
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-td, th {
-    border: 1px solid #dddddd;
-    text-align: center;
-    padding: 8px;
-  }
-  
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
 tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+  background-color: #dddddd;
+}
+
+input.addExpr.date {
+  width: 30% !important;
+  margin: 0% !important;
+  margin-inline: 3px !important;
+}
+div.date {
+  margin: 10px;
+}
+
+input.contact {
+  width: 30% !important;
+  margin: 0% !important;
+  margin-inline: 3px !important;
+}
+div.contactData {
+  margin: 10px;
+}

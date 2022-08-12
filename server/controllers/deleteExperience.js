@@ -1,25 +1,21 @@
-const Experiences = require('../model/experience');
-const { all } = require('../routes/routes');
+const Experiences = require("../model/experience");
+const { all } = require("../routes/routes");
 
 const deleteExp = async (req, res) => {
-    console.log("-- Start deleteExp")
-    var username = req.params.username;
-    await Experiences.findOne({ UserName: username, 
-                                Hospital : req.body.Hospital,
-                                Department : req.body.Department,
-                                StartDay : req.body.StartDay,
-                                EndDay : req.body.EndDay},
-                                (err, ans)=> {
-                                    if(err){
-                                        console.log("Problem occured!\n" + err.toString())
-                                    } else{
-                                        console.log("One document delete from database")
-                                    }
-                                    res.status(200)
-                                }) 
-
-}
+  console.log("-- Start deleteExp");
+  console.log(6, req.body);
+  console.log(Experiences.collection);
+  let exp = await Experiences.deleteOne({ _id: req.body._id }).then
+  ((ans, err) => {
+    if (err) {
+      console.log("Problem occured!\n" + err.toString());
+    } else {
+      console.log("One document delete from database");
+    }
+    res.status(200);
+  });
+};
 
 module.exports = {
-    deleteExp
-}
+  deleteExp,
+};

@@ -8,6 +8,7 @@ import useWindowPosition from '../../hook/useWindowPosition';
 const useStyles = makeStyles((theme) => ({
     root : {
         minHeight: '100vh',
+        direction: 'rtl',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
-export default function() {
+export default function ThingsToDo() {
     const classes = useStyles();
     const checked = useWindowPosition('header');
     return (

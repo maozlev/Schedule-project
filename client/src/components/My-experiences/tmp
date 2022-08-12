@@ -60,14 +60,14 @@ function App({username}) {
     
     return (
         <div className="Experience-page background-image">
-            <div class="Title">
+            <div className="Title">
                 <h1>לוח התנסויות</h1>
             </div>
-            <div class='calander-container' dir='rtl'>
+            <div className='calander-container' dir='rtl'>
                 <Calendar 
                     localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500 }} />
             </div>
-            <div class='guide-table-container' dir='rtl'>
+            <div className='guide-table-container' dir='rtl'>
                 <GuideTable contancts={allContacts}></GuideTable>
             </div>
         </div>

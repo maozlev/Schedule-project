@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ClassNames } from '@emotion/react';
 import Stack from '@mui/material/Stack';
 import {useNavigate} from 'react-router-dom';
+import './ImageCard.css'
 
 
 const useStyles = makeStyles({
@@ -66,9 +67,11 @@ export default function ImageCard({thing, checked}) {
                 </Typography>
             </CardContent>
             <Stack spacing={2} direction="row">
-              <Button variant="contained" onClick={handleClick} type="Button">
-                Contained 
-              </Button>
+              <div className='buttonMainPage'>
+                <Button variant="contained" onClick={handleClick} type="Button">
+                  לחץ כאן 
+                </Button>
+              </div>
               
             </Stack>
         </Card>

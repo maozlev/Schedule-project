@@ -60,9 +60,8 @@ export default function AppBarU( props) {
               className={classes.appbarTitle}>
               hello<span className={classes.colorText}> {props.username}!</span>
             </h1>
-            <IconButton position='fix'>
-              <Menu isAdmin={props.isAdmin} onSignout = {props.onSignout}/>
-            </IconButton>
+            <IconButton position='fix'/>
+            <Menu isAdmin={props.isAdmin} onSignout = {props.onSignout}/>
           </Toolbar>
         </AppBar>
       </div>

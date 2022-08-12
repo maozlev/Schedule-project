@@ -33,11 +33,11 @@ const experience = new mongoose.Schema({
     },
     Group: {
         type:String,
-        required: true
+        required: false
     },
     Area: {
         type:String,
-        required: true
+        required: false
     },
     Department: {
         type:String,
@@ -49,15 +49,15 @@ const experience = new mongoose.Schema({
     },
     Address: {
         type:AddressSchema,
-        required: true
+        // required: false
     },
     Contact: {
         type:String,
-        required: true
+        // required: false
     },
     PhoneNumber: {
         type:String,
-        required: true
+        // required: false
     },
     Email: {
         type:String,
@@ -72,4 +72,4 @@ const experience = new mongoose.Schema({
     
 })
 
-module.exports = mongoose.model('experiences',experience)
+module.exports = mongoose.model('Experiences',experience)

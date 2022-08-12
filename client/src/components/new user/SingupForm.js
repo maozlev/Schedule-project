@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Validation from './Validation';
 import axios from 'axios';
-import { Link, useNavigate} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './SingupForm.css'
 import Button from '@mui/material/Button';
 
@@ -13,14 +13,7 @@ const SingupForm = ( props, {submitForm}) => {
     let username = props.username;
     console.log(username);
 
-    function sleep(milliseconds) {
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-          if ((new Date().getTime() - start) > milliseconds){
-            break;
-          }
-        }
-    }
+    
     const [values, setValues] = useState({
         username: username,
         id:"",
@@ -85,15 +78,12 @@ const SingupForm = ( props, {submitForm}) => {
           }
     }, [errors]);
 
-    const history = useNavigate();
-    function handleClickback(){
-    history('/'); 
-   }
+   
   return (
     <div className='container' >
         <div className='app-wrapper' >
             <div>
-                <h2 class='to_middle'> צור משתמש </h2>
+                <h2 className='to_middle'> צור משתמש </h2>
             </div>
             <form className='form-wrapper' dir="rtl">
                 <div className='id'>
