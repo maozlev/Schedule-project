@@ -13,14 +13,7 @@ const SingupForm = ( props, {submitForm}) => {
     let username = props.username;
     console.log(username);
 
-    function sleep(milliseconds) {
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-          if ((new Date().getTime() - start) > milliseconds){
-            break;
-          }
-        }
-    }
+    
     const [values, setValues] = useState({
         username: username,
         id:"",
@@ -86,9 +79,9 @@ const SingupForm = ( props, {submitForm}) => {
     }, [errors]);
 
     const history = useNavigate();
-    function handleClickback(){
-    history('/'); 
-   }
+//     function handleClickback(){
+//     history('/'); 
+//    }
   return (
     <div className='container' >
         <div className='app-wrapper' >

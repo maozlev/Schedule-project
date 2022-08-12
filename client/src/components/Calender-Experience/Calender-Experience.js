@@ -7,9 +7,9 @@ import 'moment/locale/he';
 const localizer = momentLocalizer(moment) 
 
 
-const locales = {
-    "he": require("date-fns/locale/he"),
-};
+// const locales = {
+//     "he": require("date-fns/locale/he"),
+// };
 
 export default function CustomizedTables(props) {
     return (

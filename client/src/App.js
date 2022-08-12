@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import ThingsToDo from './components/ThingsToDo/ThingsToDo';
 import Landing from './components/Landing/Landing';
-import {Amplify, AWSPluginsCore, Auth} from 'aws-amplify';
+import {Amplify} from 'aws-amplify'; //AWSPluginsCore, Auth
 import awsconfig from './aws-exports';
 import '@aws-amplify/ui-react/styles.css';
 import { withAuthenticator } from '@aws-amplify/ui-react';
@@ -14,10 +14,8 @@ import FormNew from './components/new user/Form'
 import FileUpload from './components/drop-file-input/DropFileInput'
 import MyExper from './components/My-experiences/MyExperiences'
 import RequestForm from './components/RequestForm/RequestForm'
-import ReactLoading from "react-loading";
 
 import axios from "axios"
-import Popup from 'reactjs-popup';
 // import Modal from './components/Modal/Modal'
 import Admin from "./components/Admin/Admin"
 

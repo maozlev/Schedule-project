@@ -45,7 +45,7 @@ export default function DownloadDocuments(props){
         if(canBuild){
             AllDocs.forEach((doc) => {
                 let currUser =  AllUsers.find(usr => {
-                    return usr.UserName == doc.UserName
+                    return usr.UserName === doc.UserName
                 })
                 DocsUsersList.push({
                     Name : currUser.FirstName + " " + currUser.LastName,
@@ -79,7 +79,7 @@ export default function DownloadDocuments(props){
     const [dataToShow,setDataToShow] = useState(null)
 
     function setData(){
-        var data = AllData.filter((doc) => {return doc.ID == studentID})
+        var data = AllData.filter((doc) => {return doc.ID === studentID})
         setDataToShow(data)
     }
 
@@ -112,7 +112,7 @@ export default function DownloadDocuments(props){
     function fetchData() {
         if(AllData){
             if(year){
-                let data = AllData.filter((doc) => {return doc.Year == year})
+                let data = AllData.filter((doc) => {return doc.Year === year})
                 setDataToShow(data)
                 return showResults()
             } else if (studentID){

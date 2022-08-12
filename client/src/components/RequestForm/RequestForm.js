@@ -1,13 +1,9 @@
 import axios from "axios";
 import "./RequestForm.css"
-import {useForm} from 'react-hook-form'
-import {useState, useEffect} from 'react'
-import { Link, useNavigate} from 'react-router-dom';     
+import {useState} from 'react'
+import { useNavigate} from 'react-router-dom';     
 import {Hospitals, Regions, Experiences} from "../../static/RequestFormData.js"
-import Box from '@mui/material/Box';
-import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
-
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,8 +13,8 @@ import MenuItem from '@mui/material/MenuItem';
 function RequestsForm({username}) {
     const [region1,setRegion1] = useState(null)
     const [region2,setRegion2] = useState(null)
-    const [status, setStatus] = useState(false)
-    const history = useNavigate();
+    // const [status, setStatus] = useState(false)
+    // const history = useNavigate();
 
 
     // useEffect(()=>{
@@ -118,7 +114,7 @@ function RequestsForm({username}) {
                                 id={"H1D"+ exper} 
                                 autoWidth
                                 onChange={handleChange}>
-                                    {Hospitals.filter(hosp => hosp.Region == region1 && hosp.Departments.includes(exper)).map(h => 
+                                    {Hospitals.filter(hosp => hosp.Region === region1 && hosp.Departments.includes(exper)).map(h => 
                                         <MenuItem value={h.DisplayName}>{h.DisplayName}</MenuItem>
                                     )}
                                 </Select>
@@ -150,7 +146,7 @@ function RequestsForm({username}) {
                                 name={"H2D"+ exper} 
                                 id={"H2D"+ exper} 
                                 onChange={handleChange}>
-                                    {Hospitals.filter(hosp => hosp.Region == region2 && hosp.Departments.includes(exper)).map(h => 
+                                    {Hospitals.filter(hosp => hosp.Region === region2 && hosp.Departments.includes(exper)).map(h => 
                                         <MenuItem value={h.DisplayName}>{h.DisplayName}</MenuItem>
                                     )}
                                 </Select>

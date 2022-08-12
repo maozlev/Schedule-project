@@ -46,5 +46,18 @@ select.select {
   margin-inline: 3px !important;
 }
 div.select {
-  margin: 10px;
+  width: 96%;
+  margin: 10px 10px;
+}
+div.select.Hospital {
+  position: relative;
+  height: auto;
+  width: 29%;
+  margin: 0% 22% 0% 0px;
+}
+select.select.hospital {
+  width: 100% !important;
+  margin: 0% !important;
+  padding: 0% !important;
+  margin-inline: 3px !important;
 }

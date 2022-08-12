@@ -5,11 +5,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SetUpdateDetailsMode from "../SetUpdateDetailsMode/SetUpdateDetailsMode.js"
 import ShowStudentDetails from "../ShowStudentDetails/ShowStudentDetails";
 import DownloadDocuments from "../DownloadDocuments/DownloadDocuments"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Admin(props) {
     const [mainOption, setMainOption] = useState(null);
@@ -34,15 +34,15 @@ function Admin(props) {
         }
     }
 
-    let valueOfIsAvaliable = props.isAvaliable
+    // let valueOfIsAvaliable = props.isAvaliable
 
-    const submit = async (val) => {
-        await axios.post("http://localhost:3001/api/setIsAvaliableToUpdateDetails/", {
-            value: val
-        }).then(res => {
-            valueOfIsAvaliable = val
-        })
-    };
+    // const submit = async (val) => {
+    //     await axios.post("http://localhost:3001/api/setIsAvaliableToUpdateDetails/", {
+    //         value: val
+    //     }).then(res => {
+    //         valueOfIsAvaliable = val
+    //     })
+    // };
 
     return (
         <div dir="rtl">

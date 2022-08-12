@@ -1,6 +1,6 @@
 import axios from 'axios';
  
-import React,{Component, useState} from 'react';
+import React,{Component} from 'react';
 // Import the main component
 import{Viewer, Worker}from'@react-pdf-viewer/core';
 // Import the styles
@@ -11,7 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Link, useNavigate} from 'react-router-dom';     
+import { Link} from 'react-router-dom';     
 import Button from '@mui/material/Button';
 import "./DropFileInput.css"
 

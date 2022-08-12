@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./ShowStudentDetails.css";
-import { Hospitals, Regions, Experiences, Data } from "../../static/RequestFormData.js"
-import { useEffect } from "react";
+import { Hospitals, Experiences, Data } from "../../static/RequestFormData.js"
+// import { useEffect } from "react";
 
 export default function ShowStudentDetails(props) {
   /*
@@ -135,7 +135,7 @@ export default function ShowStudentDetails(props) {
 
   let groupsList = []
   Data.forEach(g => groupsList.push(g.GroupName))
-  var groupListUnique = [ ... new Set (groupsList)]
+  var groupListUnique = [ ...new Set (groupsList)]
 
   const [values, setValues] = useState({
     Adress: null,
@@ -211,17 +211,17 @@ export default function ShowStudentDetails(props) {
                     {group &&
                       <select className="select area" onChange={(e) => setArea(e.target.value)}>
                         <option value={null}>אנא בחר תחום</option>
-                        {Data.filter(g => g?.GroupName == group)[0].Area.map(a =>
+                        {Data.filter(g => g?.GroupName === group)[0].Area.map(a =>
                           <option value={a.AreaName}>{a.AreaName}</option>)}
                       </select>}
                     {group && area &&
                       <select className="select department" onChange={(e) => setDepartment(e.target.value)}>
                         <option value={null}>אנא בחר מחלקה</option>
-                        {Data.filter(g => g?.GroupName == group)[0].Area.filter(a => a.AreaName == area)[0].Departments?.map(d =>
+                        {Data.filter(g => g?.GroupName === group)[0].Area.filter(a => a.AreaName === area)[0].Departments?.map(d =>
                           <option value={Experiences[d]}>{Experiences[d]}</option>)}
                       </select>}
                   </div>
-                  <div className="select-Hospital">
+                  <div className="select Hospital">
                   {group && area && department &&
                       <select className="select hospital" onChange={(e) => setHospital(e.target.value)}>
                         <option value={null}>אנא בחר בית חולים</option>
