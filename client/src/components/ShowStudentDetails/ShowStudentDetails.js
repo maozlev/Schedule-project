@@ -3,9 +3,7 @@ import axios from "axios";
 import "./ShowStudentDetails.css";
 import { Hospitals, Experiences, Data } from "../../static/RequestFormData.js";
 import { useEffect } from "react";
-import {default as UUID} from "node-uuid";
-
-
+import { default as UUID } from "node-uuid";
 
 export default function ShowStudentDetails(props) {
   /*
@@ -22,7 +20,7 @@ export default function ShowStudentDetails(props) {
     Area: "",
     Department: "",
     Hospital: "",
-    Address: "",
+    Address: { City: "", Street: "", Number: "" },
     Contact: "",
     PhoneNumber: "",
     Email: "",
@@ -62,7 +60,10 @@ export default function ShowStudentDetails(props) {
   const [endYear, setEndYear] = useState(null);
   const [endMonth, setEndtMonth] = useState(null);
   const [endDay, setEndtDay] = useState(null);
-  
+  const [city, setCity] = useState(null);
+  const [street, setStreet] = useState(null);
+  const [number, setNumber] = useState(null);
+
   /**
    * update student_id on change
    * @param {change of input field} event
@@ -148,69 +149,69 @@ export default function ShowStudentDetails(props) {
     }
   }
 
-  
   useEffect(() => {
     setArea(null);
     setDepartment(null);
     createExperienceTable();
-  }, [group])
+  }, [group]);
 
   useEffect(() => {
-    if(!group){
+    if (!group) {
       setDepartment(null);
       createExperienceTable();
     }
-  }, [area])
+  }, [area]);
 
   useEffect(() => {
     if (!group && !area) {
-      setGroup(null)
+      setGroup(null);
       setArea(null);
-      setHospital(null)
-      createUserTable()
+      setHospital(null);
+      createUserTable();
     }
-  }, [department])
+  }, [department]);
 
   useEffect(() => {
     if (!group && !area && !department) {
-      setGroup(null)
+      setGroup(null);
       setArea(null);
-      setDepartment(null);  
-      createUserTable()
+      setDepartment(null);
+      createUserTable();
     }
-  }, [hospital])
+  }, [hospital]);
 
   let groupsList = [];
   Data.forEach((g) => groupsList.push(g.GroupName));
   var groupListUnique = [...new Set(groupsList)];
 
-
   function addExperience() {
-    let currHospiatl = Hospitals.filter(hosp => hosp.DisplayName === hospital)[0];
+    let currHospiatl = Hospitals.filter(
+      (hosp) => hosp.DisplayName === hospital
+    )[0];
     newExp._id = UUID.v4();
     newExp.UserName = props.username;
     newExp.Group = group;
     newExp.Area = currHospiatl?.Region;
     newExp.Department = department;
-    newExp.Hospital = currHospiatl.DisplayName;
+    newExp.Hospital = currHospiatl?.DisplayName;
     newExp.Contact = contact;
     newExp.PhoneNumber = phoneNumber;
     newExp.Email = email;
-    newExp.StartDate = {Year:startYear, Month:startMonth, Day:startDay};
-    newExp.EndDate = {Year:endYear, Month:endMonth, Day:endDay};
+    newExp.Address = { City: city, Street: street, Number: number };
+
+    newExp.StartDate = { Year: startYear, Month: startMonth, Day: startDay };
+    newExp.EndDate = { Year: endYear, Month: endMonth, Day: endDay };
 
     console.log(174, currHospiatl);
     axios
       .post(`http://localhost:3001/api/addExp/${student_id}`, {
-        newExp
+        newExp,
       })
       .then((res) => {
         console.log(res);
         // TODO - print to log the response answer
       });
   }
-
-
 
   function createUserTable() {
     if (user !== null && user !== false) {
@@ -262,11 +263,11 @@ export default function ShowStudentDetails(props) {
                         onChange={(e) => setArea(e.target.value)}
                       >
                         <option value={null}>אנא בחר תחום</option>
-                        {Data.filter((g) => g?.GroupName === group)[0]?.Area?.map(
-                          (a) => (
-                            <option value={a.AreaName}>{a.AreaName}</option>
-                          )
-                        )}
+                        {Data.filter(
+                          (g) => g?.GroupName === group
+                        )[0]?.Area?.map((a) => (
+                          <option value={a.AreaName}>{a.AreaName}</option>
+                        ))}
                       </select>
                     )}
                     {group && area && (
@@ -305,6 +306,36 @@ export default function ShowStudentDetails(props) {
                         ))}
                       </select>
                     )}
+                  </div>
+                  <div className="date start">
+                    <span className="span date">
+                      {" "}
+                      <input
+                        id="city"
+                        name="addressCity"
+                        className="addExpr address city"
+                        placeholder="עיר"
+                        onChange={(e) => setCity(e.target.value)}
+                      ></input>
+                    </span>
+                    <span className="span date">
+                      <input
+                        id="street"
+                        name="addressStreet"
+                        className="addExpr address street"
+                        placeholder="רחוב"
+                        onChange={(e) => setStreet(e.target.value)}
+                      ></input>
+                    </span>
+                    <span className="span date">
+                      <input
+                        id="numberStreet"
+                        name="numberStreet"
+                        className="numberStreet"
+                        placeholder="מספר"
+                        onChange={(e) => setNumber(e.target.value)}
+                      ></input>
+                    </span>
                   </div>
                   <div className="date start">
                     <span className="span date">

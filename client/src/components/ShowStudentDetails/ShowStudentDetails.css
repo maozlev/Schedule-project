@@ -64,3 +64,10 @@ select.select.hospital {
 .addExpr.date.year{
   margin: 0%;
 }
+.addExpr.address.city{
+  margin: 0% !important;
+}
+input{
+  width: 30%;
+  margin: 5px;
+}
