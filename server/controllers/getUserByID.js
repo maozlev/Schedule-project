@@ -7,7 +7,7 @@ const getUser = async (req,res) => {
         .exec(function (err, result){
             if(err){/*Handle errors*/} 
             if (result){
-                console.log("found user with id ==="+ result.id)
+                // console.log("found user with id ==="+ result.id)
                 res.status(200).send(result)
             }else{
                 console.log("Not find this user")

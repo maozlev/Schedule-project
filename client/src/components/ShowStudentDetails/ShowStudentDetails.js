@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./ShowStudentDetails.css";
-import { Hospitals, Experiences, Data } from "../../static/RequestFormData.js"
-// import { useEffect } from "react";
+import { Hospitals, Experiences, Data } from "../../static/RequestFormData.js";
+import { useEffect } from "react";
+import {default as UUID} from "node-uuid";
+
+
 
 export default function ShowStudentDetails(props) {
   /*
@@ -11,6 +14,21 @@ export default function ShowStudentDetails(props) {
     user (object) - the document that recived from DB
     */
   let user = false;
+
+  let newExp = {
+    _id: "",
+    UserName: "",
+    Group: "",
+    Area: "",
+    Department: "",
+    Hospital: "",
+    Address: "",
+    Contact: "",
+    PhoneNumber: "",
+    Email: "",
+    StartDate: { Year: "", Month: "", Day: "" },
+    EndDate: { Year: "", Month: "", Day: "" },
+  };
 
   /**
    * Check the status of user and present message "Not in our DB"
@@ -35,7 +53,16 @@ export default function ShowStudentDetails(props) {
   const [area, setArea] = useState(null);
   const [department, setDepartment] = useState(null);
   const [hospital, setHospital] = useState(null);
-
+  const [contact, setContact] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [startYear, setStartYear] = useState(null);
+  const [startMonth, setStartMonth] = useState(null);
+  const [startDay, setStartDay] = useState(null);
+  const [endYear, setEndYear] = useState(null);
+  const [endMonth, setEndtMonth] = useState(null);
+  const [endDay, setEndtDay] = useState(null);
+  
   /**
    * update student_id on change
    * @param {change of input field} event
@@ -120,53 +147,70 @@ export default function ShowStudentDetails(props) {
         return <h4>שגיאה - נא לעדכן סטודנט זה</h4>;
     }
   }
-  // useEffect(() => {
-  //   setHospital(null)
-  //   setExpr(null)
-  //   createExperienceTable()
-  // }, [region])
 
-  // useEffect(() => {
-  //   if (!region) {
-  //     setExpr(null)
-  //     createUserTable()
-  //   }
-  // }, [hospital])
+  
+  useEffect(() => {
+    setArea(null);
+    setDepartment(null);
+    createExperienceTable();
+  }, [group])
 
-  let groupsList = []
-  Data.forEach(g => groupsList.push(g.GroupName))
-  var groupListUnique = [ ...new Set (groupsList)]
+  useEffect(() => {
+    if(!group){
+      setDepartment(null);
+      createExperienceTable();
+    }
+  }, [area])
 
-  const [values, setValues] = useState({
-    Adress: null,
-    Contact: null,
-    PhoneNumber: null,
-    Email: null,
-    Startday: null,
-    Startmonth: null,
-    Startyear: null,
-    Endday: null,
-    Endmonth: null,
-    Endyear: null
-  })
+  useEffect(() => {
+    if (!group && !area) {
+      setGroup(null)
+      setArea(null);
+      setHospital(null)
+      createUserTable()
+    }
+  }, [department])
+
+  useEffect(() => {
+    if (!group && !area && !department) {
+      setGroup(null)
+      setArea(null);
+      setDepartment(null);  
+      createUserTable()
+    }
+  }, [hospital])
+
+  let groupsList = [];
+  Data.forEach((g) => groupsList.push(g.GroupName));
+  var groupListUnique = [...new Set(groupsList)];
+
 
   function addExperience() {
-    // let currHospiatl = Hospitals.filter(hosp => hosp.DisplayName == hospital)[0]
-    // const eperience = {
-    //   UserName : props.username,
-    //   Group : Groups.filter(g => g.Departments.includes(expr))[0].GroupName,
-    //   Area : currHospiatl.Region
+    let currHospiatl = Hospitals.filter(hosp => hosp.DisplayName === hospital)[0];
+    newExp._id = UUID.v4();
+    newExp.UserName = props.username;
+    newExp.Group = group;
+    newExp.Area = currHospiatl?.Region;
+    newExp.Department = department;
+    newExp.Hospital = currHospiatl.DisplayName;
+    newExp.Contact = contact;
+    newExp.PhoneNumber = phoneNumber;
+    newExp.Email = email;
+    newExp.StartDate = {Year:startYear, Month:startMonth, Day:startDay};
+    newExp.EndDate = {Year:endYear, Month:endMonth, Day:endDay};
 
-    // }
+    console.log(174, currHospiatl);
+    axios
+      .post(`http://localhost:3001/api/addExp/${student_id}`, {
+        newExp
+      })
+      .then((res) => {
+        console.log(res);
+        // TODO - print to log the response answer
+      });
   }
 
 
-  const handleChangeExp = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    })
-  }
 
   function createUserTable() {
     if (user !== null && user !== false) {
@@ -203,32 +247,64 @@ export default function ShowStudentDetails(props) {
               <form className="addExp">
                 <ul>
                   <div className="select">
-                    <select className="select group" onChange={(e) => setGroup(e.target.value)}>
-                      <option value={null} >אנא בחר חטיבה</option>
-                      {groupListUnique.map(g =>
-                        <option value={g}>{g}</option>)}
+                    <select
+                      className="select group"
+                      onChange={(e) => setGroup(e.target.value)}
+                    >
+                      <option value={null}>אנא בחר חטיבה</option>
+                      {groupListUnique.map((g) => (
+                        <option value={g}>{g}</option>
+                      ))}
                     </select>
-                    {group &&
-                      <select className="select area" onChange={(e) => setArea(e.target.value)}>
+                    {group && (
+                      <select
+                        className="select area"
+                        onChange={(e) => setArea(e.target.value)}
+                      >
                         <option value={null}>אנא בחר תחום</option>
-                        {Data.filter(g => g?.GroupName === group)[0].Area.map(a =>
-                          <option value={a.AreaName}>{a.AreaName}</option>)}
-                      </select>}
-                    {group && area &&
-                      <select className="select department" onChange={(e) => setDepartment(e.target.value)}>
+                        {Data.filter((g) => g?.GroupName === group)[0]?.Area?.map(
+                          (a) => (
+                            <option value={a.AreaName}>{a.AreaName}</option>
+                          )
+                        )}
+                      </select>
+                    )}
+                    {group && area && (
+                      <select
+                        className="select department"
+                        onChange={(e) => setDepartment(e.target.value)}
+                      >
                         <option value={null}>אנא בחר מחלקה</option>
-                        {Data.filter(g => g?.GroupName === group)[0].Area.filter(a => a.AreaName === area)[0].Departments?.map(d =>
-                          <option value={Experiences[d]}>{Experiences[d]}</option>)}
-                      </select>}
+                        {Data.filter((g) => g?.GroupName === group)[0]
+                          ?.Area.filter((a) => a.AreaName === area)[0]
+                          ?.Departments?.map((d) => (
+                            <option value={Experiences[d]}>
+                              {Experiences[d]}
+                            </option>
+                          ))}
+                      </select>
+                    )}
                   </div>
                   <div className="select Hospital">
-                  {group && area && department &&
-                      <select className="select hospital" onChange={(e) => setHospital(e.target.value)}>
+                    {group && area && department && (
+                      <select
+                        className="select hospital"
+                        onChange={(e) => setHospital(e.target.value)}
+                      >
                         <option value={null}>אנא בחר בית חולים</option>
-                        {Hospitals.filter(h => h?.Departments.includes(Object.keys(Experiences).find(key => Experiences[key] === department))).map(hd =>
-                          <option value={hd.DisplayName}>{hd.DisplayName}</option>)}
-
-                      </select>}
+                        {Hospitals.filter((h) =>
+                          h?.Departments.includes(
+                            Object.keys(Experiences).find(
+                              (key) => Experiences[key] === department
+                            )
+                          )
+                        ).map((hd) => (
+                          <option value={hd.DisplayName}>
+                            {hd.DisplayName}
+                          </option>
+                        ))}
+                      </select>
+                    )}
                   </div>
                   <div className="date start">
                     <span className="span date">
@@ -237,7 +313,7 @@ export default function ShowStudentDetails(props) {
                         name="Startyear"
                         className="addExpr date year"
                         placeholder="שנה"
-                        onChange={handleChangeExp}
+                        onChange={(e) => setStartYear(e.target.value)}
                       ></input>
                     </span>
                     <span className="span date">
@@ -246,7 +322,7 @@ export default function ShowStudentDetails(props) {
                         name="Startmonth"
                         className="addExpr date month"
                         placeholder="חודש"
-                        onChange={handleChangeExp}
+                        onChange={(e) => setStartMonth(e.target.value)}
                       ></input>
                     </span>
                     <span className="span date">
@@ -255,7 +331,7 @@ export default function ShowStudentDetails(props) {
                         name="Startday"
                         className="addExpr date day"
                         placeholder="יום"
-                        onChange={handleChangeExp}
+                        onChange={(e) => setStartDay(e.target.value)}
                       ></input>
                     </span>
                   </div>
@@ -266,7 +342,7 @@ export default function ShowStudentDetails(props) {
                         name="Endyear"
                         className="addExpr date year"
                         placeholder="שנה"
-                        onChange={handleChangeExp}
+                        onChange={(e) => setEndYear(e.target.value)}
                       ></input>
                     </span>
                     <span>
@@ -275,7 +351,7 @@ export default function ShowStudentDetails(props) {
                         name="Endmonth"
                         className="addExpr date month"
                         placeholder="חודש"
-                        onChange={handleChangeExp}
+                        onChange={(e) => setEndtMonth(e.target.value)}
                       ></input>
                     </span>
                     <span>
@@ -284,7 +360,7 @@ export default function ShowStudentDetails(props) {
                         name="Endday"
                         className="addExpr date day"
                         placeholder="יום"
-                        onChange={handleChangeExp}
+                        onChange={(e) => setEndtDay(e.target.value)}
                       ></input>
                     </span>
                   </div>
@@ -294,31 +370,32 @@ export default function ShowStudentDetails(props) {
                       name="Contact"
                       className="contact name"
                       placeholder="איש קשר"
-                      onChange={handleChangeExp}
+                      onChange={(e) => setContact(e.target.value)}
                     ></input>
                     <input
                       id="contact phone"
                       name="PhoneNumber"
                       className="contact phone"
                       placeholder="טלפון"
-                      onChange={handleChangeExp}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
                     ></input>
                     <input
                       id="contact email"
                       name="Email"
                       className="contact email"
                       placeholder="דואר אלקטרוני"
-                      onChange={handleChangeExp}
+                      onChange={(e) => setEmail(e.target.value)}
                     ></input>
                   </div>
-                  <div className="btn-submit addExpr">
-                    <button type="button" onClick={() => addExperience()}>שלח</button>
+                  <div className="btn submit addExpr">
+                    <button type="button" onClick={() => addExperience()}>
+                      שלח
+                    </button>
                   </div>
                 </ul>
               </form>
             </div>
-          )
-          }
+          )}
           <table>
             <tr className="header-row">
               <th>בית חולים / מוסד</th>
@@ -346,7 +423,7 @@ export default function ShowStudentDetails(props) {
               </tr>
             ))}
           </table>
-        </div >
+        </div>
       );
     }
   }

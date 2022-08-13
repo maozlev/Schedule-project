@@ -61,3 +61,6 @@ select.select.hospital {
   padding: 0% !important;
   margin-inline: 3px !important;
 }
+.addExpr.date.year{
+  margin: 0%;
+}

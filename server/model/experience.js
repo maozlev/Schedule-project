@@ -29,23 +29,23 @@ const DateShcema = new mongoose.Schema({
 const experience = new mongoose.Schema({
     UserName: {
         type:String,
-        required: true
+        // required: true
     },
     Group: {
         type:String,
-        required: false
+        // required: false
     },
     Area: {
         type:String,
-        required: false
+        // required: false
     },
     Department: {
         type:String,
-        required: true
+        // required: true
     },
     Hospital: {
         type:String,
-        required: true
+        // required: true
     },
     Address: {
         type:AddressSchema,
@@ -61,7 +61,7 @@ const experience = new mongoose.Schema({
     },
     Email: {
         type:String,
-        required: true
+        // required: true
     },
     StartDate: {
         type: DateShcema
