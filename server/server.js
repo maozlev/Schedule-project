@@ -14,6 +14,7 @@ const deleteExperience = require('./controllers/deleteExperience')
 const addExpAdmin = require('./controllers/addExpAdmin')
 const GetAllDocuments = require('./controllers/getAllDocuments')
 const ExperiencesRequests = require('./controllers/ExperiencesRequests')
+const activateAlgo = require('./controllers/activateAlgo')
 
 
 dotenv.config()
@@ -37,6 +38,7 @@ app.get("/api/getConfiguration", GetConfiguration.isAvaliable)
 app.post("/api/deleteExperience/:username", deleteExperience.deleteExp)
 app.post("/api/addExp/:username", addExpAdmin.addExp)
 app.post("/api/SubmitExperienceRequests", ExperiencesRequests.AddRequest)
+app.post("/api/activateAlgo", activateAlgo.activateAlgo)
 app.get("/api/getAllDocuments", GetAllDocuments.getDocs)
 app.get("/api/downloadDoc", GetAllDocuments.getDocAsBase64)
 

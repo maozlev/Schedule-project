@@ -30,12 +30,18 @@ export default function ScheduleAlgorithm(props) {
           cb(error,null)
         }
       };
-
+      const activateAlgo =  async(val) => {
+        console.log(val);
+        await axios.post("http://localhost:3001/api/activateAlgo/", {
+            activate: true
+        }).then (res => {
+            console.log(res);
+          })
+      };
     return (
-        <div>
-            <Button variant="contained" component="label">
-                בחר קובץ
-                <input type="file" hidden accept='application/pdf' onChange={() => onFileChange} />
+        <div className="div btn">
+            <Button className='btn schedule' variant="contained" component="label" onClick={() => activateAlgo()}>
+                לחץ כאן להפעלת אלגוריתם השיבוץ
             </Button>
         </div>
     );
