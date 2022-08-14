@@ -3,7 +3,6 @@ import axios from "axios";
 import "./ShowStudentDetails.css";
 import { Hospitals, Experiences, Data } from "../../static/RequestFormData.js";
 import { useEffect } from "react";
-import { default as UUID } from "node-uuid";
 
 export default function ShowStudentDetails(props) {
   /*
@@ -14,7 +13,7 @@ export default function ShowStudentDetails(props) {
   let user = false;
 
   let newExp = {
-    _id: "",
+    // _id: "",
     UserName: "",
     Group: "",
     Area: "",
@@ -46,7 +45,6 @@ export default function ShowStudentDetails(props) {
   const [student_id, setStudent_id] = useState("");
 
   const [addExp, setAddExp] = useState(false);
-
   const [group, setGroup] = useState(null);
   const [area, setArea] = useState(null);
   const [department, setDepartment] = useState(null);
@@ -188,7 +186,7 @@ export default function ShowStudentDetails(props) {
     let currHospiatl = Hospitals.filter(
       (hosp) => hosp.DisplayName === hospital
     )[0];
-    newExp._id = UUID.v4();
+    // newExp._id = UUID.v4();
     newExp.UserName = props.username;
     newExp.Group = group;
     newExp.Area = currHospiatl?.Region;
@@ -198,7 +196,6 @@ export default function ShowStudentDetails(props) {
     newExp.PhoneNumber = phoneNumber;
     newExp.Email = email;
     newExp.Address = { City: city, Street: street, Number: number };
-
     newExp.StartDate = { Year: startYear, Month: startMonth, Day: startDay };
     newExp.EndDate = { Year: endYear, Month: endMonth, Day: endDay };
 

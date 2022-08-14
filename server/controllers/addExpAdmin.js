@@ -11,7 +11,7 @@ const addExp = async (req, res) => {
     Area: expToAdd.Area,
     Department: expToAdd.Department,
     Hospital: expToAdd.Hospital,
-    // Address: expToAdd.Address,
+    Address: expToAdd.Address,
     Contact: expToAdd.Contact,
     PhoneNumber: expToAdd.PhoneNumber,
     Email: expToAdd.Email,
