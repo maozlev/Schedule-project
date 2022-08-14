@@ -8,6 +8,7 @@ import Select from '@mui/material/Select';
 import React, { useState } from "react";
 import SetUpdateDetailsMode from "../SetUpdateDetailsMode/SetUpdateDetailsMode.js"
 import ShowStudentDetails from "../ShowStudentDetails/ShowStudentDetails";
+import ScheduleAlgorithm from "../ScheduleAlgorithm/ScheduleAlgorithm"
 import DownloadDocuments from "../DownloadDocuments/DownloadDocuments"
 import { Link } from 'react-router-dom';
 
@@ -27,6 +28,8 @@ function Admin(props) {
                 return (<ShowStudentDetails username={props.username}/>);
             case "downloadDocuments":
                 return (<DownloadDocuments/>);
+            case "scheduleAlgorithm":
+                return(<ScheduleAlgorithm/>);
             case "reports":
                 return (<h1>reports</h1>);
             default:
@@ -73,6 +76,7 @@ function Admin(props) {
                             <MenuItem value={"changeStudentExperience"}>שינוי שיבוץ לסטודנט</MenuItem>
                             <MenuItem value={"downloadDocuments"}>הורדת אישורי התנסויות</MenuItem>
                             <MenuItem value={"reports"}>דוחות</MenuItem>
+                            <MenuItem value={"scheduleAlgorithm"}>הרצת אלגוריתם שיבוץ</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
