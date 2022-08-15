@@ -37,6 +37,10 @@ function App({ signOut, user }) {
   const [isinDB, setisinDB] = useState(null);
   const [avaliableToUpdate, setIsAvaliableToUpdate] = useState(null);
   const [flag,setFlag] = useState(false)
+  const [openToUpdate, setopenToUpdate] = useState(false);
+  // useEffect(async ()=>{
+    
+  // },[openToUpdate])
   /*
   This function search in our DB if user already exist.
   */
@@ -112,13 +116,13 @@ function App({ signOut, user }) {
             <Route exact path='/update' 
             element={
             <div>
-              <Form username={user.username} isAvaliable={avaliableToUpdate}/>
+              <Form username={user.username}/>
             </div>}/>
             {/*TODO design 404 page*/}
             <Route exact path='/admin' 
             element={
             <div>
-              <Admin username={user.username} isAvaliable={avaliableToUpdate}/>
+              <Admin username={user.username}/>
             </div>}/>
             <Route exact path='*' element={<div>404 Not Found!</div>}/>
           </Routes>}

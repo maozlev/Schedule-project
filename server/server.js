@@ -15,6 +15,7 @@ const addExpAdmin = require('./controllers/addExpAdmin')
 const GetAllDocuments = require('./controllers/getAllDocuments')
 const ExperiencesRequests = require('./controllers/ExperiencesRequests')
 const activateAlgo = require('./controllers/activateAlgo')
+const checkUpdate = require('./controllers/checkUpdate')
 
 
 dotenv.config()
@@ -29,7 +30,7 @@ app.use('/api', routeUrls)
 
 app.get("/api/MyExperienceCalander/:username", ExperiencesController.ExperiencesByUserForCalander)
 app.get("/api/MyExperienceAdmin/:username", ExperiencesController.ExperiencesByUserForAdmin)
-
+app.get("/api/checkIfCanUpdate/", checkUpdate.checkUpdate)
 app.get("/api/checkisExist/:username", CheckUserInDB.isExist)
 app.get("/api/getUserByID/:id", GetUserByID.getUser)
 app.get("/api/update_details/:username", UsersController.User)

@@ -1,5 +1,4 @@
-import "./Admin.css"
-import axios from 'axios';
+import "./Admin.css";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
