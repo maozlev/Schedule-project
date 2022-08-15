@@ -1,60 +1,130 @@
 const spawn = require("child_process").spawn;
 const UserTemplate = require("../model/updateDetails")
-const {Data} = require("../../client/src/static/RequestFormData")
+const Experiences = require('../model/experience');
+
+const foo = async (un, e, ch) => {
+  name_phone_mail = e['איש קשר אחראי ' + ch].split(";")
+  start_end = e['תאריכים ' + ch].split("-")
+  start_date_DMY = start_end[0].split(".")
+  end_date_DMY = start_end[1].split(".")
+
+  let exper = {
+    'UserName': un,
+    'Group': e["התנסות " + ch],
+    'Area': e["התנסות " + ch],
+    'Department': e["התנסות " + ch],
+    'Hospital': e["בית חולים " + ch],
+    'Address': {
+      'City': "check",
+      'Street': "check",
+      'Number': "check"
+    },
+    "Contact": name_phone_mail[0],
+    "PhoneNumber": name_phone_mail[1],
+    "Email": name_phone_mail[2],
+    "StartDate": {
+      "Year": "20"+start_date_DMY[2],
+      "Month": parseInt(start_date_DMY[1]) < 10 ? "0"+start_date_DMY[1] : start_date_DMY[1],
+      "Day": parseInt(start_date_DMY[0]) < 10 ? "0"+start_date_DMY[0] : start_date_DMY[0]
+    },
+    "EndDate": {
+      "Year": "20"+end_date_DMY[2],
+      "Month": parseInt(end_date_DMY[1]) < 10 ? "0"+end_date_DMY[1] : end_date_DMY[1],
+      "Day": parseInt(end_date_DMY[0]) < 10 ? "0"+end_date_DMY[0] : end_date_DMY[0]
+    }
+  }
+  return JSON.stringify(exper);
+}
+
+const perpareExperiences = async (all_res) => {
+  let all_exper = []
+  for (const e of all_res) {
+    // await UserTemplate.findOne({ id: e['תעודת זהות'] })
+    await UserTemplate.findOne({ id: "313419483" })
+      .exec()
+      .then((user) => {
+        if (user) {
+          try {
+            if (e['התנסות א']) {
+              run_exper = async () => {
+                foo(user.UserName, e, 'א')
+                  .then((exper) => {
+                    all_exper.push(JSON.parse(exper))
+                  })
+              }
+              run_exper()
+            }
+            if (e['התנסות ב']) {
+              run_exper = async () => {
+                foo(user.UserName, e, 'ב')
+                  .then((exper) => {
+                    all_exper.push(JSON.parse(exper))
+                  })
+              }
+              run_exper()
+            }
+            if (e['התנסות ג']) {
+              run_exper = async () => {
+                foo(user.UserName, e, 'ג')
+                  .then((exper) => {
+                    all_exper.push(JSON.parse(exper))
+                  })
+              }
+              run_exper()
+            }
+            if (e['התנסות ד']) {
+              run_exper = async () => {
+                foo(user.UserName, e, 'ד')
+                  .then((exper) => {
+                    all_exper.push(JSON.parse(exper))
+                  })
+              }
+              run_exper()
+            }
+            if (e['התנסות ה']) {
+              run_exper = async () => {
+                foo(user.UserName, e, 'ה')
+                  .then((exper) => {
+                    all_exper.push(JSON.parse(exper))
+                  })
+              }
+              run_exper()
+            }
+          } catch (err) { // No # experience
+            console.log(err)
+            return;
+          }
+        }
+      })
+  }
+
+  return all_exper
+}
+
 const activateAlgo = async (req, res) => {
   console.log("algorithm start", req.body);
   let url_script = "C:/Users/Yosef/Schedule-project/client/src/ScheduleAlgorithm/main.py"
   let url_cred = "C:/Users/Yosef/Schedule-project/client/src/ScheduleAlgorithm/scheduler-359321-2d5d4c4018a4.json"
-  
+
   var all_res;
 
-  function perpareExperiences(){
-    all_exper = []
-    all_res.forEach(element => {
-      let username = await UserTemplate.findOne({ id: element['תעודת זהות']}).exec()
-      if(username){
-        exper = {
-          'Group':,
-          'Area':,
-          'Department':,
-          'Hospital':,
-          'Address':{
-            'City':,
-            'Street':,
-            'Number':
-          },
-          "Contact" : ,
-          "PhoneNumber" : ,
-          "Email" : ,
-          "StartDate" : {
-              "Year": ,
-              "Month" : ,
-              "Day" : 
-          },
-          "EndDate" : {
-              "Year": ,
-              "Month" : ,
-              "Day" : 
-          }
-        }
-        all_exper.push(exper)
-      }
-    });
-  }
-  const pythonProcess = spawn('python',[url_script,url_cred, "2>&1"]);
-  pythonProcess.stdout.on('data', (data) => {
-    // console.log("Data content - " + data.toString())
-    all_res += JSON.parse(data);
-   });
 
-   pythonProcess.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-    perpareExperiences();
+  const pythonProcess = spawn('python', [url_script, url_cred, "2>&1"]);
+  pythonProcess.stdout.on('data', (data) => {
+    all_res = JSON.parse(data);
   });
-   
+
+  pythonProcess.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
+    console.log(all_res[0])
+    perpareExperiences(all_res).then((all_exper_res) => {
+      Experiences.insertMany(all_exper_res.slice(1,5+1), function(error, docs) {});
+    });
+  });
+
 
 };
 
 module.exports = {
-    activateAlgo,
+  activateAlgo,
 };
