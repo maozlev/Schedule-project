@@ -68,7 +68,7 @@ function App({ signOut, user }) {
         })
   }
   //TODO - accept just admin user!
-  let IsAdmin = user.username == "ADMIN" ? true : false;
+  let IsAdmin = user.username === "adminsiudariel123" ? true : false;
 
   useEffect(async ()=>{
     await userIsInDB();
@@ -119,11 +119,11 @@ function App({ signOut, user }) {
               <Form username={user.username}/>
             </div>}/>
             {/*TODO design 404 page*/}
-            <Route exact path='/admin' 
+            {IsAdmin && <Route exact path='/admin' 
             element={
             <div>
               <Admin username={user.username}/>
-            </div>}/>
+            </div>}/>}
             <Route exact path='*' element={<div>404 Not Found!</div>}/>
           </Routes>}
         </Router>
