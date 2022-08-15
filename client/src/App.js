@@ -61,7 +61,8 @@ function App({ signOut, user }) {
     axios.get("http://localhost:3001/api/getConfiguration")
         .then (async (response) => {
           console.log("-- Collect configuration from DB")
-          setIsAvaliableToUpdate(response.data.value);
+          setIsAvaliableToUpdate(response.data);
+          console.log(response.data);
         }).catch((err) => {
             // Handle errors
             console.log("ERROR: " + JSON.stringify(err.response.data))
@@ -116,13 +117,13 @@ function App({ signOut, user }) {
             <Route exact path='/update' 
             element={
             <div>
-              <Form username={user.username}/>
+              <Form username={user.username} canUpdate={avaliableToUpdate}/>
             </div>}/>
             {/*TODO design 404 page*/}
             {IsAdmin && <Route exact path='/admin' 
             element={
             <div>
-              <Admin username={user.username}/>
+              <Admin username={user.username} isAvaliable={avaliableToUpdate}/>
             </div>}/>}
             <Route exact path='*' element={<div>404 Not Found!</div>}/>
           </Routes>}
