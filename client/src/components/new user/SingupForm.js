@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
+import {useNavigate, Link} from 'react-router-dom';
 import axios from "axios";
-import { Link } from "react-router-dom";
 import "./SingupForm.css";
 import Button from "@mui/material/Button";
 
 const { citiesOptions } = require("../../static/Cities.js");
 
 const SingupForm = (props, { submitForm }) => {
+  const history = useNavigate();
   let username = props.username;
-  console.log('hello', username);
+  console.log("hello", username);
 
   const [values, setValues] = useState({
     username: username,
@@ -40,13 +41,14 @@ const SingupForm = (props, { submitForm }) => {
         if (res.status === 200) {
           alert("נשלח בהצלחה");
           setIsSubmitted(true);
+          history("/");
         } else {
           alert("אנא נסה שנית");
         }
       });
   };
 
-  useEffect(() => {}, [isSubmitted]);
+  // useEffect(() => {}, [isSubmitted]);
 
   return (
     <div className="container">
