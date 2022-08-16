@@ -105,7 +105,7 @@ export default function ShowStudentDetails(props) {
     axios
       .get(`http://localhost:3001/api/MyExperienceAdmin/${student_username}`) //Fetch the data from DB
       .then((response) => {
-        setExperience(response.data);
+        setExperience(response.data)
       })
       .catch((err) => {
         // Handle errors
@@ -187,7 +187,7 @@ export default function ShowStudentDetails(props) {
       (hosp) => hosp.DisplayName === hospital
     )[0];
     // newExp._id = UUID.v4();
-    newExp.UserName = props.username;
+    newExp.UserName = student_id;
     newExp.Group = group;
     newExp.Area = currHospiatl?.Region;
     newExp.Department = department;
@@ -199,7 +199,7 @@ export default function ShowStudentDetails(props) {
     newExp.StartDate = { Year: startYear, Month: startMonth, Day: startDay };
     newExp.EndDate = { Year: endYear, Month: endMonth, Day: endDay };
 
-    console.log(174, currHospiatl);
+    console.log(174, newExp);
     axios
       .post(`http://localhost:3001/api/addExp/${student_id}`, {
         newExp,

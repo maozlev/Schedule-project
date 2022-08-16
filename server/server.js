@@ -41,6 +41,7 @@ app.post("/api/addExp/:username", addExpAdmin.addExp)
 app.post("/api/SubmitExperienceRequests", ExperiencesRequests.AddRequest)
 app.post("/api/activateAlgo", activateAlgo.activateAlgo)
 app.get("/api/getAllDocuments", GetAllDocuments.getDocs)
+app.get("/api/getAllDocumentsByID", GetAllDocuments.getDocsByID)
 app.get("/api/downloadDoc", GetAllDocuments.getDocAsBase64)
 
 

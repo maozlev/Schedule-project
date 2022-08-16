@@ -20,6 +20,13 @@ const things = [
       imageUrl: process.env.PUBLIC_URL + '/images/hospital3.jpg',
       time: 1500,
     },
+    {
+      title: 'המסמכים שלי',
+      description:
+        "בדף זה יוצגו כלל הטפסים שהועלו לענן דרך מערכת העלאת אישורי התנסות",
+      imageUrl: process.env.PUBLIC_URL + '/images/hospital3.jpg',
+      time: 1500,
+    },
   ];
   
   export default things;

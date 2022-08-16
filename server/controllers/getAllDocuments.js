@@ -15,6 +15,22 @@ const getDocs = async (req, res) => {
     }
 }
 
+const getDocsByID = async (req, res) => {
+    try {
+        const RawAllDocs = await uploadpaper.find({UserName:req.query.un});
+        var AllDocs = Object.keys(RawAllDocs)
+        .map(
+            function (key) {
+                return RawAllDocs[key];
+            }
+        );
+        res.status(200).json({AllDocs})
+    } catch (error) {
+        console.log("ERROR");
+        res.status(404).json(error)
+    }
+}
+
 
 const getDocAsBase64 = async (req, res) => {
     try {
@@ -29,6 +45,7 @@ const getDocAsBase64 = async (req, res) => {
 
 module.exports = {
     getDocs,
+    getDocsByID,
     getDocAsBase64
 }
 

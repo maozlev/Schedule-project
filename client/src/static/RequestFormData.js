@@ -1,27 +1,215 @@
+// "Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+// "Peggy","milk","Birth","Community","Clicincs","Advance",
+// "PediatricClicincs","PediatricEmergencyRoom","Pediatric","Psychiatry"
+
 export const Hospitals = [
     {
         DisplayName: "לניאדו",
         Region: "צפון",
         City: "נתניה",
-        Departments: ["Surgical", "Pediatric", "Gynecologiy"]
+        Departments: ["Internal","Geriatric","Surgical","PediatricClicincs","PediatricEmergencyRoom","Pediatric","Community"]
     },
     {
         DisplayName: "מאיר",
         Region: "מרכז",
         City: "כפר סבא",
-        Departments: ["Surgical"]
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","milk","Birth","Community","Clicincs","Advance",
+        "PediatricClicincs","PediatricEmergencyRoom","Pediatric","Psychiatry"]
     },
     {
         DisplayName: "תל השומר",
         Region: "מרכז",
         City: "רמת גן",
-        Departments: ["Surgical", "Psychiatry", "Gynecologiy"]
+        Departments: ["Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","milk","Birth","Advance",
+        "PediatricClicincs","PediatricEmergencyRoom","Pediatric","Psychiatry"]
     },
     {
         DisplayName: "שערי צדק",
         Region: "ירושלים",
         City: "ירושלים",
-        Departments: ["Pediatric", "Intensive-care"]
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance",
+        "PediatricClicincs","Pediatric","Psychiatry"]
+    },
+    {
+        DisplayName: "הדסה עין כרם",
+        Region: "ירושלים",
+        City: "ירושלים",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName: "הדסה הר הצופים",
+        Region: "ירושלים",
+        City: "ירושלים",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName: "זיו",
+        Region: "צפון",
+        City: "צפת",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName: "בית חולים נהריה",
+        Region: "צפון",
+        City: "נהריה",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName: "פוריה",
+        Region: "צפון",
+        City: "טבריה",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName: 'רמב"ם',
+        Region: "צפון",
+        City: "חיפה",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName: "בני ציון",
+        Region: "צפון",
+        City: "חיפה",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName: "כרמל",
+        Region: "צפון",
+        City: "חיפה",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName: "העמק",
+        Region: "צפון",
+        City: "עפולה",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName: "בית חולים האנגלי",
+        Region: "צפון",
+        City: "נצרת",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName: "הלל יפה",
+        Region: "צפון",
+        City: "חדרה",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    }
+    ,
+    {
+        DisplayName: "איכילוב",
+        Region: "מרכז",
+        City: "תל אביב",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName: "בילינסון",
+        Region: "מרכז",
+        City: "פתח תקווה",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    }
+    ,
+    {
+        DisplayName: "שניידר",
+        Region: "מרכז",
+        City: "פתח תקווה",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    }
+    ,
+    {
+        DisplayName: 'בי"ח השרון',
+        Region: "מרכז",
+        City: "פתח תקווה",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName:"דנה",
+        Region: "מרכז",
+        City: "תל אביב",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName:"מדיקל סנטר",
+        Region: "מרכז",
+        City: "הרצליה",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName:"מעייני הישועה",
+        Region: "מרכז",
+        City: "בני ברק",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName:"אסותא",
+        Region: "מרכז",
+        City: "תל אביב",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName:"שיפא",
+        Region: "דרום",
+        City: "עזה",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName:"אסותא",
+        Region: "דרום",
+        City: "אשדוד",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName:"ברזילי",
+        Region: "דרום",
+        City: "אשקלון",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName:"סורוקה",
+        Region: "דרום",
+        City: "באר שבע",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName:"יוספטל",
+        Region: "דרום",
+        City: "אילת",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
+    },
+    {
+        DisplayName:"אוגוסטה ויקטוריה",
+        Region: "ירושלים",
+        City: "ירושלים",
+        Departments: ["Internal","Geriatric","Surgical","EmergencyRoom","Gynecologiy",
+        "Peggy","Advance","PediatricClicincs","Psychiatry"]
     }
 ]
 
