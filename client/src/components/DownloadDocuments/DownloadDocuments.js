@@ -45,7 +45,7 @@ export default function DownloadDocuments(props){
         if(canBuild){
             AllDocs.forEach((doc) => {
                 let currUser =  AllUsers.find(usr => {
-                    return usr.UserName === doc.UserName
+                    return usr.UserName == doc.UserName
                 })
                 DocsUsersList.push({
                     Name : currUser.FirstName + " " + currUser.LastName,
@@ -79,7 +79,7 @@ export default function DownloadDocuments(props){
     const [dataToShow,setDataToShow] = useState(null)
 
     function setData(){
-        var data = AllData.filter((doc) => {return doc.ID === studentID})
+        var data = AllData.filter((doc) => {return doc.ID == studentID})
         setDataToShow(data)
     }
 
@@ -89,10 +89,10 @@ export default function DownloadDocuments(props){
                 return (
                     <select onChange={(e) => setYear(e.target.value)}>
                         <option value="Default" selected disabled hidden>אנא בחר שנתון</option>
-                        <option value={1}>א</option>
-                        <option value={2}>ב</option>
-                        <option value={3}>ג</option>
-                        <option value={4}>ד</option>
+                        <option value="1">א</option>
+                        <option value="2">ב</option>
+                        <option value="3">ג</option>
+                        <option value="4">ד</option>
                     </select>
                 );
             case "ByStudent":
@@ -112,7 +112,7 @@ export default function DownloadDocuments(props){
     function fetchData() {
         if(AllData){
             if(year){
-                let data = AllData.filter((doc) => {return doc.Year === year})
+                let data = AllData.filter((doc) => {return doc.Year == year})
                 setDataToShow(data)
                 return showResults()
             } else if (studentID){
