@@ -89,10 +89,10 @@ export default function DownloadDocuments(props){
                 return (
                     <select onChange={(e) => setYear(e.target.value)}>
                         <option value="Default" selected disabled hidden>אנא בחר שנתון</option>
-                        <option value="1">א</option>
-                        <option value="2">ב</option>
-                        <option value="3">ג</option>
-                        <option value="4">ד</option>
+                        <option value={1}>א</option>
+                        <option value={2}>ב</option>
+                        <option value={3}>ג</option>
+                        <option value={4}>ד</option>
                     </select>
                 );
             case "ByStudent":

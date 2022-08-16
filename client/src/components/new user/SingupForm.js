@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Validation from "./Validation";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./SingupForm.css";
@@ -9,7 +8,7 @@ const { citiesOptions } = require("../../static/Cities.js");
 
 const SingupForm = (props, { submitForm }) => {
   let username = props.username;
-  console.log(username);
+  console.log('hello', username);
 
   const [values, setValues] = useState({
     username: username,
@@ -19,12 +18,8 @@ const SingupForm = (props, { submitForm }) => {
     city: "",
     year: "",
   });
-  const [errors, setErrors] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  async function errorSet(values) {
-    setErrors(Validation(values));
-  }
-  const [dataIsCorrect, setDataIsCorrect] = useState(false);
   const handleChange = (event) => {
     setValues({
       ...values,
@@ -33,7 +28,7 @@ const SingupForm = (props, { submitForm }) => {
   };
   const submit = async () => {
     await axios
-      .post("http://localhost:3001/api/setUserDetails/", {
+      .post("http://localhost:3001/api/createUser/", {
         UserName: username,
         id: values.id,
         FirstName: values.FirstName,
@@ -44,121 +39,118 @@ const SingupForm = (props, { submitForm }) => {
       .then((res) => {
         if (res.status === 200) {
           alert("נשלח בהצלחה");
+          setIsSubmitted(true);
         } else {
           alert("אנא נסה שנית");
         }
-        console.log(res);
-        console.log(res.data);
       });
   };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    await errorSet(values);
-    if (typeof errors.length !== "undefined") {
-      console.log("there are errors");
-      console.log(errors);
-      alert("אנא נסה שנית");
-      return;
-    }
-    setDataIsCorrect(true);
-    submit();
-  };
-  useEffect(() => {
-    if (Object.keys(errors).length === 0 && dataIsCorrect) {
-      submitForm(true);
-    }
-    var cities = document.getElementById("city");
-    for (var i = 0; i < citiesOptions.length; i++) {
-      var option = citiesOptions[i];
-      cities.options.add(new Option(option.text, option.value));
-    }
-  }, [errors]);
+  useEffect(() => {}, [isSubmitted]);
 
   return (
     <div className="container">
-      <div className="app-wrapper">
-        <div>
-          <h2 className="to_middle"> צור משתמש </h2>
-        </div>
-        <form className="form-wrapper" dir="rtl">
-          <div className="id">
-            <label className="label">תעודת זהות</label>
-            <input
-              className="input"
-              type="int"
-              name="id"
-              value={values.id}
-              onChange={handleChange}
-            ></input>
+      {!isSubmitted && (
+        <div className="app-wrapper">
+          <div>
+            <h2 className="to_middle"> צור משתמש </h2>
           </div>
-          <div className="FirstName">
-            <label className="label">שם פרטי</label>
-            <input
-              className="input"
-              type="text"
-              name="FirstName"
-              value={values.FirstName}
-              onChange={handleChange}
-            ></input>
-          </div>
-          <div className="LastName">
-            <label className="label">שם משפחה</label>
-            <input
-              className="input"
-              type="text"
-              name="LastName"
-              value={values.LastName}
-              onChange={handleChange}
-            ></input>
-          </div>
-          <div className="city">
-            <label className="label">עיר מגורים</label>
-            <br />
-            <select name="city" id="city" onChange={handleChange}>
-              <option selected disabled>
-                בחר עיר
-              </option>
-              {citiesOptions.map((city) => (
-                <option value={city.text}>{city.value}</option>
-              ))}
-            </select>
-          </div>
-          <div className="year">
-            <label className="label">שנת לימודים</label>
-            <br />
-            <select name="year" id="year" onChange={handleChange}>
-              <option selected disabled>
-                בחר שנה
-              </option>
+          <form className="form-wrapper" dir="rtl">
+            <div className="id">
+              <label className="label">תעודת זהות</label>
+              <input
+                className="input"
+                type="int"
+                name="id"
+                value={values.id}
+                onChange={handleChange}
+              ></input>
+            </div>
+            <div className="FirstName">
+              <label className="label">שם פרטי</label>
+              <input
+                className="input"
+                type="text"
+                name="FirstName"
+                value={values.FirstName}
+                onChange={handleChange}
+              ></input>
+            </div>
+            <div className="LastName">
+              <label className="label">שם משפחה</label>
+              <input
+                className="input"
+                type="text"
+                name="LastName"
+                value={values.LastName}
+                onChange={handleChange}
+              ></input>
+            </div>
+            <div className="city">
+              <label className="label">עיר מגורים</label>
+              <br />
+              <select name="city" id="city" onChange={handleChange}>
+                <option selected disabled>
+                  בחר עיר
+                </option>
+                {citiesOptions.map((city) => (
+                  <option value={city.text}>{city.value}</option>
+                ))}
+              </select>
+            </div>
+            <div className="year">
+              <label className="label">שנת לימודים</label>
+              <br />
+              <select name="year" id="year" onChange={handleChange}>
+                <option selected disabled>
+                  בחר שנה
+                </option>
 
-              <option value={1}>שנה א'</option>
-              <option value={2}>שנה ב'</option>
-              <option value={3}>שנה ג'</option>
-              <option value={4}>שנה ד'</option>
-            </select>
-          </div>
-          <div className="buttons">
-            <Button
-              variant="contained"
-              className="btn-submit"
-              onClick={handleFormSubmit}
-              style={{ float: "right" }}
-            >
-              הירשם
-            </Button>
-            <Link to="/">
+                <option value={1}>שנה א'</option>
+                <option value={2}>שנה ב'</option>
+                <option value={3}>שנה ג'</option>
+                <option value={4}>שנה ד'</option>
+              </select>
+            </div>
+            <div className="buttons">
               <Button
-                variant="outlined"
-                className="btn-return-hompage"
-                style={{ float: "left" }}
+                variant="contained"
+                className="btn-submit"
+                onClick={submit}
+                style={{ float: "right" }}
               >
-                חזור לעמוד הבית
+                הירשם
               </Button>
-            </Link>
-          </div>
-        </form>
-      </div>
+              <Link to="/">
+                <Button
+                  variant="outlined"
+                  className="btn-return-hompage"
+                  style={{ float: "left" }}
+                >
+                  חזור לעמוד הבית
+                </Button>
+              </Link>
+            </div>
+          </form>
+        </div>
+      )}
+      {isSubmitted && (
+        <div className="app-wrapper">
+          <form className="form-wrapper" dir="rtl">
+            <div className="buttons buttonssubmitt">
+              <Link to="/">
+                <Button
+                  variant="outlined"
+                  className="btn-return-hompage"
+                  style={{ float: "left" }}
+                >
+                  רענן לעמוד הבית
+                </Button>
+              </Link>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

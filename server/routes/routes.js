@@ -19,7 +19,7 @@ router.post('/createUser', async(req, res) => {
     user.save()
     .then(data => {
         console.log("details update")
-        console.log(data)
+        console.log(22, data)
         res.sendStatus(200)
     })
     .catch(error=> {
@@ -42,7 +42,7 @@ router.post('/setUserDetails', async(req, res) => {
     let doc = await updateDetails.findOneAndUpdate(filter, update)
     .then(data => {
         console.log("details update")
-        console.log(data)
+        console.log(45, data)
         res.sendStatus(200)
     })
     .catch(error=> {

@@ -66,9 +66,11 @@ export default function ImageCard({ thing, checked }) {
           </Typography>
         </CardContent>
         <Stack spacing={2} direction="row">
+        <div className='buttonMainPage'>
           <Button variant="contained" onClick={handleClick} type="Button">
             לחץ כאן
           </Button>
+          </div>
         </Stack>
       </Card>
     </Collapse>

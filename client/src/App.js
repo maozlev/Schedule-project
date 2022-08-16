@@ -69,7 +69,7 @@ function App({ signOut, user }) {
         })
   }
   //TODO - accept just admin user!
-  let IsAdmin = user.username === "adminsiudariel123" || user.username === "yosef" ? true : false;
+  let IsAdmin = user.username === "adminsiudariel123" || user.username === "yosef" || user.username === "maozlev5" ? true : false;
 
   useEffect(async ()=>{
     await userIsInDB();
