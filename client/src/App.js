@@ -9,7 +9,7 @@ import awsconfig from './aws-exports';
 import '@aws-amplify/ui-react/styles.css';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Form from './components/update user/Form'
+import Form from './components/updateUser/Form'
 import FormNew from './components/new user/Form'
 import FileUpload from './components/drop-file-input/DropFileInput'
 import MyExper from './components/My-experiences/MyExperiences'
@@ -63,7 +63,7 @@ function App({ signOut, user }) {
     axios.get(`http://localhost:3001/api/getConfiguration`)
       .then(async (response) => {
         console.log("-- Collect configuration from DB")
-        setIsAvaliableToUpdate(response.data.value);
+        setIsAvaliableToUpdate(response.data);
       }).catch((err) => {
         // Handle errors
         console.log("ERROR: " + JSON.stringify(err.response.data))
@@ -81,6 +81,7 @@ function App({ signOut, user }) {
   if (!flag) {
     return null
   } else {
+    console.log(84, avaliableToUpdate);
     return (
       <>
         <Router>
@@ -122,7 +123,7 @@ function App({ signOut, user }) {
             <Route exact path='/update'
               element={
                 <div>
-                  <Form username={user.username} canUpdate={avaliableToUpdate} />
+                  <Form username={user.username} avaliableToUpdate={avaliableToUpdate} />
                 </div>} />
             {/*TODO design 404 page*/}
             {IsAdmin && <Route exact path='/admin'

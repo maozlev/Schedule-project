@@ -3,8 +3,8 @@ import SingupForm from "./SingupForm";
 
 
 const Form = (props) => {
-  console.log(props.canUpdate);
-  if (props.canUpdate) {
+  console.log(6, props.avaliableToUpdate);
+  if (props.avaliableToUpdate) {
     return (
       <div>
         <SingupForm username={props.username}/>

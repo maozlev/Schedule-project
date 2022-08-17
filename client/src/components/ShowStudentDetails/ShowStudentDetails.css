@@ -23,51 +23,36 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-input.addExpr.date {
-  width: 30% !important;
-  margin: 0% !important;
-  margin-inline: 3px !important;
-}
 div.date {
   margin: 10px;
 }
 
-input.contact {
-  width: 30% !important;
-  margin: 0% !important;
-  margin-inline: 3px !important;
-}
-div.contactData {
-  margin: 10px;
-}
 select.select {
-  width: 30% !important;
-  margin: 0% !important;
+  width: 85% !important;
+  margin: auto !important;
   margin-inline: 3px !important;
 }
+
 div.select {
-  width: 96%;
+  width: 100%;
   margin: 10px 10px;
+  display: grid;
+  grid-template-columns: repeat(3,33%)
 }
-div.select.Hospital {
-  position: relative;
-  height: auto;
-  width: 29%;
-  margin: 0% 22% 0% 0px;
+div.date {
+  width: 100%;
+  margin: 10px 10px;
+  display: grid;
+  grid-template-columns: repeat(3,33%)
 }
-select.select.hospital {
-  width: 100% !important;
-  margin: 0% !important;
-  padding: 0% !important;
+input.input{
+  width: 85% !important;
+  margin: auto !important;
   margin-inline: 3px !important;
+  font-size: 16px !important;
 }
-.addExpr.date.year{
-  margin: 0%;
-}
-.addExpr.address.city{
-  margin: 0% !important;
-}
+
+
 input{
-  width: 30%;
   margin: 5px;
 }

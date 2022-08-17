@@ -304,13 +304,14 @@ export default function ShowStudentDetails(props) {
                       </select>
                     )}
                   </div>
-                  <div className="date start">
+                  
+                  <div className="select date start">
                     <span className="span date">
                       {" "}
                       <input
                         id="city"
                         name="addressCity"
-                        className="addExpr address city"
+                        className="input addExpr address city"
                         placeholder="עיר"
                         onChange={(e) => setCity(e.target.value)}
                       ></input>
@@ -319,7 +320,7 @@ export default function ShowStudentDetails(props) {
                       <input
                         id="street"
                         name="addressStreet"
-                        className="addExpr address street"
+                        className="input addExpr address street"
                         placeholder="רחוב"
                         onChange={(e) => setStreet(e.target.value)}
                       ></input>
@@ -328,18 +329,18 @@ export default function ShowStudentDetails(props) {
                       <input
                         id="numberStreet"
                         name="numberStreet"
-                        className="numberStreet"
+                        className="input numberStreet"
                         placeholder="מספר"
                         onChange={(e) => setNumber(e.target.value)}
                       ></input>
                     </span>
                   </div>
-                  <div className="date start">
+                  <div className="select date start">
                     <span className="span date">
                       <input
                         id="year"
                         name="Startyear"
-                        className="addExpr date year"
+                        className="input addExpr date year"
                         placeholder="שנה"
                         onChange={(e) => setStartYear(e.target.value)}
                       ></input>
@@ -348,7 +349,7 @@ export default function ShowStudentDetails(props) {
                       <input
                         id="month"
                         name="Startmonth"
-                        className="addExpr date month"
+                        className="input addExpr date month"
                         placeholder="חודש"
                         onChange={(e) => setStartMonth(e.target.value)}
                       ></input>
@@ -357,18 +358,18 @@ export default function ShowStudentDetails(props) {
                       <input
                         id="day"
                         name="Startday"
-                        className="addExpr date day"
+                        className="input addExpr date day"
                         placeholder="יום"
                         onChange={(e) => setStartDay(e.target.value)}
                       ></input>
                     </span>
                   </div>
-                  <div className="date end">
+                  <div className="select date end">
                     <span>
                       <input
                         id="year"
                         name="Endyear"
-                        className="addExpr date year"
+                        className="input addExpr date year"
                         placeholder="שנה"
                         onChange={(e) => setEndYear(e.target.value)}
                       ></input>
@@ -377,7 +378,7 @@ export default function ShowStudentDetails(props) {
                       <input
                         id=""
                         name="Endmonth"
-                        className="addExpr date month"
+                        className="input addExpr date month"
                         placeholder="חודש"
                         onChange={(e) => setEndtMonth(e.target.value)}
                       ></input>
@@ -386,31 +387,31 @@ export default function ShowStudentDetails(props) {
                       <input
                         id=""
                         name="Endday"
-                        className="addExpr date day"
+                        className="input addExpr date day"
                         placeholder="יום"
                         onChange={(e) => setEndtDay(e.target.value)}
                       ></input>
                     </span>
                   </div>
-                  <div className="contactData">
+                  <div className="select contactData">
                     <input
                       id="contact name"
                       name="Contact"
-                      className="contact name"
+                      className="input contact name"
                       placeholder="איש קשר"
                       onChange={(e) => setContact(e.target.value)}
                     ></input>
                     <input
                       id="contact phone"
                       name="PhoneNumber"
-                      className="contact phone"
+                      className="input contact phone"
                       placeholder="טלפון"
                       onChange={(e) => setPhoneNumber(e.target.value)}
                     ></input>
                     <input
                       id="contact email"
                       name="Email"
-                      className="contact email"
+                      className="input contact email"
                       placeholder="דואר אלקטרוני"
                       onChange={(e) => setEmail(e.target.value)}
                     ></input>
