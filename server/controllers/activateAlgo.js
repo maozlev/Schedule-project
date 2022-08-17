@@ -110,25 +110,29 @@ const perpareExperiences = async (all_res) => {
 };
 
 const activateAlgo = async (req, res) => {
-  console.log(113, "algorithm start", req.body);
   let url_script = process.env.apppath+"server/ScheduleAlgorithm/main.py";
   let url_cred = process.env.apppath+"server/ScheduleAlgorithm/scheduler-359321-2d5d4c4018a4.json";
-  console.log(url_script, url_cred);
   let all_res = {};
 
   const pythonProcess = spawn("python", [url_script, url_cred, "2>&1"]);
   pythonProcess.stdout.on("data", (data) => {
     all_res = JSON.parse(data);
+    if (!Array.isArray(all_res)){
+      res.status(400).send(false)
+    }
   });
 
-  pythonProcess.on("close", (code) => {
+  pythonProcess.on("close", async (code) => {
     console.log(`child process exited with code ${code}`);
     // console.log(126, all_res)
-    perpareExperiences(all_res).then((all_exper_res) => {
+    await perpareExperiences(all_res).then((all_exper_res) => {
       Experiences.insertMany(
-        all_exper_res.slice(1, 5 + 1),
+        // all_exper_res,
+        all_exper_res.slice(1, 5 + 1), // For test, just five
         function (error, docs) {}
       );
+    }).then(()=>{
+      res.status(200).json(true)
     });
   });
 };

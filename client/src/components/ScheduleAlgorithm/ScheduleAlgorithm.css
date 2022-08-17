@@ -6,3 +6,13 @@
 .div.btn{
     position: relative;
 }
+
+.btn-toSpreadsheet{
+    margin-top: 25px !important;
+    
+}
+.inner:hover{
+    background-color: cornflowerblue;
+    color : #000;
+    
+}
