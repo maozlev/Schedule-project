@@ -224,6 +224,7 @@ export default function ShowStudentDetails(props) {
   }
 
   function deleteExperience(exper) {
+    setExperience(experience.filter(exp => exp._id != exper._id))
     console.log(127, exper);
     axios
       .post(`http://localhost:3001/api/deleteExperience/${student_id}`, {
@@ -234,6 +235,11 @@ export default function ShowStudentDetails(props) {
         // TODO - print to log the response answer
       });
   }
+  useEffect(()=>{
+    if (experience !== null) {
+      createExperienceTable()
+    }
+  },[experience])
 
   function createExperienceTable() {
     if (experience !== null) {
@@ -341,7 +347,7 @@ export default function ShowStudentDetails(props) {
                         id="year"
                         name="Startyear"
                         className="input addExpr date year"
-                        placeholder="שנה"
+                        placeholder="שנה התחלה"
                         onChange={(e) => setStartYear(e.target.value)}
                       ></input>
                     </span>
@@ -350,7 +356,7 @@ export default function ShowStudentDetails(props) {
                         id="month"
                         name="Startmonth"
                         className="input addExpr date month"
-                        placeholder="חודש"
+                        placeholder="חודש התחלה"
                         onChange={(e) => setStartMonth(e.target.value)}
                       ></input>
                     </span>
@@ -359,7 +365,7 @@ export default function ShowStudentDetails(props) {
                         id="day"
                         name="Startday"
                         className="input addExpr date day"
-                        placeholder="יום"
+                        placeholder="יום התחלה"
                         onChange={(e) => setStartDay(e.target.value)}
                       ></input>
                     </span>
@@ -370,7 +376,7 @@ export default function ShowStudentDetails(props) {
                         id="year"
                         name="Endyear"
                         className="input addExpr date year"
-                        placeholder="שנה"
+                        placeholder="שנה סיום"
                         onChange={(e) => setEndYear(e.target.value)}
                       ></input>
                     </span>
@@ -379,7 +385,7 @@ export default function ShowStudentDetails(props) {
                         id=""
                         name="Endmonth"
                         className="input addExpr date month"
-                        placeholder="חודש"
+                        placeholder="חודש סיום"
                         onChange={(e) => setEndtMonth(e.target.value)}
                       ></input>
                     </span>
@@ -388,7 +394,7 @@ export default function ShowStudentDetails(props) {
                         id=""
                         name="Endday"
                         className="input addExpr date day"
-                        placeholder="יום"
+                        placeholder="יום סיום"
                         onChange={(e) => setEndtDay(e.target.value)}
                       ></input>
                     </span>
