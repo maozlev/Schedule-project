@@ -32,6 +32,12 @@ select.select {
   margin: auto !important;
   margin-inline: 3px !important;
 }
+select.select:hover {
+  width: 85% !important;
+  margin: auto !important;
+  margin-inline: 3px !important;
+  background-color: rgb(182, 228, 230);
+}
 
 div.select {
   width: 100%;
@@ -50,6 +56,13 @@ input.input{
   margin: auto !important;
   margin-inline: 3px !important;
   font-size: 16px !important;
+}
+input.input:hover{
+  width: 85% !important;
+  margin: auto !important;
+  margin-inline: 3px !important;
+  font-size: 16px !important;
+  background-color: rgb(182, 228, 230);
 }
 
 
