@@ -125,7 +125,7 @@ function App({ signOut, user }) {
             {IsAdmin && <Route exact path='/admin'
               element={
                 <div>
-                  <Admin username={user.username} isAvaliable={avaliableToUpdate} />
+                  <Admin username={user.username} isAvaliable={avaliableToUpdate} setAvaliable={setIsAvaliableToUpdate} />
                 </div>} />}
             <Route exact path='*' element={<div>404 Not Found!</div>} />
           </Routes>}

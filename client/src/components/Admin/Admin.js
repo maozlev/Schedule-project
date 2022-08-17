@@ -22,7 +22,7 @@ function Admin(props) {
             case "changeUpdateDetails":
                 // return (<h1>changeUpdateDetails</h1>);
 
-                return (<SetUpdateDetailsMode isAvaliable={props.isAvaliable} />);
+                return (<SetUpdateDetailsMode isAvaliable={props.isAvaliable} setAvaliable={props.setAvaliable}/>);
             case "changeStudentExperience":
                 return (<ShowStudentDetails username={props.username}/>);
             case "downloadDocuments":
