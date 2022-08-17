@@ -56,10 +56,6 @@ export default function AppBarU( props) {
               className={classes.appbarTitle}>
               My<span className={classes.colorText}>scheduler.</span>
             </h1>
-            <h1 
-              className={classes.appbarTitle}>
-              hello<span className={classes.colorText}> {props.username}!</span>
-            </h1>
             <IconButton position='fix'/>
             <Menu isAdmin={props.isAdmin} onSignout = {props.onSignout}/>
           </Toolbar>
