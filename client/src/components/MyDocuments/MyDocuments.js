@@ -10,7 +10,6 @@ function MyDocuments({ username }) {
     const [AllData, setAllData] = useState(null)
 
     const getAllDocuments = async function () {
-        console.log("-- Start getalldocuments");
         await axios.get(`http://localhost:3001/api/getAllDocumentsByID?un=${username}`) //Fetch the data from DB
             .then((response) => {
                 setAllDocs(response.data.AllDocs)

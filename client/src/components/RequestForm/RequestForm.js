@@ -52,9 +52,6 @@ function RequestsForm({username}) {
     }
 
     const submitRequestForm =  async() => {
-        if(values.region1 = null){
-            console.log("Must select the first region!");
-        }
         var Final = []
         Object.keys(values).forEach(e => {
             if(e.startsWith("H1") && values[e] != null && region1){

@@ -49,7 +49,6 @@ function App({ signOut, user }) {
   async function userIsInDB() {
     axios.get(`http://localhost:3001/api/checkisExist/${user.username}`)
       .then(async (response) => {
-        console.log("-- Checked if this username insert his details to our DB.\nAnswer: " + response.data)
         setisinDB(response.data);
         setFlag(true)
       }).catch((err) => {
@@ -62,7 +61,6 @@ function App({ signOut, user }) {
   async function getConfiguration() {
     axios.get(`http://localhost:3001/api/getConfiguration`)
       .then(async (response) => {
-        console.log("-- Collect configuration from DB")
         setIsAvaliableToUpdate(response.data);
       }).catch((err) => {
         // Handle errors
@@ -81,7 +79,6 @@ function App({ signOut, user }) {
   if (!flag) {
     return null
   } else {
-    console.log(84, avaliableToUpdate);
     return (
       <>
         <Router>
@@ -97,7 +94,6 @@ function App({ signOut, user }) {
               <div className={classes.root}>
                 <script>
                   let creds = await Auth.currentUserCredentials()
-                  console.log(creds.identityId)
                 </script>
                 <CssBaseline />
                 <Landing username={user.username} onSignout={signOut} isAdmin={IsAdmin} />

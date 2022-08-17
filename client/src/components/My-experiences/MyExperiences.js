@@ -15,7 +15,6 @@ function App({username}) {
             .then((response) => {
                 const experiences = response.data.ev;
                 const contacts = response.data.co;
-                console.log("Experiences and contacts recived from DB");
                 setAllEvents(experiences); // Set Experiences
                 setAllContacts(contacts); // Set Contacts
             }).catch((err) => {

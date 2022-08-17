@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
   }));
 export default function AppBarU( props) {
   let m = props.username;
-  console.log(m);
     const classes = useStyles();
     const [checked, setChecked] = useState(false);
     useEffect(() => {

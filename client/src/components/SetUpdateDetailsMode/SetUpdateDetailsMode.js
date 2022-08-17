@@ -23,7 +23,7 @@ export default function SetUpdateDetailsMode(props){
             value: val
         }).then (res => {
             setStatus(val)
-            console.log(26, val);
+        
           })
       };
     

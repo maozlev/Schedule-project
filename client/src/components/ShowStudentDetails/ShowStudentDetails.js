@@ -75,7 +75,6 @@ export default function ShowStudentDetails(props) {
    * @returns
    */
   async function collectUser() {
-    console.log(46);
     if (student_id === "") {
       user = false;
       return {
@@ -105,7 +104,7 @@ export default function ShowStudentDetails(props) {
     axios
       .get(`http://localhost:3001/api/MyExperienceAdmin/${student_username}`) //Fetch the data from DB
       .then((response) => {
-        setExperience(response.data)
+        setExperience(response.data);
       })
       .catch((err) => {
         // Handle errors
@@ -199,15 +198,9 @@ export default function ShowStudentDetails(props) {
     newExp.StartDate = { Year: startYear, Month: startMonth, Day: startDay };
     newExp.EndDate = { Year: endYear, Month: endMonth, Day: endDay };
 
-    console.log(174, newExp);
-    axios
-      .post(`http://localhost:3001/api/addExp/${student_id}`, {
-        newExp,
-      })
-      .then((res) => {
-        console.log(res);
-        // TODO - print to log the response answer
-      });
+    axios.post(`http://localhost:3001/api/addExp/${student_id}`, {
+      newExp,
+    });
   }
 
   function createUserTable() {
@@ -224,8 +217,7 @@ export default function ShowStudentDetails(props) {
   }
 
   function deleteExperience(exper) {
-    setExperience(experience.filter(exp => exp._id != exper._id))
-    console.log(127, exper);
+    setExperience(experience.filter((exp) => exp._id != exper._id));
     axios
       .post(`http://localhost:3001/api/deleteExperience/${student_id}`, {
         _id: exper._id,
@@ -235,11 +227,11 @@ export default function ShowStudentDetails(props) {
         // TODO - print to log the response answer
       });
   }
-  useEffect(()=>{
+  useEffect(() => {
     if (experience !== null) {
-      createExperienceTable()
+      createExperienceTable();
     }
-  },[experience])
+  }, [experience]);
 
   function createExperienceTable() {
     if (experience !== null) {
@@ -310,7 +302,7 @@ export default function ShowStudentDetails(props) {
                       </select>
                     )}
                   </div>
-                  
+
                   <div className="select date start">
                     <span className="span date">
                       {" "}
