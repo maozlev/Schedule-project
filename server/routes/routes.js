@@ -1,4 +1,3 @@
-const { response } = require('express')
 const express = require('express')
 const router = express.Router()
 const updateDetails = require('../model/updateDetails')
@@ -19,12 +18,10 @@ router.post('/createUser', async(req, res) => {
     user.save()
     .then(data => {
         console.log("details update")
-        console.log(22, data)
         res.sendStatus(200)
     })
     .catch(error=> {
-        console.log("problem accured")
-        console.log(error)
+        console.log("problem accured: " + error)
         res.json(error)
     })
 })
@@ -42,12 +39,10 @@ router.post('/setUserDetails', async(req, res) => {
     let doc = await updateDetails.findOneAndUpdate(filter, update)
     .then(data => {
         console.log("details update")
-        console.log(45, data)
         res.sendStatus(200)
     })
     .catch(error=> {
-        console.log("problem accured")
-        console.log(error)
+        console.log("problem accured: " + error)
         res.json(error)
     })
 })
@@ -61,7 +56,7 @@ router.post('/setIsAvaliableToUpdateDetails', async(req, res) => {
         res.sendStatus(200)
     })
     .catch(error=> {
-        console.log("problem accured")
+        console.log("problem accured: " + error)
         res.json(error)
     })
 })
@@ -79,8 +74,7 @@ router.post('/papers', async(req, res) => {
         res.sendStatus(200)
     })
     .catch(error=> {
-        console.log("problem accured")
-        console.log(error)
+        console.log("problem accured: " + error)
         res.status(400).json(error)
     })
 })

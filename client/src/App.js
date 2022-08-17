@@ -10,7 +10,7 @@ import '@aws-amplify/ui-react/styles.css';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Form from './components/updateUser/Form'
-import FormNew from './components/new user/Form'
+import FormNew from './components/newUser/Form'
 import FileUpload from './components/drop-file-input/DropFileInput'
 import MyExper from './components/My-experiences/MyExperiences'
 import RequestForm from './components/RequestForm/RequestForm'
